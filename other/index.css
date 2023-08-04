@@ -5,9 +5,9 @@ body {
   background: linear-gradient(135deg, rgba(36,20,70,255) 0%, rgba(65,38,22,255) 100%);
   color: #cfd2d4;
   background-repeat:no-repeat;
+  background-attachment: fixed;
   margin-top: 15px;
   height: 200%;
-  overflow-x: hidden;
   overflow-y: scroll;
 }
 
