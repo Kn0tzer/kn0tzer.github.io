@@ -3,9 +3,12 @@
 body {
   background: rgb(72,40,140);
   background: linear-gradient(135deg, rgba(36,20,70,255) 0%, rgba(65,38,22,255) 100%);
-  background-attachment: fixed;
   color: #cfd2d4;
   background-repeat:no-repeat;
+  margin-top: 15px;
+  height: 200%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #searchbar {
@@ -13,7 +16,7 @@ body {
 }
 
 .form__input {
-  position:fixed;
+  position:absolute;
   border: none;
   border-radius: 8px;
   font-size: 16px;
@@ -22,13 +25,13 @@ body {
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.65);
   background-color: #111;
   text-align: center;
-  left: 34%;
+  left: 36%;
   top: 45%;
   color: #cfd2d4
 }
 
 #belowSearch {
-  position: fixed;
+  position: absolute;
   left: 42%;
   top: 51%;
   font-family: 'Open Sans', sans-serif;
@@ -129,3 +132,30 @@ x{
   color: #cfd2d4;
   font-size: 14px;
 }
+
+#topCenter {
+    position: static;
+    top: 0;
+    left: 39%;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    color: #cfd2d4;
+    font-size: 42px;
+  }
+
+  #center {
+    position: static;
+    top: 20%;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: #cfd2d4;
+    font-size: 14px;
+    margin-left: 125px;
+    margin-right: 125px;
+  }
+
+  #title {
+    font-family: 'Open Sans', sans-serif;
+    color: #cfd2d4;
+    font-size: 20px;
+  }
