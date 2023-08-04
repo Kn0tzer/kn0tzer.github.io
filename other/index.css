@@ -7,8 +7,6 @@ body {
   background-repeat:no-repeat;
   background-attachment: fixed;
   margin-top: 15px;
-  height: 200%;
-  overflow-x: hidden;
   overflow-y: scroll;
 }
 
