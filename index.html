@@ -20,8 +20,14 @@
 </style>
 </head>
 <body>
+  <script>
+    function changeParentIframeSrc(newSrc) {
+        const iframe = document.getElementById('embed');
+        iframe.src = newSrc;
+    }
+</script>
     <div id="embedContainer">
-        <iframe id="embed" src="https://g3marchi.github.io/main.html"></iframe>
+        <iframe id="embed" src="/main.html"></iframe>
     </div>
 
     <script> /*shoutout to chat gpt for making this*/
