@@ -3,7 +3,7 @@
    <head>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHVNHMYGN3"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>about:blank</title>
+      <title>Untitled</title>
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
       <link rel="stylesheet" href="index.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -20,7 +20,7 @@
       <script>
          document.body.addEventListener("keydown", function (event) {
             if (event.key === "Escape") {
-               window.location.replace("https://aspen.knoxschools.org/aspen/logon.do");
+               window.parent.location.replace("https://aspen.knoxschools.org/aspen/logon.do");
             }
          });
       </script>
@@ -72,7 +72,8 @@
          <script src="error.js" defer></script>
       </div>
       <div id="belowSearch">
-         <p><b>Your history is hidden. <u><a href="/other/#history"><x>More Info</x></a></u></b></p>
+         <p><b><u><a href="/other/#history"><x>Your history is hidden.</x></a></u><br>
+         Info about logins <u><a href="/other/#history"><x>here.</x></a></u></b></p>
       </div>
    </body>
 </html>
