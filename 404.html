@@ -1,0 +1,10 @@
+<head>
+    <script>
+        const currentPath = window.location.pathname;
+        
+        if (currentPath.startsWith('/uv/')) {
+            const newPath = '/tiw' + currentPath.substring(3);
+            window.location.href = newPath;
+        }
+    </script>
+</head>
