@@ -4,7 +4,6 @@
   <title>Untitled</title>
 <style>
     #embedContainer {
-      display: none;
       position: fixed;
       width: 100%;
       height: 100%;
@@ -20,12 +19,6 @@
 </style>
 </head>
 <body>
-  <script>
-    function changeParentIframeSrc(newSrc) {
-        const iframe = document.getElementById('embed');
-        iframe.src = newSrc;
-    }
-</script>
     <div id="embedContainer">
         <iframe id="embed" src="https://vtune.net"></iframe>
       <!--https://steve.isreallycool.lol/students/lesson/hvtrs8/-bcsievbpoq.ko - 404
@@ -34,16 +27,5 @@
         https://schoolacademy.academic.org.il/astronomy/hvtrs8%2F-bcsievbpoq.ko
         https://luphoria.com/netlog-policy-password-tool - in proxy------>
       </div>
-
-    <script> /*shoutout to chat gpt for making this*/
-      const embedContainer = document.querySelector('#embedContainer');
-      
-      function handleKeyPress(event) {
-        if (event.key === 'Escape') {
-          embedContainer.style.display = 'block';
-        }
-      }
-      document.addEventListener('keydown', handleKeyPress);
-    </script>
 </body>
 </html>
