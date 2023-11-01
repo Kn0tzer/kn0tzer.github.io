@@ -22,16 +22,16 @@
     }
 </script>
 <div id="embedContainer">
-    <iframe id="embed" src="https://anura.mercurywork.shop/"></iframe>
+    <iframe id="embed" src="https://innovation.organization.tomahawkchurch.org/"></iframe>
 </div>
 
-
 <script>
-function handleKeyPress(event)
-    { if (event.key === 'Escape')
-    { const newTab = window.open("about:blank", "_blank");
-    const newIframe = document.createElement("iframe");
-        newIframe.src = "https://anura.mercurywork.shop";
-        newTab.document.body.appendChild(newIframe);
-        } } document.addEventListener('keydown', handleKeyPress);;
+      const embedContainer = document.querySelector('#embedContainer');
+      
+      function handleKeyPress(event) {
+        if (event.key === 'Escape') {
+          embedContainer.style.display = 'block';
+        }
+      }
+      document.addEventListener('keydown', handleKeyPress);
 </script>
