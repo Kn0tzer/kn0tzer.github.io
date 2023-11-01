@@ -27,10 +27,11 @@
 
 
 <script>
-const embedContainer = document.querySelector('#embedContainer');
-
-function handleKeyPress(event) { if (event.key === 'Escape') { embedContainer.style.display = 'block';
-
-
-const newTab = window.open("about:blank", "_blank"); const newIframe = document.createElement("iframe"); newIframe.src = window.location.href; newTab.document.body.appendChild(newIframe); } } document.addEventListener('keydown', handleKeyPress);
+function handleKeyPress(event)
+    { if (event.key === 'Escape')
+    { const newTab = window.open("about:blank", "_blank");
+    const newIframe = document.createElement("iframe");
+        newIframe.src = "https://anura.mercurywork.shop";
+        newTab.document.body.appendChild(newIframe);
+        } } document.addEventListener('keydown', handleKeyPress);;
 </script>
