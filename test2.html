@@ -27,7 +27,6 @@
 
 
 <script>
-const newWindow = window.open("about:blank", "_blank"); newWindow.addEventListener("load", function() { const iframe = document.createElement("iframe"); iframe.src = window.location.href; newWindow.document.body.appendChild(iframe); });
 const embedContainer = document.querySelector('#embedContainer');
 
 function handleKeyPress(event) { if (event.key === 'Escape') { embedContainer.style.display = 'block';
