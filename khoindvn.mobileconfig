@@ -45,27 +45,70 @@
 			<integer>1</integer>
 		</dict>
 
-		<dict>
-			<key>DNSSettings</key>
-			<dict>
-				<key>DNSProtocol</key>
-				<string>HTTPS</string>
-				<key>ServerURL</key>
-				<string>https://dns.nextdns.io/b864fa</string>
-			</dict>
-			<key>PayloadDisplayName</key>
-			<string>DNS Chặn Thu Hồi Có Chặn ADS</string>
-			<key>PayloadIdentifier</key>
-			<string>com.apple.dnsSettings.managed.9d981129-d086-4891-b2cf-165ede3f8a90</string>
-			<key>PayloadOrganization</key>
-			<string>khơindvn</string>
-			<key>PayloadType</key>
-			<string>com.apple.dnsSettings.managed</string>
-			<key>PayloadUUID</key>
-			<string>0085f63c-ab6d-45ae-9f87-8e0cef7335d4</string>
-			<key>PayloadVersion</key>
-			<integer>1</integer>
-		</dict>
+
+<dict>
+    <key>PayloadDisplayName</key>
+    <string>NextDNS (b864fa)</string>
+    <key>PayloadDescription</key>
+    <string>This profile enables NextDNS on all networks using the native Encrypted DNS feature.</string>
+    <key>PayloadIdentifier</key>
+    <string>io.nextdns.b864fa.profile</string>
+    <key>PayloadScope</key>
+    <string>User</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>A1E2F262-DB73-40F6-BD22-2E42A43A3C94.b864fa</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+    <key>PayloadContent</key>
+    <array>
+      <dict>
+        <key>DNSSettings</key>
+        <dict>
+          <key>DNSProtocol</key>
+          <string>HTTPS</string>
+          <key>ServerURL</key>
+          <string>https://apple.dns.nextdns.io/b864fa/a</string>
+        </dict>
+        <key>OnDemandRules</key>
+        <array>
+          <dict>
+            <key>Action</key>
+            <string>EvaluateConnection</string>
+            <key>ActionParameters</key>
+            <array>
+              <dict>
+                <key>DomainAction</key>
+                <string>NeverConnect</string>
+                <key>Domains</key>
+                <array>
+                  <string>dav.orange.fr</string>
+                  <string>msg.t-mobile.com</string>
+                </array>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>Action</key>
+            <string>Connect</string>
+          </dict>
+        </array>
+        <key>PayloadType</key>
+        <string>com.apple.dnsSettings.managed</string>
+        <key>PayloadIdentifier</key>
+        <string>io.nextdns.b864fa.profile.dnsSettings.managed</string>
+        <key>PayloadUUID</key>
+        <string>A1E2F262-DB73-40F6-BD22-2E42A43A3C94.b864fa.dnsSettings.managed</string>
+        <key>PayloadDisplayName</key>
+        <string>NextDNS (b864fa)</string>
+        <key>PayloadOrganization</key>
+        <string>NextDNS</string>
+        <key>PayloadVersion</key>
+        <integer>1</integer>
+      </dict>
+    </array>
+  </dict>
 
 		<dict>
 			<key>DNSSettings</key>
