@@ -8,7 +8,7 @@
         body {
             font-family: "Inter", sans-serif;
             margin: 0;
-            margin-bottom: 999px;
+            margin-bottom: 70px;
             background-color: #1c1c1c;
             color: #EEEEEE;
             display: flex;
@@ -19,8 +19,6 @@
             background-attachment: fixed;
             background-position: center center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            transform: translate3d(0, 0, 0);
         }
 
         header {
@@ -53,38 +51,33 @@
         }
 
         .who-am-i {
-            background-color: rgba(45, 45, 45, 0.6);
+            background-color: rgba(45, 45, 45, 0.8);
             backdrop-filter: blur(10px);
             padding: 20px;
             width: 80%;
             max-width: 800px;
             border-radius: 10px;
-            margin: 30px 0;
-            margin-top: 70px;
-            margin-bottom: 0;
+            margin-top: 40px;
             box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
             text-align: center;
-        }
+}
         .who-am-i h2 {
-            font-size: 1.8em;
+            font-size: 2em;
             margin-bottom: 10px;
+            margin-top: 0;
         }
         .who-am-i p {
-            font-size: 1em;
-            color: #aaa;
+            font-size: 1.1em;
+            color: #bbbbbb;
             line-height: 1.5em;
         }
 
         .projects {
-            margin-top: 29px;
+            margin-top: 30px;
             text-align: center;
         }
         .projects h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .projects p {
-            font-size: 2em;
+            font-size: 2.4em;
             margin-bottom: 20px;
         }
 
@@ -96,13 +89,14 @@
             gap: 20px;
             width: 80%;
             margin: 0 auto;
+            margin-top: 50px;
         }
 
         .project {
             background-color: rgba(45, 45, 45, 0.6);
             backdrop-filter: blur(10px);
             flex: 1 1 calc(25% - 20px);
-            max-width: 200px;
+            max-width: 350px;
             box-sizing: border-box;
             padding: 15px;
             border-radius: 10px;
@@ -111,11 +105,15 @@
         }
         .project h3 {
             margin: 10px 0;
+            font-size: 1.5em;
+        }
+        .project h4 {
+            margin: 10px 0;
             font-size: 1.2em;
         }
         .project p {
-            font-size: 0.9em;
-            color: #aaa;
+            font-size: 1.1em;
+            color: #bbbbbb;
         }
     </style>
 </head>
@@ -123,7 +121,7 @@
     <header>
         <img src="https://github.com/Kn0tzer/kn0tzer.github.io/blob/main/Logo.png?raw=true" alt="Kn0tzer Logo" style="width: 150px; margin-bottom: 8px;">
         <h1 style="background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
-           text-shadow:  0 0 15px rgba(72, 52, 117, 0.4), 0 0 5px rgba(250, 95, 85, 0.4);
+           text-shadow: 0 0 15px rgba(72, 52, 117, 0.4), 0 0 5px rgba(250, 95, 85, 0.4);
            background-clip:text;
            color: transparent;
            -webkit-background-clip: text;
@@ -140,11 +138,11 @@
             <a href="https://discordapp.com/users/506628717125304334" target="_blank";">
                 <img src="https://img.icons8.com/material-rounded/120/FFFFFF/discord-logo.png" alt="Discord" style="width: 30px; height: 30px;">
             </a>
-            <a href="javascript:void(0);" onclick="copyEmail()";">
+            <a href="javascript:void(0);" onclick="copy()";">
                 <img src="https://img.icons8.com/?size=120&id=53435&format=png&color=FFFFFF" alt="GitHub" style="width: 30px; height: 30px;">
             </a>
             <script>
-                function copyEmail() {
+                function copy() {
                     var email = "g4marchi@gmail.com";
                     navigator.clipboard.writeText(email).then(function() {
                         alert("g4marchi@gmail.com Copied to clipboard.");
@@ -162,32 +160,58 @@
             Some of my interests are UI/UX Design, Jailbreaking, Web Development, Game Design, and much more outside of technology.
         </p>
     </section>
+    <div class="who-am-i-spacer"></div>
     <section class="projects">
         <h2>Projects ↓</h2>
         <hr>
         <div class="project-grid">
             <div class="project">
-                <h3>Placeholder</h3>
+                <h3>Not Apple Intelligence</h3>
+                <p>Legally distinct from Apple Intelligence, this brings nearly all features of Apple Intelligence on older devices or versions, cleanly integrated into iOS through Shortcuts.</p>
+                <h4>References</h4>
                 <p>Placeholder</p>
             </div>
             <div class="project">
-                <h3>Placeholder</h3>
+                <h3>VncServerd</h3>
+                <p>A guide to remotely control any iOS device supported by the Dopamine jailbreak from a computer.</p>
+                <h4>References</h4>
                 <p>Placeholder</p>
             </div>
             <div class="project">
-                <h3>Placeholder</h3>
+                <h3>Web Proxy/Unblocker</h3>
+                <p>A (Now Deprecated) Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices.</p>
+                <h4>References</h4>
+                <p>Titanium Network<br><br>
+                Used in part for the (Also Deprecated) GoOnyx Proxy</p>
+            </div>
+            <div class="project">
+                <h3>kn0tzer.github.io</h3>
+                <p>How'd I do?</p>
+                <h4>References</h4>
                 <p>Placeholder</p>
             </div>
             <div class="project">
-                <h3>Placeholder</h3>
+                <h3>iOS Shortcuts</h3>
+                <p>I've created *many* iOS Shortcuts, mostly aimed at recreating jailbreak tweaks in stock iOS, and bringing features only available on newer devices or versions to unsupported ones.</p>
+                <h4>References</h4>
                 <p>Placeholder</p>
             </div>
             <div class="project">
-                <h3>Placeholder</h3>
+                <h3>And more!</h3>
+                <p>See my GitHub for more, smaller projects. Not to mention the many more yet to come!</p>
+                <h4>References</h4>
                 <p>Placeholder</p>
             </div>
+        </div>
+    </section>
+    <section class="projects">
+        <h2>Languages ↓</h2>
+        <hr>
+        <div class="project-grid">
             <div class="project">
                 <h3>Placeholder</h3>
+                <p>Placeholder</p>
+                <h4>Placeholder</h4>
                 <p>Placeholder</p>
             </div>
         </div>
