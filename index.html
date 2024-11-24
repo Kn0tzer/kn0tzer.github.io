@@ -1,2 +1,194 @@
-<p>why are you here</p>
-<meta http-equiv="refresh" content="0; url=https://github.com/Kn0tzer/kn0tzer.github.io"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kn0tzer's Homepage</title>
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            margin: 0;
+            margin-bottom: 999px;
+            background-color: #1c1c1c;
+            color: #EEEEEE;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('https://imageupscaler.com/UploadedFiles/6743569d494a71.06049547Processed.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 115px;
+        }
+        header h1 {
+            font-size: 6em;
+            margin-top: 0px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        header h2 {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .links {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .links a {
+            margin: 0 5px;
+            text-decoration: none;
+        }
+
+        .who-am-i {
+            background-color: rgba(45, 45, 45, 0.6); /* Semi-transparent background */
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            margin: 30px 0;
+            margin-top: 70px;
+            margin-bottom: 0;
+            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .who-am-i h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .who-am-i p {
+            font-size: 1em;
+            color: #aaa;
+            line-height: 1.5em;
+        }
+
+        .projects {
+            margin-top: 29px;
+            text-align: center;
+        }
+        .projects h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .projects p {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .project-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .project {
+            background-color: rgba(45, 45, 45, 0.6); /* Semi-transparent background */
+            backdrop-filter: blur(10px);
+            flex: 1 1 calc(25% - 20px);
+            max-width: 200px;
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+        }
+        .project h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .project p {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://i.imgur.com/PBmU9pd.png" alt="Kn0tzer Logo" style="width: 150px; margin-bottom: 8px;">
+        <h1 style="background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
+           text-shadow:  0 0 15px rgba(72, 52, 117, 0.4), 0 0 5px rgba(250, 95, 85, 0.4);
+           background-clip:text;
+           color: transparent;
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+           -webkit-text-stroke: 1px #CCCCCC;">
+           
+            Kn0tzer
+        </h1>
+        <h2 style="text-shadow: 0 0 10px rgba(255, 255, 255, 1);">General Developer and Designer</h2>
+        <div class="links">
+            <a href="https://github.com/Kn0tzer" target="_blank";">
+                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/github.png" alt="GitHub" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://discordapp.com/users/506628717125304334" target="_blank";">
+                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/discord-logo.png" alt="Discord" style="width: 30px; height: 30px;">
+            </a>
+            <a href="javascript:void(0);" onclick="copyEmail()";">
+                <img src="https://img.icons8.com/?size=120&id=53435&format=png&color=FFFFFF" alt="GitHub" style="width: 30px; height: 30px;">
+            </a>
+            <script>
+                function copyEmail() {
+                    var email = "g4marchi@gmail.com";
+                    navigator.clipboard.writeText(email).then(function() {
+                        alert("g4marchi@gmail.com Copied to clipboard.");
+                    }).catch(function(err) {
+                        alert("Failed to copy g4marchi@gmail.com: " + err);
+                    });
+                }
+            </script>
+        </div>
+    </header>
+    <section class="who-am-i">
+        <h2>Who am I?</h2>
+        <p>
+            I'm a 14 Year Old programmer and designer with a strong, self-motivated passion for making the most out of what you have. <br>
+            Some of my interests are UI/UX Design, Jailbreaking, Web Development, Game Design, and much more outside of technology.
+        </p>
+    </section>
+    <section class="projects">
+        <h2>Projects ↓</h2>
+        <hr>
+        <div class="project-grid">
+            <div class="project">
+                <h3>Placeholder</h3>
+                <p>Placeholder</p>
+            </div>
+            <div class="project">
+                <h3>Placeholder</h3>
+                <p>Placeholder</p>
+            </div>
+            <div class="project">
+                <h3>Placeholder</h3>
+                <p>Placeholder</p>
+            </div>
+            <div class="project">
+                <h3>Placeholder</h3>
+                <p>Placeholder</p>
+            </div>
+            <div class="project">
+                <h3>Placeholder</h3>
+                <p>Placeholder</p>
+            </div>
+            <div class="project">
+                <h3>Placeholder</h3>
+                <p>Placeholder</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
