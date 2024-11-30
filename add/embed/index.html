@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="/logo.webp">
+    <meta name="apple-mobile-web-app-title" content="Change This">
     <link rel="icon" type="image/x-icon" href="/logo.webp">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Couldn't fetch title/icon</title>
+    <title>Add to Homescreen</title>
     <style>
         body, html {
             margin: 0;
@@ -66,7 +68,6 @@
                 console.error("Error fetching metadata:", error);
             }
         }
-
         const rawQuery = window.location.search;
         const match = rawQuery.match(/\?=(.+)/);
         const embedUrl = match ? decodeURIComponent(match[1]) : null;
