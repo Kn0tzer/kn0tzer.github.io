@@ -39,7 +39,7 @@
     <div id="content">
         <p>Something has gone very... very wrong</p>
     </div>
-<!--<script>
+    <script>
         async function fetchAndSetMetadata(embedUrl) {
             try {
                 // Get html
@@ -64,9 +64,10 @@
                     link.href = favicon.href.startsWith("http") ? favicon.href : new URL(favicon.href, embedUrl).href;
                     document.head.appendChild(link);
                 }
+            } catch (error) {
+                console.error("Error fetching metadata:", error);
             }
-        }   -->
-        <script>
+        }
         const rawQuery = window.location.search;
         const match = rawQuery.match(/\?=(.+)/);
         const embedUrl = match ? decodeURIComponent(match[1]) : null;
