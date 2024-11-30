@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="/logo.webp">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Change This">
     <link rel="icon" type="image/x-icon" href="/logo.webp">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add to Homescreen</title>
     <style>
         body, html {
@@ -41,7 +39,7 @@
     <div id="content">
         <p>Something has gone very... very wrong</p>
     </div>
-    <script>
+<!--<script>
         async function fetchAndSetMetadata(embedUrl) {
             try {
                 // Get html
@@ -66,11 +64,9 @@
                     link.href = favicon.href.startsWith("http") ? favicon.href : new URL(favicon.href, embedUrl).href;
                     document.head.appendChild(link);
                 }
-            } catch (error) {
-                console.error("Error fetching metadata:", error);
             }
-        }
-
+        }   -->
+        <script>
         const rawQuery = window.location.search;
         const match = rawQuery.match(/\?=(.+)/);
         const embedUrl = match ? decodeURIComponent(match[1]) : null;
