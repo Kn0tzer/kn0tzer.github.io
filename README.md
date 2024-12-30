@@ -10,3 +10,5 @@
 <a href="https://kn0tzer.is-a.dev/live">/live</a> - Automatically embeds a live sports/tv piracy site<br>
 <a href="https://kn0tzer.is-a.dev/live/2">/live/2</a> - Alternate live site some people may prefer<br>
 <a href="https://kn0tzer.is-a.dev/live/3">/live/3</a> - Alternate live site some people may prefer<br><br></p>
+
+<a href="https://kn0tzer.is-a.dev/test">/test</a> - Wait 2 seconds and press escape. Click a random green box and unblock any website (Intended for school chromebooks). The Freedom Project is not made by me, this is just a better way to access it.
