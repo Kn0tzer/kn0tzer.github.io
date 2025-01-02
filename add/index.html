@@ -33,14 +33,16 @@
             margin-top: 0px;
             font-weight: bold;
             margin-bottom: 10px;
-        }
-        header h2 {
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-top: 0;
+            background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
+            text-shadow: 0 0 25px rgba(72, 52, 117, 0.6), 0 0 5px rgba(250, 95, 85, 0.6);
+            background-clip:text;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px #CCCCCC;
         }
 
-        .who-am-i {
+        .what-is-this {
             background-color: rgba(45, 45, 45, 0.4);
             backdrop-filter: blur(10px);
             padding: 20px;
@@ -51,12 +53,12 @@
             box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
-        .who-am-i h2 {
+        .what-is-this h2 {
             font-size: 2em;
             margin-bottom: 10px;
             margin-top: 0;
         }
-        .who-am-i p {
+        .what-is-this p {
             font-size: 1.1em;
             color: #cccccc;
             line-height: 1.5em;
@@ -69,6 +71,10 @@
         .links a {
             margin: 0 5px;
             text-decoration: none;
+        }
+        .links img {
+            width: 60px;
+            height: 60px;
         }
 
         input[type="text"] {
@@ -98,19 +104,10 @@
 </head>
 <body>
     <header>
-        <h1 style="background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
-           text-shadow: 0 0 25px rgba(72, 52, 117, 0.6), 0 0 5px rgba(250, 95, 85, 0.6);
-           background-clip:text;
-           color: transparent;
-           -webkit-background-clip: text;
-           -webkit-text-fill-color: transparent;
-           -webkit-text-stroke: 1px #CCCCCC;">
-           
-            Add to Homescreen
-        </h1>
+        <h1>Add to Homescreen</h1>
         <div class="links">
             <a href="https://github.com/Kn0tzer/Add-to-Homescreen" target="_blank";">
-                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/github.png" alt="GitHub" style="width: 60px; height: 60px;">
+                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/github.png" alt="GitHub">
             </a>
         </div>
         <div class="input-container" style="margin-top: 80px;">
@@ -132,7 +129,7 @@
             function redirectToEmbed() {
                 let urlInput = document.getElementById("urlInput").value.trim();
                 if (urlInput) {
-                    // If url doesn't start with https then add it
+                    // If url doesn't start with https then add it - http can go f
                     if (!/^https?:\/\//i.test(urlInput)) {
                         urlInput = `https://${urlInput}`;
                     }
@@ -151,7 +148,7 @@
             document.getElementById("redirectButton").addEventListener("click", redirectToEmbed);
         </script>
     </header>
-    <section class="who-am-i">
+    <section class="what-is-this">
         <h2>What is this?</h2>
         <p>
             Enter a URL into the text box above and press embed. Then, on any iOS device the website can be added to your homescreen. It will open in fullscreen as if it's an app, instead of opening Safari like normal.<br><br>

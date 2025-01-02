@@ -33,15 +33,26 @@
             margin-top: 0px;
             font-weight: bold;
             margin-bottom: 10px;
+            background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
+            text-shadow: 0 0 25px rgba(72, 52, 117, 0.6), 0 0 5px rgba(250, 95, 85, 0.6);
+            background-clip:text;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px #CCCCCC;
         }
         header h2 {
             font-size: 1.3em;
             font-weight: bold;
             margin-top: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 1);
         }
         header p {
             font-size: 1.2em;
             margin: 5px 0;
+        }
+        img {
+            width: 30px; height: 30px;
         }
 
         .links {
@@ -83,9 +94,9 @@
             font-size: 2.4em;
             margin-bottom: 20px;
         }
-        .projects a {
-            color: #cccccc;
-            text-decoration: underline;
+        .projects hr {
+            border-color: #012237;
+            border-width: 2px; border-style: solid;
         }
 
         .project-grid {
@@ -122,40 +133,40 @@
             font-size: 1.1em;
             color: #cccccc;
         }
+        .project a {
+            color: #cccccc;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="/logo.webp" alt="Kn0tzer Logo" style="width: 150px; margin-bottom: 8px;">
-        <h1 style="background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
-           text-shadow: 0 0 25px rgba(72, 52, 117, 0.6), 0 0 5px rgba(250, 95, 85, 0.6);
-           background-clip:text;
-           color: transparent;
-           -webkit-background-clip: text;
-           -webkit-text-fill-color: transparent;
-           -webkit-text-stroke: 1px #CCCCCC;">
-           
-            Kn0tzer
-        </h1>
-        <h2 style="text-shadow: 0 0 10px rgba(255, 255, 255, 1);">General Developer and Designer</h2>
+        <img src="/logo.webp" alt="Kn0tzer Logo" style="width: 150px; height: 150px; margin-bottom: 8px;">
+        <h1>Kn0tzer</h1>
+        <h2>General Developer and Designer</h2>
         <div class="links">
             <a href="https://github.com/Kn0tzer" target="_blank";">
-                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/github.png" alt="GitHub" style="width: 30px; height: 30px;">
+                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/github.png" alt="GitHub">
             </a>
-            <a href="https://discordapp.com/users/506628717125304334" target="_blank";">
-                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/discord-logo.png" alt="Discord" style="width: 30px; height: 30px;">
+            <a href="https://discordapp.com/users/506628717125304334" target="_blank";" onclick="showDiscordAlert(event)">
+                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/discord-logo.png" alt="Discord">
             </a>
             <a href="javascript:void(0);" onclick="copy()";">
-                <img src="https://img.icons8.com/?size=120&id=53435&format=png&color=FFFFFF" alt="Email" style="width: 30px; height: 30px;">
+                <img src="https://img.icons8.com/?size=120&id=53435&format=png&color=FFFFFF" alt="Email">
             </a>
             <script>
                 function copy() {
                     var email = "g4marchi@gmail.com";
                     navigator.clipboard.writeText(email).then(function() {
                         alert("g4marchi@gmail.com Copied to clipboard.");
-                    }).catch(function(err) {
+                    }).catch(function(err) { // I want to remove this but whenever I do everything breaks so I'm keeping it
                         alert("Failed to copy g4marchi@gmail.com: " + err);
                     });
+                }
+                function showDiscordAlert(event) {
+                    event.preventDefault(); // Wait before opening link
+                    alert("I don't use Discord often at all, it's much easier for me and for you if you contact me in any other way than Discord. I will see your message eventually, it will just take a while.");
+                    window.location.href = event.currentTarget.href; // Now open link
                 }
             </script>
         </div>
@@ -163,14 +174,14 @@
     <section class="who-am-i">
         <h2>Who am I?</h2>
         <p>
-            I'm a 14 Year Old programmer and designer with a strong, self-motivated passion for making the most out of what you have. <br>
+            I'm a 15 Year Old programmer and designer with a strong, self-motivated passion for making the most out of what you have. <br>
             Some of my interests are UI/UX Design, Jailbreaking, Web Development, Game Design, and much more outside of technology.
         </p>
     </section>
     <div class="who-am-i-spacer"></div>
     <section class="projects">
         <h2>Projects</h2>
-        <hr style="border-color: #012237; border-width: 2px; border-style: solid;">
+        <hr>
         <div class="project-grid">
             <div class="project">
                 <h3>Shortcuts Exploits and Bugs</h3>
@@ -186,28 +197,28 @@
             </div>
             <div class="project">
                 <h3>Web Proxy/Unblocker</h3>
-                <p>A (Now Deprecated) Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices.</p>
+                <p>A (Now Deprecated) Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices. Used in part for the (Also Deprecated) GoOnyx Proxy.</p>
                 <h4>References</h4>
                 <p><a href="https://github.com/Kn0tzer/Unblocker">GitHub</a><br><br>
                 <a href="https://titaniumnetwork.org">Titanium Network</a><br><br>
-                Used in part for the (Also Deprecated) GoOnyx Proxy<br><br>
                 <a href="https://kn0tzer.is-a.dev/test">Updated version</a> - Wait 2 secs and press esc.</p>
             </div>
             <div class="project">
-                <h3>iOS Shortcuts</h3>
-                <p>I've created <i>many</i> iOS Shortcuts. Enough to where I've created a lengthy list and explanation for all of the exploits/bugs/oversights I've found along the way.</p>
+                <h3>Remote Control iPhone</h3>
+                <p>A method to remotely control any iOS/iPadOS device from any device with a web browser.</p>
                 <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Shortcuts">List of some of my Shortcuts</a></p>    
+                <p><a href="https://github.com/Kn0tzer/Vncserverd">Vncserverd Guide (Jailbreak required)</a><br><br>
+                <a href="https://github.com/Kn0tzer/Remote-Control-iPhone">No Jailbreak Guide</a></p>
             </div>
             <div class="project">
-                <h3>VncServerd</h3>
-                <p>A guide to remotely control any iOS device supported by the Dopamine jailbreak from a computer.</p>
+                <h3>iOS Shortcuts</h3>
+                <p>I've created <i>many</i> iOS Shortcuts over time, ranging from a Live Wallpaper PoC, to an Always on Display, to a global equalizer, and many, many more.</p>
                 <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Vncserverd">Guide</a></p>
+                <p><a href="https://github.com/Kn0tzer/Shortcuts">List of <i>some</i> of my Shortcuts</a></p>
             </div>
             <div class="project">
                 <h3>Kn0tzer.is-a.dev</h3>
-                <p>This website also contains other pages at <a href="https://kn0tzer.is-a.dev/add">/add</a>, <a href="https://kn0tzer.is-a.dev/movies">/movies</a>, and <a href="https://kn0tzer.is-a.dev/live">/live</a>. Descriptions for these and more can be seen on the GitHub page</p>
+                <p>This website also contains other pages at <a href="https://kn0tzer.is-a.dev/add">/add</a>, <a href="https://kn0tzer.is-a.dev/test">/test</a>, <a href="https://kn0tzer.is-a.dev/movies">/movies</a>, and <a href="https://kn0tzer.is-a.dev/live">/live</a>. Descriptions for these and more can be seen on the GitHub page</p>
                 <h4>References</h4>
                 <p><a href="https://github.com/Kn0tzer/kn0tzer.github.io">GitHub</a><br><br>
                 <a href="https://kn0tzer.netlify.app">Alt website</a></p>
