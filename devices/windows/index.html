@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="/logo.webp">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kn0tzer</title>
+    <link rel="icon" type="image/x-icon" href="/logo.webp">
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            margin: 0;
+            margin-bottom: 70px;
+            background-color: #1c1c1c;
+            color: #EEEEEE;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('https://github.com/Kn0tzer/kn0tzer.github.io/raw/refs/heads/main/background.webp');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            text-align: center;
+            margin-top: 115px;
+        }
+        header h1 {
+            font-size: 6em;
+            margin-top: 0px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
+            text-shadow: 0 0 25px rgba(72, 52, 117, 0.6), 0 0 5px rgba(250, 95, 85, 0.6);
+            background-clip:text;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px #CCCCCC;
+        }
+        header h2 {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-top: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+        }
+        header p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .projects {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .project-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .project {
+            background-color: rgba(45, 45, 45, 0.4);
+            backdrop-filter: blur(10px);
+            flex: 1 1 calc(25% - 20px);
+            max-width: 350px;
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+        }
+        .project h3 {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+
+        a {
+            color: #EEE;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Windows</h1>
+    </header>
+    <div class="who-am-i-spacer"></div>
+    <section class="projects">
+        <div class="project-grid">
+            <div class="project">
+                <h3>[UI] <a href="https://win11.blueedge.me">win11.blueedge.me</a></h3>
+                <a href="https://win11.blueedge.me"><img style="width: 200px; height: 200px;" src="https://avatars.githubusercontent.com/u/12185858"></a>
+            </div>
+            <div class="project">
+                <h3>[Remote] <a href="https://dash.parsec.app">Parsec</a></h3>
+                <a href="https://dash.parsec.app"><img style="width: 200px; height: 200px;" src="https://media.imgcdn.org/repo/2024/03/parsec/65e561e03d79b-parsec-Icon.webp"></a>
+            </div>
+            <div class="project">
+                <h3>[Remote] <a href="https://desktop.vision">desktop.vision</a></h3>
+                <a href="https://desktop.vision"><img style="width: 200px; height: 200px;" src="https://desktop.vision/assets/c3a43e684825e10030346520962c1a0e.svg"></a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
