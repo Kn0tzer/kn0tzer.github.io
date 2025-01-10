@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone UI Clone</title>
+    <title>HBoard</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="viewport-fit=cover, user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,15 +23,22 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            touch-action: pan-x;
+            overflow-y: hidden;
         }
         .phone {
             height: 100vh;
-            width: 53.85vh; /*19.5:9 aspect ratio*/
+            width: 48vh; /* force 19.5:9 aspect ratio*/
             background-color: #222;
             background-image: url('https://9to5mac.com/wp-content/uploads/sites/6/2024/09/iPhone-16-and-16-Pro-wallpapers-3.jpg');
             background-size: cover;
-            z-index: -2;
             transform: scale(1);
+        }
+/*UPDATE FOR NON 9/19.5 PHONES*/@media (aspect-ratio: 9/19.5) { /*if iphone 10+ aspect ratio then take up full screen*/
+            .phone {
+            height: 100vh;
+            width: 100vw;
+            }
         }
 
 
@@ -41,16 +48,15 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5%;
+            height: 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-left: 35px;
-            padding-right: 20px;
-            z-index: 10;
+            padding-left: 56px;
+            padding-right: 42px;
         }
         .time {
-            font-size: 14px;
+            font-size: 17px;
         }
         .icons {
             display: flex;
@@ -58,8 +64,8 @@
             align-items: center;
         }
         .icon {
-            width: 15px;
-            height: 15px;
+            width: 17px;
+            height: 17px;
             fill: #EEE;
         }
 
@@ -68,36 +74,61 @@
         .home-screen {
             display: flex;
             justify-content: space-between;
-            padding-top: 40px;
+            padding-top: 42px;
+            height: calc(95%-30px);
+            width: 100%;
         }
         .pages {
+            position: absolute;
             display: flex;
-            padding-top: 20px;            
-            padding-left: 35px;
-            padding-right: 35px;
-            gap: 30px;
-            width: 300%;
+            padding-top: 45px;
+            height: 75%;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            flex-direction: row;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            overscroll-behavior-x: contain;
+            touch-action: pan-x;
+            overflow-y: hidden;
         }
-        .page1 {
-            width: 50%;
+        .pages::-webkit-scrollbar {
+            display: none;
         }
-        .page2 {
-            width: 50%;
+        .page {
+            min-width: 100%;
+            max-width: 100%;
+            height: 100%;
+            bottom: 100%;
+            scroll-snap-align: start;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /*4 columns*/
+            grid-auto-rows: min-content;
+            gap: 25px;
         }
-        .app {
+
+
+
+        .app-container {
             display: flex;
             flex-direction: column;
+            width: 60px;
+            margin-left: 20px;
         }
         img {
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 15px;
         }
         .label {
-            margin-top: 4px;
+            margin-top: 3px;
             font-size: 11px;
             color: #EEE;
             text-shadow: 0 5px 5px rgba(0, 0, 0, 0.7);
+            max-width: 80px;
+            text-align: center;
         }
 
 
@@ -121,14 +152,7 @@
 
 
 
-        .dock-dots {
-            display: flex;
-            justify-content: center;
-            position: fixed;
-            bottom: 3%;
-            width: 100%;
-        }
-        .dock-dots-container {
+        .page-dots-container {
             position: absolute;
             display: inline-flex;
             justify-content: center;
@@ -142,10 +166,17 @@
             transition: background-color 0.2s ease;
             background-color: rgba(0, 0, 0, 0);
         }
-        :hover .dock-dots-container {
+        :active .page-dots-container {
             background-color: rgba(32, 32, 32, 0.9);
         }
-        .dock-dot {
+        .page-dots {
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            bottom: 3%;
+            width: 100%;
+        }
+        .page-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
@@ -153,16 +184,39 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        .dock-dot.active {
+        .page-dot-active {
             background: rgba(255, 255, 255, 0.8);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
     </style>
 </head>
 <body>
-    <div class="phone-container">
-        <div class="phone">
+    <div class="phone">
+        <div class="home-screen">
             <div class="status-bar">
                 <div class="time" id="current-time">12:34</div>
+                    <script>
+                        function updateTime() { // Status bar time
+                            const timeElement = document.getElementById('current-time');
+                            const now = new Date();
+                            let hours = now.getHours();
+                            const minutes = now.getMinutes();
+
+                            // Convert to 12 hour format
+                            hours = hours % 12;
+                            hours = hours ? hours : 12;
+
+                            timeElement.textContent = `${hours}:${minutes.toString().padStart(2, '0')}`;
+                        }
+                    
+                        // Update time on page load then every 1 sec
+                        updateTime();
+                        setInterval(updateTime, 1000);
+                    </script>
                 <div class="icons">
                     <div class="icon"> <!--Cellular-->
                         <svg viewBox="0 0 1024 1024"><path d="M157.6 880.8H56.4c-1.6 0-3.4 0-5-0.2s-3.2-0.4-5-0.8l-4.8-1.2c-1.6-0.4-3.2-1-4.6-1.6-1.6-0.6-3-1.4-4.4-2.2-1.4-0.8-2.8-1.6-4.2-2.6-1.4-1-2.8-2-4-3-1.2-1-2.6-2.2-3.6-3.4-1.2-1.2-2.2-2.4-3.4-3.6-1-1.2-2-2.6-3-4s-1.8-2.8-2.6-4.2c-0.8-1.4-1.4-3-2.2-4.4-0.6-1.6-1.2-3-1.6-4.6l-1.2-4.8c-0.4-1.6-0.6-3.2-0.8-5-0.2-1.6-0.2-3.4-0.2-5V627.6c0-1.6 0-3.4 0.2-5s0.4-3.2 0.8-5l1.2-4.8c0.4-1.6 1-3.2 1.6-4.6 0.6-1.6 1.4-3 2.2-4.4 0.8-1.4 1.6-2.8 2.6-4.2 1-1.4 2-2.8 3-4 1-1.2 2.2-2.6 3.4-3.6 1.2-1.2 2.4-2.2 3.6-3.4 1.2-1 2.6-2 4-3s2.8-1.8 4.2-2.6c1.4-0.8 3-1.4 4.4-2.2 1.6-0.6 3-1.2 4.6-1.6l4.8-1.2c1.6-0.4 3.2-0.6 5-0.8 1.6-0.2 3.4-0.2 5-0.2h101.2c1.6 0 3.4 0 5 0.2s3.2 0.4 5 0.8l4.8 1.2c1.6 0.4 3.2 1 4.6 1.6 1.6 0.6 3 1.4 4.4 2.2 1.4 0.8 2.8 1.6 4.2 2.6 1.4 1 2.8 2 4 3 1.2 1 2.6 2.2 3.6 3.4 1.2 1.2 2.2 2.4 3.4 3.6 1 1.2 2 2.6 3 4s1.8 2.8 2.6 4.2 1.4 3 2.2 4.4c0.6 1.6 1.2 3 1.6 4.6l1.2 4.8c0.4 1.6 0.6 3.2 0.8 5 0.2 1.6 0.2 3.4 0.2 5V830c0 1.6 0 3.4-0.2 5s-0.4 3.2-0.8 5l-1.2 4.8c-0.4 1.6-1 3.2-1.6 4.6-0.6 1.6-1.4 3-2.2 4.4s-1.6 2.8-2.6 4.2c-1 1.4-2 2.8-3 4-1 1.2-2.2 2.6-3.4 3.6-1.2 1.2-2.4 2.2-3.6 3.4-1.2 1-2.6 2-4 3s-2.8 1.8-4.2 2.6c-1.4 0.8-3 1.4-4.4 2.2-1.6 0.6-3 1.2-4.6 1.6l-4.8 1.2c-1.6 0.4-3.2 0.6-5 0.8-1.6 0.2-3.4 0.4-5 0.4z m270 0h-101.2c-1.6 0-3.4 0-5-0.2s-3.2-0.4-5-0.8l-4.8-1.2c-1.6-0.4-3.2-1-4.6-1.6-1.6-0.6-3-1.4-4.4-2.2-1.4-0.8-2.8-1.6-4.2-2.6-1.4-1-2.8-2-4-3-1.2-1-2.6-2.2-3.6-3.4-1.2-1.2-2.2-2.4-3.4-3.6-1-1.2-2-2.6-3-4s-1.8-2.8-2.6-4.2c-0.8-1.4-1.4-3-2.2-4.4-0.6-1.6-1.2-3-1.6-4.6l-1.2-4.8c-0.4-1.6-0.6-3.2-0.8-5-0.2-1.6-0.2-3.4-0.2-5V492.6c0-1.6 0-3.4 0.2-5s0.4-3.2 0.8-5l1.2-4.8c0.4-1.6 1-3.2 1.6-4.6 0.6-1.6 1.4-3 2.2-4.4 0.8-1.4 1.6-2.8 2.6-4.2 1-1.4 2-2.8 3-4 1-1.2 2.2-2.6 3.4-3.6 1.2-1.2 2.4-2.2 3.6-3.4 1.2-1 2.6-2 4-3s2.8-1.8 4.2-2.6c1.4-0.8 3-1.4 4.4-2.2 1.6-0.6 3-1.2 4.6-1.6l4.8-1.2c1.6-0.4 3.2-0.6 5-0.8 1.6-0.2 3.4-0.2 5-0.2h101.2c1.6 0 3.4 0 5 0.2s3.2 0.4 5 0.8l4.8 1.2c1.6 0.4 3.2 1 4.6 1.6s3 1.4 4.4 2.2c1.4 0.8 2.8 1.6 4.2 2.6 1.4 1 2.8 2 4 3s2.6 2.2 3.6 3.4c1.2 1.2 2.2 2.4 3.4 3.6 1 1.2 2 2.6 3 4s1.8 2.8 2.6 4.2c0.8 1.4 1.4 3 2.2 4.4 0.6 1.6 1.2 3 1.6 4.6l1.2 4.8c0.4 1.6 0.6 3.2 0.8 5 0.2 1.6 0.2 3.4 0.2 5v337.6c0 1.6 0 3.4-0.2 5s-0.4 3.2-0.8 5l-1.2 4.8c-0.4 1.6-1 3.2-1.6 4.6-0.6 1.6-1.4 3-2.2 4.4-0.8 1.4-1.6 2.8-2.6 4.2-1 1.4-2 2.8-3 4-1 1.2-2.2 2.6-3.4 3.6-1.2 1.2-2.4 2.2-3.6 3.4-1.2 1-2.6 2-4 3s-2.8 1.8-4.2 2.6c-1.4 0.8-3 1.4-4.4 2.2s-3 1.2-4.6 1.6l-4.8 1.2c-1.6 0.4-3.2 0.6-5 0.8-1.6 0-3.4 0.2-5 0.2z m270 0h-101.2c-1.6 0-3.4 0-5-0.2s-3.2-0.4-5-0.8l-4.8-1.2c-1.6-0.4-3.2-1-4.6-1.6-1.6-0.6-3-1.4-4.4-2.2-1.4-0.8-2.8-1.6-4.2-2.6-1.4-1-2.8-2-4-3-1.2-1-2.6-2.2-3.6-3.4-1.2-1.2-2.2-2.4-3.4-3.6-1-1.2-2-2.6-3-4s-1.8-2.8-2.6-4.2c-0.8-1.4-1.4-3-2.2-4.4-0.6-1.6-1.2-3-1.6-4.6l-1.2-4.8c-0.4-1.6-0.6-3.2-0.8-5-0.2-1.6-0.2-3.4-0.2-5V357.6c0-1.6 0-3.4 0.2-5s0.4-3.2 0.8-5l1.2-4.8c0.4-1.6 1-3.2 1.6-4.6 0.6-1.6 1.4-3 2.2-4.4 0.8-1.4 1.6-2.8 2.6-4.2 1-1.4 2-2.8 3-4 1-1.2 2.2-2.6 3.4-3.6 1.2-1.2 2.4-2.2 3.6-3.4 1.2-1 2.6-2 4-3s2.8-1.8 4.2-2.6c1.4-0.8 3-1.4 4.4-2.2 1.6-0.6 3-1.2 4.6-1.6l4.8-1.2c1.6-0.4 3.2-0.6 5-0.8 1.6-0.2 3.4-0.2 5-0.2h101.2c1.6 0 3.4 0 5 0.2s3.2 0.4 5 0.8l4.8 1.2c1.6 0.4 3.2 1 4.6 1.6 1.6 0.6 3 1.4 4.4 2.2 1.4 0.8 2.8 1.6 4.2 2.6 1.4 1 2.8 2 4 3 1.2 1 2.6 2.2 3.6 3.4 1.2 1.2 2.2 2.4 3.4 3.6 1 1.2 2 2.6 3 4s1.8 2.8 2.6 4.2c0.8 1.4 1.4 3 2.2 4.4 0.6 1.6 1.2 3 1.6 4.6l1.2 4.8c0.4 1.6 0.6 3.2 0.8 5 0.2 1.6 0.2 3.4 0.2 5V830c0 1.6 0 3.4-0.2 5s-0.4 3.2-0.8 5l-1.2 4.8c-0.4 1.6-1 3.2-1.6 4.6-0.6 1.6-1.4 3-2.2 4.4-0.8 1.4-1.6 2.8-2.6 4.2-1 1.4-2 2.8-3 4-1 1.2-2.2 2.6-3.4 3.6-1.2 1.2-2.4 2.2-3.6 3.4-1.2 1-2.6 2-4 3s-2.8 1.8-4.2 2.6c-1.4 0.8-3 1.4-4.4 2.2-1.6 0.6-3 1.2-4.6 1.6l-4.8 1.2c-1.6 0.4-3.2 0.6-5 0.8-1.6 0.2-3.4 0.4-5 0.4z m270 0h-101.2c-1.6 0-3.4 0-5-0.2s-3.2-0.4-5-0.8l-4.8-1.2c-1.6-0.4-3.2-1-4.6-1.6-1.6-0.6-3-1.4-4.4-2.2-1.4-0.8-2.8-1.6-4.2-2.6-1.4-1-2.8-2-4-3-1.2-1-2.6-2.2-3.6-3.4-1.2-1.2-2.2-2.4-3.4-3.6-1-1.2-2-2.6-3-4s-1.8-2.8-2.6-4.2c-0.8-1.4-1.4-3-2.2-4.4-0.6-1.6-1.2-3-1.6-4.6l-1.2-4.8c-0.4-1.6-0.6-3.2-0.8-5-0.2-1.6-0.2-3.4-0.2-5V188.8c0-1.6 0-3.4 0.2-5s0.4-3.2 0.8-5l1.2-4.8c0.4-1.6 1-3.2 1.6-4.6 0.6-1.6 1.4-3 2.2-4.4 0.8-1.4 1.6-2.8 2.6-4.2s2-2.8 3-4c1-1.2 2.2-2.6 3.4-3.6 1.2-1.2 2.4-2.2 3.6-3.4 1.2-1 2.6-2 4-3s2.8-1.8 4.2-2.6c1.4-0.8 3-1.4 4.4-2.2 1.6-0.6 3-1.2 4.6-1.6l4.8-1.2c1.6-0.4 3.2-0.6 5-0.8 1.6-0.2 3.4-0.2 5-0.2h101.2c1.6 0 3.4 0 5 0.2s3.2 0.4 5 0.8l4.8 1.2c1.6 0.4 3.2 1 4.6 1.6 1.6 0.6 3 1.4 4.4 2.2 1.4 0.8 2.8 1.6 4.2 2.6 1.4 1 2.8 2 4 3 1.2 1 2.6 2.2 3.6 3.4 1.2 1.2 2.2 2.4 3.4 3.6s2 2.6 3 4 1.8 2.8 2.6 4.2 1.4 3 2.2 4.4c0.6 1.6 1.2 3 1.6 4.6l1.2 4.8c0.4 1.6 0.6 3.2 0.8 5 0.2 1.6 0.2 3.4 0.2 5V830c0 1.6 0 3.4-0.2 5s-0.4 3.2-0.8 5l-1.2 4.8c-0.4 1.6-1 3.2-1.6 4.6-0.6 1.6-1.4 3-2.2 4.4-0.8 1.4-1.6 2.8-2.6 4.2-1 1.4-2 2.8-3 4-1 1.2-2.2 2.6-3.4 3.6-1.2 1.2-2.4 2.2-3.6 3.4-1.2 1-2.6 2-4 3s-2.8 1.8-4.2 2.6c-1.4 0.8-3 1.4-4.4 2.2-1.6 0.6-3 1.2-4.6 1.6l-4.8 1.2c-1.6 0.4-3.2 0.6-5 0.8-1.6 0.2-3.4 0.4-5 0.4z"/></svg>
@@ -177,35 +231,57 @@
             </div>
 
 
-            <div class="home-screen">
                 <div class="pages">
-                    <div class="page1">
-                        <div class="app">
+                    <div class="page">
+                        <div class="app-container">
                             <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
-                            <div class="label">Placeholder</div>
+                            <div class="label">Page 1</div>
                         </div>
-                        <div class="app">
+                        <div class="app-container">
                             <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
-                            <div class="label">Placeholder</div>
+                            <div class="label">Page 1</div>
+                        </div>
+                        <div class="app-container">
+                            <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
+                            <div class="label">Page 1</div>
+                        </div>
+                        <div class="app-container">
+                            <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
+                            <div class="label">Page 1</div>
+                        </div>
+                        <div class="app-container">
+                            <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
+                            <div class="label">Page 1</div>
                         </div>
                     </div>
-                    <div class="page2">
-                        <div class="app">
+                    <div class="page">
+                        <div class="app-container">
                             <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
-                            <div class="label">PAGE 2</div>
+                            <div class="label">Page 2</div>
                         </div>
-                        <div class="app">
+                        <div class="app-container">
                             <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
-                            <div class="label">PAGE 2</div>
+                            <div class="label">Page 2</div>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <div class="app-container">
+                            <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
+                            <div class="label">Page 3</div>
+                        </div>
+                        <div class="app-container">
+                            <img draggable="false" src="https://cdn-icons-png.freepik.com/512/54/54272.png">
+                            <div class="label">Page 3</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-                <div class="dock-dots">
-                    <div class="dock-dots-container">
-                        <div class="dock-dot active"></div>
-                        <div class="dock-dot"></div>
+                <div class="page-dots">
+                    <div class="page-dots-container">
+                        <div class="page-dot-active"></div>
+                        <div class="page-dot"></div>
+                        <div class="page-dot"></div>
                     </div>
                 </div>
 
@@ -227,22 +303,77 @@
         </div>
     </div>
     <script>
-        function updateTime() { // Status bar time
-            const timeElement = document.getElementById('current-time');
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = now.getMinutes();
-            
-            // Convert to 12 hour format
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            
-            timeElement.textContent = `${hours}:${minutes.toString().padStart(2, '0')}`;
+        const slider = document.querySelector('.pages');
+        const pages = document.querySelectorAll('.page');
+        const pageWidth = slider.offsetWidth;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let lastX;
+        let velocity = 0;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX;
+            lastX = startX;
+            scrollLeft = slider.scrollLeft;
+            velocity = 0;
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            if (isDown) handleScrollEnd();
+           isDown = false;
+        });
+
+        slider.addEventListener('mouseup', () => {
+            handleScrollEnd();
+            isDown = false;
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+    
+            const x = e.pageX;
+            const delta = x - lastX;
+            lastX = x;
+
+           velocity = velocity * 0.8 + delta * 0.2;
+    
+            slider.scrollLeft -= delta;
+        });
+
+        function handleScrollEnd() {
+            const currentScroll = slider.scrollLeft;
+            const targetPage = Math.round(currentScroll / pageWidth);
+
+            if (Math.abs(velocity) > 1) {
+                const direction = velocity > 0 ? -1 : 1;
+                const newPage = Math.max(0, Math.min(pages.length - 1, targetPage + direction));
+                scrollToPage(newPage);
+            } else {
+                scrollToPage(targetPage);
+            }
         }
 
-        // Update time on page load then every 1 sec
-        updateTime();
-        setInterval(updateTime, 1000);
+        function scrollToPage(pageIndex) {
+            slider.scrollTo({
+                left: pageIndex * pageWidth,
+                behavior: 'smooth'
+            });
+            updatePageDots(pageIndex);
+        }
+
+        function updatePageDots(pageIndex) {
+            const dots = document.querySelectorAll('.page-dots-container div');
+            dots.forEach((dot, index) => {
+                if (index === pageIndex) {
+                    dot.className = 'page-dot-active';
+                } else {
+                    dot.className = 'page-dot';
+                }
+            });
+        }
     </script>
 </body>
 </html>
