@@ -11,6 +11,6 @@
 <a href="https://kn0tzer.is-a.dev/live/2">/live/2</a> - Alternate live site some people may prefer<br>
 <a href="https://kn0tzer.is-a.dev/live/3">/live/3</a> - Alternate live site some people may prefer<br><br></p>
 
-<a href="https://kn0tzer.is-a.dev/test">/test</a> - Wait 2 seconds and press escape. Click next at the top until one works. (Intended for school chromebooks). The Freedom Project is not made by me, this is just a better way to access it.
+<a href="https://kn0tzer.is-a.dev/test">/test</a> - Website unblocker intended for school Chromebooks. Wait 2 seconds and press escape. Click next at the top until one works. The Freedom Project is not made by me, this is just a better way to access it.
 
-<a href="https://kn0tzer.is-a.dev/devices">/devices</a> - Select a device to run in your browser and choose between a fake device that just simulates the UI, a real device that can do anything, or a remote desktop system.
+<a href="https://kn0tzer.is-a.dev/devices">/devices</a> - Select a device to run in your browser and choose between simulating just the UI, using a remote desktop system, or a VM that can do anything.
