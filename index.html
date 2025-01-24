@@ -46,7 +46,7 @@
             font-size: 1.3em;
             font-weight: bold;
             margin-top: 0;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+            text-shadow: 0 0 10px rgb(255, 255, 255);
         }
         header p {
             font-size: 1.2em;
@@ -75,6 +75,10 @@
             margin-top: 40px;
             box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .who-am-i:hover {
+            transform: scale(1.05);
         }
         .who-am-i h2 {
             font-size: 2em;
@@ -112,7 +116,7 @@
         }
 
         .project {
-            background-color: rgba(45, 45, 45, 0.4);
+            background-color: rgba(45, 45, 45, 0.5);
             backdrop-filter: blur(10px);
             flex: 1 1 calc(25% - 20px);
             max-width: 350px;
@@ -121,6 +125,10 @@
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .project:hover {
+            transform: scale(1.05);
         }
         .project h3 {
             margin: 10px 0;
@@ -135,6 +143,39 @@
             color: #cccccc;
         }
         .project a {
+            color: #cccccc;
+            text-decoration: underline;
+        }
+
+
+        .experience {
+            background-color: rgba(45, 45, 45, 0.5);
+            backdrop-filter: blur(10px);
+            flex: 1 1 calc(25% - 20px);
+            min-width: 60%;
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .experience:hover {
+            transform: scale(1.05);
+        }
+        .experience h3 {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+        .experience h4 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .experience p {
+            font-size: 1.1em;
+            color: #cccccc;
+        }
+        .experience a {
             color: #cccccc;
             text-decoration: underline;
         }
@@ -192,10 +233,25 @@
                 <p><a href="https://github.com/Kn0tzer/iOS-Shortcuts-Exploits">Link</a></p>
             </div>
             <div class="project">
-                <h3>iMessage</h3>
-                <p>A janky but somehow still working method to get iMessage on *all* platforms. Never being released. (Let this type of thing die)</p>
+                <h3>HBoard</h3>
+                <p>A web based jailbreak alternative providing tweak injection to a pixel perfect recreation of the iOS homescreen in HTML/JavaScript<br><br>
+                COMING VERY SOON</p>
                 <h4>References</h4>
-                <p><a href="https://github.com/notAperson535/OneClick-macOS-Simple-KVM">Sorta kinda but not really based on this</a></p>
+                <p><a href="https://github.com/Kn0tzer/HBoard">GitHub</a></p>
+                <p><a href="https://hboard.netlify.app">Website</a> (Coming Soon)</p>
+            </div>
+            <div class="project">
+                <h3>iMessage</h3>
+                <p>A janky but still working method to access a self hosted iMessage server from any device with a web browser. Never being released.</p>
+                <h4>References</h4>
+                <p><a href="https://github.com/notAperson535/OneClick-macOS-Simple-KVM"> Based on this script</a></p>
+            </div>
+            <div class="project">
+                <h3>Remote Control iPhone</h3>
+                <p>A method to remotely control any iOS/iPadOS device from any device with a web browser.</p>
+                <h4>References</h4>
+                <p><a href="https://github.com/Kn0tzer/Remote-Control-iPhone">No Jailbreak Guide</a><br><br>
+                <a href="https://github.com/Kn0tzer/Vncserverd">Vncserverd Guide (Jailbreak required - not recommended)</a></p>
             </div>
             <div class="project">
                 <h3>Web Proxy/Unblocker</h3>
@@ -203,14 +259,7 @@
                 <h4>References</h4>
                 <p><a href="https://github.com/Kn0tzer/Unblocker">GitHub</a><br><br>
                 <a href="https://titaniumnetwork.org">Titanium Network</a><br><br>
-                <a href="https://kn0tzer.is-a.dev/test">Updated version</a> - Wait 2 secs and press esc. Freedom Project not made by me.</p>
-            </div>
-            <div class="project">
-                <h3>Remote Control iPhone</h3>
-                <p>A method to remotely control any iOS/iPadOS device from any device with a web browser.</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Vncserverd">Vncserverd Guide (Jailbreak required)</a><br><br>
-                <a href="https://github.com/Kn0tzer/Remote-Control-iPhone">No Jailbreak Guide</a></p>
+                <a href="https://kn0tzer.is-a.dev/test">Currently working unblocker</a> - Wait 2 secs and press esc. Freedom Project not made by me, this is just another way to access it.</p>
             </div>
             <div class="project">
                 <h3>iOS Shortcuts</h3>
@@ -230,6 +279,33 @@
                 <p>See my <a href="https://github.com/Kn0tzer">GitHub</a> for more, smaller projects. Not to mention the many more yet to come!</p>
             </div>
         </div>
+    </section>
+    <section class="projects">
+        <h2>My Experience</h2>
+        <hr>
+        <div class="project-grid">
+            <div class="experience">
+                <h3>Server Side Development</h3>
+                <p>Experience in networking and server side development through the iMessage project listed above, and modifying a JitStreamer server and client to work on all devices, all iOS versions, anywhere in the world, roughly 6 months before an official release. Unfortunately both of these are not, and never will be released to the public, because I'd need to pay for a server and security software.<br><br>
+                Something that did get released, however, is the Web Proxy/Unblocker listed above which involved full stack development, proxy experience, working with a team, creative use of limited ChromeOS exploits, and much more.</p>
+                <h4>References</h4>
+                <p><a href="https://jkcoxson.com/jitstreamer">Recently released official JitStreamer Server</a></p>
+            </div>
+            <div class="experience">
+                <h3>Google Gemini Trusted Tester</h3>
+                <p>Paid member of the Google Gemini Trusted Tester program</p>
+                <h4>References</h4>
+                <p><a href="https://cloud.google.com/gemini-for-cloud/ttp/welcome?hl=en">Explanation</a><br><br>(Some things are confidential so that's about all I can give)</p>
+            </div>
+
+            <div class="experience">
+                <h3>Web Development/Web Design</h3>
+                <p>If this website isn't enough (fair) then check out HBoard listed above - A PWA offering a pixel perfect recreation of the iOS homescreen. (COMING SOON)</p>
+                <h4>References</h4>
+                <p><a href="https://github.com/Kn0tzer/kn0tzer.github.io">This website's GitHub</a></p>
+                <p><a href="https://github.com/Kn0tzer/HBoard">HBoard GitHub</a></p>
+                <p><a href="https://hboard.netlify.app">HBoard Website</a> (Coming Soon)</p>
+            </div>
     </section>
 </body>
 </html>
