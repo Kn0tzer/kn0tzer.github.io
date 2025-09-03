@@ -202,14 +202,14 @@
                     var email = "g4marchi@gmail.com";
                     navigator.clipboard.writeText(email).then(function() {
                         alert("g4marchi@gmail.com Copied to clipboard.");
-                    }).catch(function(err) { // I want to remove this but whenever I do everything breaks so I'm keeping it
+                    }).catch(function(err) {
                         alert("Failed to copy g4marchi@gmail.com: " + err);
                     });
                 }
                 function showDiscordAlert(event) {
                     event.preventDefault(); // Wait before opening link
                     alert("I don't use Discord often at all, it's much easier for me and for you if you contact me in any other way than Discord. I will see your message eventually, it will just take a while.");
-                    window.location.href = event.currentTarget.href; // Now open link
+                    window.location.href = event.currentTarget.href;
                 }
             </script>
         </div>
