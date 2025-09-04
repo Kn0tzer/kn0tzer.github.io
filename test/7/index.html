@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Untitled</title>
+<style>
+    #embedContainer {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    
+    #embed {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+</style>
+</head>
+<body>
+  <script>
+    function changeParentIframeSrc(newSrc) {
+        const iframe = document.getElementById('embed');
+        iframe.src = newSrc;
+    }
+</script>
+    <div id="embedContainer">
+        <iframe id="embed" src="https://mills-family.us.mills-family.us/"></iframe>
+    </div>
+
+    <script>
+      const embedContainer = document.querySelector('#embedContainer');
+      
+      function handleKeyPress(event) {
+        if (event.key === 'Escape') {
+          embedContainer.style.display = 'block';
+        }
+      }
+      document.addEventListener('keydown', handleKeyPress);
+    </script>
+</body>
+</html>
