@@ -33,14 +33,12 @@
             margin-top: 0px;
             font-weight: bold;
             margin-bottom: 10px;
-            background: linear-gradient(0deg, rgb(250, 95, 85) 0%, rgb(72, 52, 117) 50%, rgb(40, 48, 164) 100%);
             background: linear-gradient(0deg, #40A354 0%, #407E52 40%, #555555 100%);
             text-shadow: 8px 8px 9px rgba(0, 0, 0, 0.7), -2px -2px 4px rgba(0, 0, 0, 0.3);
-            background-clip:text;
+            background-clip: text;
             color: transparent;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 1px #CCCCCC;
         }
         header h2 {
             font-size: 1.3em;
@@ -182,9 +180,8 @@
     </style>
 </head>
 <body>
-    <div style="display:none;"><img src='https://www.counter12.com/img-2xdZ84xZ1CaZ8W43-57.gif'></a><script type='text/javascript' src='https://www.counter12.com/ad.js?id=2xdZ84xZ1CaZ8W43'></script></div>
     <header>
-        <img src="/logo.webp" alt="Kn0tzer Logo" style="width: 150px; height: 150px; margin-bottom: 8px;">
+        <img src="/logo.webp" alt="Logo" style="width: 150px; height: 150px; margin-bottom: 8px;">
         <h1>Kn0tzer</h1>
         <h2>General Developer and Designer</h2>
         <div class="links">
@@ -193,6 +190,9 @@
             </a>
             <a href="https://discordapp.com/users/506628717125304334" target="_blank";" onclick="showDiscordAlert(event)">
                 <img src="https://img.icons8.com/material-rounded/120/FFFFFF/discord-logo.png" alt="Discord">
+            </a>
+            <a href="https://t.me/kn0tzer" target="_blank";">
+                <img src="https://img.icons8.com/?size=120&id=lUktdBVdL4Kb&format=png&color=FFFFFF" alt="GitHub">
             </a>
             <a href="javascript:void(0);" onclick="copy()";">
                 <img src="https://img.icons8.com/?size=120&id=53435&format=png&color=FFFFFF" alt="Email">
@@ -208,8 +208,8 @@
                 }
                 function showDiscordAlert(event) {
                     event.preventDefault(); // Wait before opening link
-                    alert("I don't use Discord often at all, it's much easier for me and for you if you contact me in any other way than Discord. I will see your message eventually, it will just take a while.");
-                    window.location.href = event.currentTarget.href;
+                    alert("I don't use Discord often at all, so you'll get a reply much faster contacting me any way other than Discord.");
+                    window.open(event.currentTarget.href, '_blank');
                 }
             </script>
         </div>
@@ -217,9 +217,9 @@
     <section class="who-am-i">
         <h2>Who am I?</h2>
         <p>
-            I'm a 15 Year Old programmer and designer with a strong, self-motivated passion for making the most out of what you have. <br>
-            Some of my interests are UI/UX Design, Jailbreaking, Web Development, Game Design, and much more outside of technology. <br>
-            This website is very very outdated! You should really just check my GitHub.
+            I'm a 15 Year Old programmer and designer with a strong, self-motivated passion for everything technology.<br>
+            I taught myself how to code, and have never watched a coding tutorial or taken a coding class as of making this website. No AI was used to make this website.<br>
+            Some of my interests are UI/UX Design, Ethical Hacking, Game Design, and much more outside of technology. <br>
         </p>
     </section>
     <div class="who-am-i-spacer"></div>
@@ -228,55 +228,56 @@
         <hr>
         <div class="project-grid">
             <div class="project">
+                <h3>Microapps</h3>
+                <p>A group of small apps designed to have a good UI while being as simple as possible, even if that means compromising on features.</p>
+                <h4>References</h4>
+                <p><a href="https://github.com/Kn0tzer/microapps">GitHub</a><br><br>
+                <a href="https://microapps-dj.vercel.app/microtask">Microtask</a></p>
+            </div>
+            <div class="project">
                 <h3>Shortcuts Exploits and Bugs</h3>
-                <p>A lengthy list of exploits, bugs, oversights, and more I've found in my time creating iOS Shortcuts</p>
+                <p>A lengthy list of exploits, bugs, oversights, and more I've found in my time creating iOS Shortcuts. (Nearly 100 stars on GitHub!)</p>
                 <h4>References</h4>
                 <p><a href="https://github.com/Kn0tzer/iOS-Shortcuts-Exploits">Link</a></p>
             </div>
             <div class="project">
-                <h3>HBoard</h3>
-                <p>A web based jailbreak alternative providing tweak injection to a pixel perfect recreation of the iOS homescreen in HTML/JavaScript<br><br>
-                COMING VERY SOON</p>
+                <h3>BlipBox</h3>
+                <p>A peer to peer file transfer app with infinite file size limits, file history, and cloud backup support. Unreleased since I would need to rewrite the entire backend. I recommend you use Keet since it has similar features.</p>
                 <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/HBoard">GitHub</a></p>
-                <p><a href="https://hboard.netlify.app">Website</a> (Coming Soon)</p>
+                <p><a href="https://keet.io/">Keet</a></p>
+            </div>
+            <div class="project">
+                <h3>HBoard</h3>
+                <p>A web based jailbreak alternative providing tweak injection to a pixel perfect recreation of the iOS homescreen. This project has never been finished, see Prism for something similar (also unfinished).</p>
+                <h4>References</h4>
+                <p><a href="https://x.com/prismios">Prism</a><br><br>
+                <a href="https://hboard.netlify.app">Outdated archive</a></p>
             </div>
             <div class="project">
                 <h3>iMessage</h3>
-                <p>A janky but still working method to access a self hosted iMessage server from any device with a web browser. Never being released.</p>
+                <p>A janky but still working method to access iMessage from any device with a web browser. Never being released.</p>
                 <h4>References</h4>
                 <p><a href="https://github.com/notAperson535/OneClick-macOS-Simple-KVM"> Based on this script</a></p>
             </div>
             <div class="project">
                 <h3>Remote Control iPhone</h3>
-                <p>A method to remotely control any iOS/iPadOS device from any device with a web browser.</p>
+                <p>A method to remotely control any iPhone from any device with a web browser</p>
                 <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Remote-Control-iPhone">No Jailbreak Guide</a><br><br>
-                <a href="https://github.com/Kn0tzer/Vncserverd">Vncserverd Guide (Jailbreak required - not recommended)</a></p>
+                <p><a href="https://github.com/Kn0tzer/Remote-Control-iPhone">No Jailbreak Guide</a></p>
             </div>
             <div class="project">
                 <h3>Web Proxy/Unblocker</h3>
-                <p>A (Now Deprecated) Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices. Used in part for the (Also Deprecated) GoOnyx Proxy.</p>
+                <p>An Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices. Used in part for the Moonlight Proxy</p>
                 <h4>References</h4>
                 <p><a href="https://github.com/Kn0tzer/Unblocker">GitHub</a><br><br>
                 <a href="https://titaniumnetwork.org">Titanium Network</a></p>
             </div>
             <div class="project">
-                <h3>iOS Shortcuts</h3>
-                <p>I've created <i>many</i> iOS Shortcuts over time, ranging from a Live Wallpaper PoC, to an Always on Display, to a global equalizer, and many, many more.</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Shortcuts">List of <i>some</i> of my Shortcuts</a></p>
-            </div>
-            <div class="project">
                 <h3>Kn0tzer.is-a.dev</h3>
-                <p>See the GitHub for subdirectories inside of this website.</p>
+                <p>See the GitHub for subdirectories of this website</p>
                 <h4>References</h4>
                 <p><a href="https://github.com/Kn0tzer/kn0tzer.github.io">GitHub</a><br><br>
-                <a href="https://kn0tzer.netlify.app">Alternate/testing website</a></p>
-            </div>
-            <div class="project">
-                <h3>And more!</h3>
-                <p>See my <a href="https://github.com/Kn0tzer">GitHub</a> for more, smaller projects. Not to mention the many more yet to come!</p>
+                <a href="https://kn0tzer.netlify.app">Alternate website</a></p>
             </div>
         </div>
     </section>
@@ -285,26 +286,17 @@
         <hr>
         <div class="project-grid">
             <div class="experience">
-                <h3>Server Side Development</h3>
-                <p>Experience in networking and server side development through the iMessage project listed above, and modifying a JitStreamer server and client to work on all devices, all iOS versions, anywhere in the world, roughly 6 months before an official release. Unfortunately both of these are not, and never will be released to the public, because I'd need to pay for a server and security software.<br><br>
+                <h3>Networking and Servers</h3>
+                <p>Experience in networking and server side development through the iMessage and BlipBox projects listed above. Unfortunately, both of these will likely never be released to the public for a variety of reasons.<br><br>
                 Something that did get released, however, is the Web Proxy/Unblocker listed above which involved full stack development, proxy experience, working with a team, creative use of limited ChromeOS exploits, and much more.</p>
-                <h4>References</h4>
-                <p><a href="https://jkcoxson.com/jitstreamer">Recently released official JitStreamer Server</a></p>
             </div>
             <div class="experience">
-                <h3>Google Gemini Trusted Tester</h3>
-                <p>Paid member of the Google Gemini Trusted Tester program</p>
-                <h4>References</h4>
-                <p><a href="https://cloud.google.com/gemini-for-cloud/ttp/welcome?hl=en">Explanation</a><br><br>(Some things are confidential so that's about all I can give)</p>
+                <h3>Docker</h3>
+                <p>Although I haven't focused on one specific thing for long enough for it to be a "project", I do self host most of my tools using Docker scripts I made myself.</p>
             </div>
-
             <div class="experience">
-                <h3>Web Development/Web Design</h3>
-                <p>If this website isn't enough (fair) then check out HBoard listed above - A PWA offering a pixel perfect recreation of the iOS homescreen. (COMING SOON)</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/kn0tzer.github.io">This website's GitHub</a></p>
-                <p><a href="https://github.com/Kn0tzer/HBoard">HBoard GitHub</a></p>
-                <p><a href="https://hboard.netlify.app">HBoard Website</a> (Coming Soon)</p>
+                <h3>Web Development and Design</h3>
+                <p>If this website isn't enough (fair) then check out my beta app called <a href="https://microapps-dj.vercel.app/microtask">Microtask</a>.</p>
             </div>
     </section>
 </body>
