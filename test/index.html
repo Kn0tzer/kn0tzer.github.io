@@ -21,29 +21,67 @@
 </head>
 <body>
   <script>
+    // Hardcoded URLs at the top for easy modification
+    const hardcodedUrls = [
+      'https://luminal.lol/',
+      'https://www.nolansproxy.com/',
+      'https://bromine.statetestingstudies.com/',
+      'https://sites.google.com/view/uraniumisyummy/proxies',
+      'https://sites.google.com/view/saturna-one/pr0xies/',
+      'https://ka.aubree.lat/',
+      'https://squall.cc/',
+      'https://sites.google.com/view/mag3nt4/magenta',
+      'https://genesis-nebulon-iframe.neocities.org/',
+      'https://frogiesarca.de/calculus'
+    ];
+    // https://github.com/wea-f/ByePassHub/blob/summer/mainUnblockers.md
+    // https://docs.google.com/document/d/11xNscgBmJXKJyInOJdNWpbkv0kuxa_ZDcHl2MyE88hQ/edit?tab=t.suft5ir5gtmu#heading=h.r30nbhfnespq
+    
     function changeParentIframeSrc(newSrc) {
         const iframe = document.getElementById('embed');
         iframe.src = newSrc;
     }
-</script>
-    <div id="embedContainer">
-        <iframe id="embed" src="https://glacier.webmc.xyz/"></iframe>
-      <!--https://github.com/wea-f/ByePassHub/blob/summer/mainUnblockers.md
-      https://docs.google.com/document/d/11xNscgBmJXKJyInOJdNWpbkv0kuxa_ZDcHl2MyE88hQ/edit?tab=t.suft5ir5gtmu#heading=h.r30nbhfnespq-->
-      
-    </div>
-
-    <script>
-      const embedContainer = document.querySelector('#embedContainer');
-      
-      function handleKeyPress(event) {
-        if (event.key === 'Escape') {
-          embedContainer.style.display = 'block';
+    
+    function initializeDropdown() {
+        const dropdown = document.getElementById('urlSelector');
+        
+        // Clear existing options
+        dropdown.innerHTML = '<option value="">Select a site...</option>';
+        
+        // Add numbered options for each URL
+        hardcodedUrls.forEach((url, index) => {
+            const option = document.createElement('option');
+            option.value = url;
+            option.textContent = index + 1; // Numbers start at 1
+            dropdown.appendChild(option);
+        });
+    }
+    
+    function handleDropdownChange(event) {
+        const selectedUrl = event.target.value;
+        if (selectedUrl) {
+            changeParentIframeSrc(selectedUrl);
         }
-      }
-      document.addEventListener('keydown', handleKeyPress);
-    </script>
+    }
+</script>
+
+<select id="urlSelector" onchange="handleDropdownChange(event)"></select>
+
+<div id="embedContainer">
+    <iframe id="embed"></iframe>
+</div>
+
+<script>
+  initializeDropdown();
+  
+  const embedContainer = document.querySelector('#embedContainer');
+  
+  function handleKeyPress(event) {
+    if (event.key === 'Escape') {
+      embedContainer.style.display = 'block';
+    }
+  }
+  document.addEventListener('keydown', handleKeyPress);
+</script>
 </body>
 </html>
-
-
