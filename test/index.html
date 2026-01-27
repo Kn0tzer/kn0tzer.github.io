@@ -21,29 +21,125 @@
 </head>
 <body>
   <script>
+    const hardcodedUrls = [
+      'https://luminal.lol/',
+      'https://www.nolansproxy.com/',
+      'https://bromine.statetestingstudies.com/',
+      'https://sites.google.com/view/uraniumisyummy/proxies',
+      'https://sites.google.com/view/saturna-one/pr0xies/',
+      'https://ka.aubree.lat/',
+      'https://squall.cc/',
+      'https://sites.google.com/view/mag3nt4/magenta',
+      'https://genesis-nebulon-iframe.neocities.org/',
+      'https://frogiesarca.de/calculus'
+    ];
+    
+    const categoryUrls = {
+      "Interstellar": [
+        "https://gointerstellar.app",
+        "https://reading.undetected.lol/",
+        "https://iuewkgfbvakludg.swanndvr.net",
+        "https://studiolearngeo.estudioferrer.com",
+        "https://80.theartieschaffer.com",
+        "https://learningmath.pages.dev/",
+        "https://bhjxdrxfc.ipv64.net/",
+        "https://vpvvvokegwwvvegexvsgrgrjgeigerigrig.roundrockisd.online/"
+      ],
+      "Shadow Browser": [
+        "http://summer.steveward.ws/",
+        "http://last.serverpit.com/",
+        "http://underrated.logntw.com/",
+        "http://manifest.icemail.me.uk/",
+        "http://brunson.ryanjlowe.us/",
+        "http://aedwards.circusslaves.com/",
+        "http://letsgoo.jnrcs.org/",
+        "http://brunson.mutsuura.com/",
+        "http://time.dateeasily.com/",
+        "http://shai.tecnova.com.br/",
+        "http://time.opensrc.mx/",
+        "http://break.nettekks.com/",
+        "http://last.southquay.com/",
+        "http://underrated.pchelp-24.com/",
+        "http://aura.larakaras.com/",
+        "http://shai.slumbo.com/",
+        "http://brunson.lospenitentes.com/",
+        "http://letsgoo.jaytex.ca/",
+        "http://aedwards.ku4oy.us/",
+        "http://break.davidmcorn.com/",
+        "https://app.notexistswwwwww.proxy-creator-shadow-browser-2.duckdns.org",
+        "https://www.0001.drgd.accesscam.org",
+        "https://learnela.dicionar.io",
+        "https://apportal.majimekun.dynipv6.de",
+        "https://makomako.easterndns.com",
+        "https://www.fooooooooo.api64.de",
+        "https://nc.is-now-gay.online",
+        "https://b0oqp4lcca12psyk18labup2rztiltdh.frii.site",
+        "https://help.billigerhost.com",
+        "https://lswsxysi.static.lolv2.network",
+        "https://www.t8j3w3v.cyou"
+      ]
+    };
+    
+    // https://github.com/wea-f/ByePassHub/blob/summer/mainUnblockers.md
+    // https://docs.google.com/document/d/11xNscgBmJXKJyInOJdNWpbkv0kuxa_ZDcHl2MyE88hQ/edit?tab=t.suft5ir5gtmu#heading=h.r30nbhfnespq
+    
     function changeParentIframeSrc(newSrc) {
         const iframe = document.getElementById('embed');
         iframe.src = newSrc;
     }
-</script>
-    <div id="embedContainer">
-        <iframe id="embed" src="https://glacier.webmc.xyz/"></iframe>
-      <!--https://github.com/wea-f/ByePassHub/blob/summer/mainUnblockers.md
-      https://docs.google.com/document/d/11xNscgBmJXKJyInOJdNWpbkv0kuxa_ZDcHl2MyE88hQ/edit?tab=t.suft5ir5gtmu#heading=h.r30nbhfnespq-->
-      
-    </div>
-
-    <script>
-      const embedContainer = document.querySelector('#embedContainer');
-      
-      function handleKeyPress(event) {
-        if (event.key === 'Escape') {
-          embedContainer.style.display = 'block';
+    
+    function initializeDropdown(dropdownId, urls) {
+        const dropdown = document.getElementById(dropdownId);
+        
+        dropdown.innerHTML = '<option value="">Select a site...</option>';
+        
+        urls.forEach((url, index) => {
+            const option = document.createElement('option');
+            option.value = url;
+            option.textContent = index + 1; // Numbers start at 1
+            dropdown.appendChild(option);
+        });
+    }
+    
+    function handleDropdownChange(event) {
+        const selectedUrl = event.target.value;
+        if (selectedUrl) {
+            changeParentIframeSrc(selectedUrl);
         }
-      }
-      document.addEventListener('keydown', handleKeyPress);
-    </script>
+    }
+    
+    function initializeAllDropdowns() {
+        // Initialize original stable dropdown
+        initializeDropdown('urlSelector', hardcodedUrls);
+        
+        // Initialize category dropdowns
+        Object.keys(categoryUrls).forEach(category => {
+            const dropdownId = category.toLowerCase().replace(/\s+/g, '_');
+            initializeDropdown(dropdownId, categoryUrls[category]);
+        });
+    }
+</script>
+
+<select id="urlSelector" onchange="handleDropdownChange(event)"></select>
+
+<select id="interstellar" onchange="handleDropdownChange(event)"></select>
+<select id="shadow_browser" onchange="handleDropdownChange(event)"></select>
+
+<div id="embedContainer">
+    <iframe id="embed"></iframe>
+</div>
+
+<script>
+  initializeAllDropdowns();
+  
+  const embedContainer = document.querySelector('#embedContainer');
+  
+  function handleKeyPress(event) {
+    if (event.key === 'Escape') {
+      embedContainer.style.display = 'block';
+    }
+  }
+  document.addEventListener('keydown', handleKeyPress);
+</script>
 </body>
 </html>
-
-
