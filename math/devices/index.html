@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proxy Picker</title>
+    <title>Device Picker</title>
     <style>
         * {
             margin: 0;
@@ -121,7 +121,8 @@
             border: none;
         }
 
-        .copy-button {
+        .copy-button,
+        .toggle-button {
             padding: 1rem;
             background: #333333;
             border: 1px solid #555555;
@@ -139,16 +140,26 @@
             justify-content: center;
         }
 
-        .copy-button:hover {
+        .copy-button:hover,
+        .toggle-button:hover {
             background: #444444;
             border-color: #666666;
         }
 
-        .copy-button svg {
+        .copy-button svg,
+        .toggle-button svg {
             width: 24px;
             height: 24px;
             min-width: 24px;
             min-height: 24px;
+        }
+
+        .new-tab-option {
+            color: #888888 !important;
+        }
+
+        .hidden-option {
+            display: none;
         }
 
         .settings-icon,
@@ -415,7 +426,7 @@
             </svg>
         </div>
         <div class="main-view" id="mainView">
-            <h1 class="title">Proxy Picker</h1>
+            <h1 class="title">Device Picker</h1>
 
         <div class="form-group" style="display: flex; gap: 10px;">
             <button class="copy-button" onclick="copySelectedLink()" title="Copy selected link to clipboard">
@@ -424,23 +435,24 @@
                 </svg>
             </button>
             <select id="linkSelect" style="flex: 1;">
-                <option value="">Select a proxy (Ordered best to worst)</option>
-                <option value="https://k48dfxrb.beanweb.qzz.io.cdn.cloudflare.net/robux.html">OverCloaked (Cloudflare)</option>
-                <option value="https://mathread.org/data/local/pages/unlocker/index.html">Geometry Learn</option>
-                <option value="https://bromine.statetestingstudies.com/">Bromine</option>
-                <option value="https://info.shop1stoponline.com/search.html">Pete</option>
-                <option value="https://educationate.space.cdn.cloudflare.net">DogeUB (Cloudflare)</option>
-                <option value="https://canvas.is.kind.of.annoying.sportsmansparadise.info/2.html">Injex</option>
-                <option value="https://fweeeeeisawesome.worldoflights.co.za/">Fern</option>
-                <option value="https://squall.cc/">Squall</option>
-                <option value="https://science.willemvisser.co.za/">Quasar</option>
-                <option value="https://ka.aubree.lat/">Suntree Network</option>
-                <option value="https://glseries.net/search.html">TGLSC</option>
-                <option value="https://school.learning.coding.easy.ixl.rinet.ai/">Rammerhead 1</option>
-                <option value="https://schoology.engalsaati.com/">Rammerhead 2</option>
-                <option value="https://gaagleclassroom.tci.iready.school.allisons.org/">Rammerhead 3</option>
-                <option value="https://chronos.24-7.ro/">Rammerhead 4</option>
+                <option value="">Select a device...</option>
+                <option value="https://win11.blueedge.me">Windows</option>
+                <option value="https://goldengocoding.github.io/iPadOS/">iPadOS</option>
+                <option value="https://android.blueedge.me">Android</option>
+                <option value="https://anura.pro/browser.html">Google Chrome</option>
+                <option value="https://anura.work.gd/browser.html">Google Chrome 2</option>
+                <option value="https://anura.pro">ChromeOS/Anura</option>
+                <option value="https://anura.work.gd">ChromeOS/Anura 2</option>
+                <option value="https://appetize.io/demo" class="new-tab-option hidden-option">*iOS/Android Appetize</option>
+                <option value="https://now.gg" class="new-tab-option hidden-option">*Android Now.gg</option>
+                <option value="https://nowgg.fun" class="new-tab-option hidden-option">*Android Now.gg Unblocked</option>
+                <option value="https://nintendo-switch-ui-demo.6te.net" class="new-tab-option hidden-option">*Nintendo Switch</option>
             </select>
+            <button class="toggle-button" id="toggleNewTab" onclick="toggleNewTabLinks()" title="Show sites that must be opened in an uncloaked new tab">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="eyeIcon">
+                    <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
         
         <button class="go-button" onclick="goToLink()">Go</button>
@@ -450,9 +462,9 @@
             <h1 class="title">Settings</h1>
             <div class="settings-buttons">
                 <a href="../math/index.html" class="bottom-button">GN-Math Picker</a>
-                <a href="../devices/index.html" class="bottom-button">Device Picker</a>
+                <a href="../test/index.html" class="bottom-button">Proxy Picker</a>
                 <a href="https://github.com/Kn0tzer" target="_blank" class="bottom-button">Made by Kn0tzer</a>
-                <a href="https://raw.githubusercontent.com/Kn0tzer/kn0tzer.github.io/refs/heads/main/test/index.html" onclick="downloadFile(event)" class="bottom-button">Download</a>
+                <a href="https://raw.githubusercontent.com/Kn0tzer/kn0tzer.github.io/refs/heads/main/devices/index.html" onclick="downloadFile(event)" class="bottom-button">Download</a>
             </div>
             <div class="toggle-item">
                 <div style="display: flex; align-items: center;">
@@ -476,7 +488,7 @@
         <div class="alert-box">
             <h3 class="alert-title">Escape Masking Warning</h3>
             <p class="alert-message">
-                Escape masking disguises this website as a blank redirection page with nothing on it. You MUST press the escape key to load the Proxy Picker. No instructions will be shown on the blank redirection page. You must REMEMBER to press escape when the page loads, otherwise the link picker will be permanently inaccessible unless you clear site data.
+                Escape masking disguises this website as a blank redirection page with nothing on it. You MUST press the escape key to load the Device Picker. No instructions will be shown on the blank redirection page. You must REMEMBER to press escape when the page loads, otherwise the link picker will be permanently inaccessible unless you clear site data.
             </p>
             <div class="alert-buttons">
                 <button class="alert-button cancel" id="alertCancel">Cancel</button>
@@ -488,9 +500,9 @@
     <script>
         const UserDataManager = {
             KEYS: {
-                ESCAPE_MASKING: 'proxypicker_escape_masking',
-                PREVENT_CLOSE: 'proxypicker_prevent_close',
-                LAST_HOST: 'proxypicker_last_host'
+                ESCAPE_MASKING: 'devicepicker_escape_masking',
+                PREVENT_CLOSE: 'devicepicker_prevent_close',
+                LAST_HOST: 'devicepicker_last_host'
             },
             
             isAboutBlank: function() {
@@ -572,6 +584,7 @@
             }
         };
 
+        let newTabVisible = false;
         let escapeMaskingEnabled = false;
         let preventCloseEnabled = false;
 
@@ -610,7 +623,7 @@
             document.getElementById('maskingPage').classList.remove('active');
             document.body.classList.remove('masked');
             document.getElementById('escapeMaskingState').value = '';
-            document.title = 'Proxy Picker';
+            document.title = 'Device Picker';
             escapeMaskingEnabled = false;
             
             const toggle = document.getElementById('escapeMaskingToggle');
@@ -737,7 +750,7 @@
                     if (escapeToggle) {
                         escapeToggle.classList.remove('active');
                     }
-                    win.document.title = 'Proxy Picker';
+                    win.document.title = 'Device Picker';
                 } catch(e) {
                     console.error('[OpenPicker] Error configuring new window:', e);
                 }
@@ -762,19 +775,55 @@
             document.getElementById('closeIcon').classList.add('hidden');
         }
 
+        function toggleNewTabLinks() {
+            newTabVisible = !newTabVisible;
+            const newTabOptions = document.querySelectorAll('.new-tab-option');
+            const eyeIcon = document.getElementById('eyeIcon');
+            const toggleButton = document.getElementById('toggleNewTab');
+            
+            newTabOptions.forEach(option => {
+                if (newTabVisible) {
+                    option.classList.remove('hidden-option');
+                } else {
+                    option.classList.add('hidden-option');
+                }
+            });
+
+            if (newTabVisible) {
+                eyeIcon.innerHTML = `
+                    <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+                toggleButton.title = "Hide sites that must be opened in an uncloaked new tab, marked by *";
+            } else {
+                eyeIcon.innerHTML = `
+                    <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                `;
+                toggleButton.title = "Show sites that must be opened in an uncloaked new tab, marked by *";
+            }
+        }
+
         function goToLink() {
             const select = document.getElementById('linkSelect');
             const selectedValue = select.value;
+            const selectedText = select.options[select.selectedIndex].text;
             
             if (selectedValue) {
                 if (!UserDataManager.isAboutBlank()) {
                     UserDataManager.setLastHost(selectedValue);
                 }
-                const embedContainer = document.querySelector('#embedContainer');
-                const iframe = document.getElementById('embed');
                 
-                embedContainer.style.display = 'block';
-                iframe.src = selectedValue;
+                const newTabSites = ['*iOS/Android Appetize', '*Android Now.gg', '*Android Now.gg Unblocked', '*Nintendo Switch'];
+
+                if (newTabSites.some(site => selectedText.startsWith(site))) {
+                    window.open(selectedValue, '_blank');
+                } else {
+                    const embedContainer = document.querySelector('#embedContainer');
+                    const iframe = document.getElementById('embed');
+                    
+                    embedContainer.style.display = 'block';
+                    iframe.src = selectedValue;
+                }
             } else {
                 select.focus();
             }
@@ -782,7 +831,7 @@
 
         function downloadFile(event) {
             event.preventDefault();
-            const url = 'https://raw.githubusercontent.com/Kn0tzer/kn0tzer.github.io/refs/heads/main/test/index.html';
+            const url = 'https://raw.githubusercontent.com/Kn0tzer/kn0tzer.github.io/refs/heads/main/devices/picker/index.html';
             window.open(url, '_blank');
         }
 

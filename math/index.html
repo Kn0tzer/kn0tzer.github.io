@@ -101,16 +101,8 @@
             overflow: hidden;
         }
 
-
-
         .go-button:hover {
             background: #3a3a3a;
-        }
-
-
-
-        .go-button:active {
-            transform: translateY(0);
         }
 
         #embedContainer {
@@ -129,27 +121,7 @@
             border: none;
         }
 
-        .copy-button {
-            padding: 1rem;
-            background: #333333;
-            border: 1px solid #555555;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .copy-button:hover {
-            background: #444444;
-            border-color: #666666;
-        }
-
+        .copy-button,
         .toggle-button {
             padding: 1rem;
             background: #333333;
@@ -161,14 +133,25 @@
             font-size: 1.2rem;
             width: 50px;
             height: 50px;
+            min-width: 50px;
+            min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        .copy-button:hover,
         .toggle-button:hover {
             background: #444444;
             border-color: #666666;
+        }
+
+        .copy-button svg,
+        .toggle-button svg {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
         }
 
         .new-tab-option {
@@ -178,12 +161,273 @@
         .hidden-option {
             display: none;
         }
+
+        .settings-icon,
+        .close-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 32px;
+            height: 32px;
+            background: #333333;
+            border: 1px solid #555555;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .settings-icon:hover,
+        .close-icon:hover {
+            background: #444444;
+            border-color: #666666;
+        }
+
+        .settings-icon svg,
+        .close-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .settings-icon.hidden,
+        .close-icon.hidden {
+            display: none;
+        }
+
+        .main-view {
+            display: block;
+        }
+
+        .main-view.hidden {
+            display: none;
+        }
+
+        .settings-view {
+            display: none;
+        }
+
+        .settings-view.active {
+            display: block;
+        }
+
+        .settings-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .settings-buttons .bottom-button {
+            display: block;
+            text-decoration: none;
+        }
+
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        .toggle-item label {
+            font-size: 0.85rem;
+            margin: 0;
+            color: #a0a0a0;
+            text-transform: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: #333333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #555555;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            left: 22px;
+        }
+
+        .bottom-button {
+            padding: 0.8rem 1rem;
+            background: #333333;
+            border: 1px solid #555555;
+            border-radius: 10px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .bottom-button:hover {
+            background: #3a3a3a;
+            border-color: #666666;
+        }
+
+        .masking-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 9999;
+        }
+
+        body.masked {
+            background: #ffffff;
+        }
+
+        body.masked .container,
+        body.masked .settings-icon,
+        body.masked .close-icon,
+        body.masked #embedContainer,
+        body.masked > input[type="hidden"] {
+            display: none !important;
+        }
+
+        body.masked > .masking-page {
+            display: block;
+        }
+
+        .help-button {
+            width: 20px;
+            height: 20px;
+            background: #444444;
+            border: 1px solid #666666;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-family: Arial, sans-serif;
+            margin-left: 8px;
+        }
+
+        .help-button:hover {
+            background: #555555;
+            border-color: #777777;
+        }
+
+        .alert-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .alert-overlay.active {
+            display: flex;
+        }
+
+        .alert-box {
+            background: #1a1a1a;
+            border: 1px solid #333333;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .alert-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: normal;
+        }
+
+        .alert-message {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .alert-button {
+            padding: 0.8rem 1.5rem;
+            border: 1px solid #555555;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            background: #333333;
+            color: white;
+        }
+
+        .alert-button:hover {
+            background: #3a3a3a;
+        }
+
+        .alert-button.cancel {
+            background: #444444;
+            border-color: #666666;
+        }
+
+        .alert-button.cancel:hover {
+            background: #4a4a4a;
+        }
     </style>
 </head>
 <body>
+    <input type="hidden" id="escapeMaskingState" value="">
+    <div class="masking-page" id="maskingPage"></div>
     <div class="container">
-        <h1 class="title">GN-Math Link Picker</h1>
-        
+        <div class="settings-icon" id="settingsIcon" onclick="openSettings()" title="Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div class="close-icon hidden" id="closeIcon" onclick="closeSettings()" title="Close Settings">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="main-view" id="mainView">
+            <h1 class="title">GN-Math Link Picker</h1>
+
         <div class="form-group" style="display: flex; gap: 10px;">
             <button class="copy-button" onclick="copySelectedLink()" title="Copy selected link to clipboard">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -195,6 +439,8 @@
                 <option value="https://gn-math-t.github.io">GitHub</option>
                 <option value="https://kn0tzer.is-a.dev/math/host">is-a.dev (GitHub)</option>
                 <option value="https://prageru-server.s3.amazonaws.com/mathematics.html">Amazon</option>
+                <option value="https://d1r01tsqlv902b.cloudfront.net/index.html">Amazon 2</option>
+                <option value="https://amzn-s3-priorty.s3.us-east-2.amazonaws.com/index.html">Amazon 3</option>
                 <option value="https://mw.gn-math.dev.cdn.cloudflare.net">Cloudflare</option>
                 <option value="https://lesbianpainter.vercel.app">Vercel</option>
                 <option value="data:text/html;base64,PHNjcmlwdD5sYXVuY2goKTtmdW5jdGlvbiBsYXVuY2goKSB7IHRyeSB7IGZldGNoKCJodHRwczovL2Nkbi5qc2RlbGl2ci5uZXQvZ2gvZ24tbWF0aC9nbi1tYXRoLURPTlRETUNBQG1haW4vc2luZ2xlZmlsZS5odG1sP3Q9IitEYXRlLm5vdygpKSAudGhlbihyZXNwb25zZSA9PiByZXNwb25zZS50ZXh0KCkpIC50aGVuKGh0bWwgPT4geyBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuaW5uZXJIVE1MID0gaHRtbC5yZXBsYWNlKCJuZXcgVVJMKHVybCwgbG9jYXRpb24ub3JpZ2luKS5ob3N0bmFtZSIsICciIicpOyBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQucXVlcnlTZWxlY3RvckFsbCgnc2NyaXB0JykuZm9yRWFjaChvbGRTY3JpcHQgPT4geyBjb25zdCBuZXdTY3JpcHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKTsgaWYgKG9sZFNjcmlwdC5zcmMpIHsgbmV3U2NyaXB0LnNyYyA9IG9sZFNjcmlwdC5zcmM7IH0gZWxzZSB7IG5ld1NjcmlwdC50ZXh0Q29udGVudCA9IG9sZFNjcmlwdC50ZXh0Q29udGVudDsgfSBkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKG5ld1NjcmlwdCk7IH0pOyB9KTsgfSBjYXRjaCAoZXJyb3IpIHsgY29uc29sZS5lcnJvcignZXJyb3I6JywgZXJyb3IpOyB9IH0gPC9zY3JpcHQ+">Data Link</option>
@@ -208,17 +454,20 @@
                 <option value="https://garlandisd.kanjidamage.com">Random 2</option>
                 <option value="https://john.greenlifechurch.org">Random 3</option>
                 <option value="https://gn-math.offshorenomads.net">Random 4</option>
-                <option value="https://gn-math.offshorenomads.net">Random 5</option>
-                <option value="https://www.math-tutors.org/main.html">Random 6</option>
-                <option value="https://www.khanacademy.ink/main.html">Random 7</option>
-                <option value="https://ccs0715.789888.xyz">Random 8</option>
-                <option value="https://jaquavy-wavy.hstn.me" class="new-tab-option hidden-option">*Random 9</option>
+                <option value="https://ccs0715.789888.xyz">Random 5</option>
+                <option value="https://manager.football7080.com">Random 6</option>
+                <option value="https://sage-loves-silksong.krea4u.cl">Random 7</option>
+                <option value="https://superr.bowling.vn">Random 8</option>
+                <option value="https://2023.skibiditoi.lat">Random 9</option>
+                <option value="https://hello-kittys.g1en.com">Random 10</option>
+                <option value="https://brostooop.lostgumball.com">Random 11</option>
+                <option value="https://breadiscool.groups.id">Random 12</option>
+                <option value="https://doyourhomework.dream.org.il">Random 13</option>
+                <option value="https://math.trace.rip">Random 14</option>
                 <option value="https://deer-club-17246500.codehs.me" class="new-tab-option hidden-option">*CodeHS</option>
                 <option value="https://script.google.com/macros/s/AKfycbxQvbCW4DXTvZxQnB6f8h1IkWR_l2Yos4ww0196J9st06UOZyl8sAEGweDDW8IVtoaG/exec" class="new-tab-option hidden-option">*Google Scripts</option>
                 <option value="https://x0v-7e-o0-4r-3q-n3-c3-i3-6n-3n.w3spaces.com" class="new-tab-option hidden-option">*W3Spaces</option>
-                <option value="https://jaquavy-wavy.hstn.me" class="new-tab-option hidden-option">*Random 9</option>
                 <option value="https://sites.google.com/view/potatomath1/potato-math" class="new-tab-option hidden-option">*Google Sites</option>
-                <option value="https://math.trace.rip">Random 10</option>
             </select>
             <button class="toggle-button" id="toggleNewTab" onclick="toggleNewTabLinks()" title="Show sites that must be opened in a new tab, marked by *">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="eyeIcon">
@@ -228,10 +477,27 @@
         </div>
         
         <button class="go-button" onclick="goToLink()">Go</button>
-        <div style="text-align: center; margin-top: 1rem;">
-            <a href="https://github.com/Kn0tzer" target="_blank" style="color: #e0e0e0; text-decoration: underline; font-size: 1rem; cursor: pointer;">Made by Kn0tzer</a>
-            <span style="color: #e0e0e0; margin: 0 0.5rem;">|</span>
-            <a href="https://raw.githubusercontent.com/Kn0tzer/kn0tzer.github.io/refs/heads/main/math/index.html" onclick="downloadFile(event)" style="color: #e0e0e0; text-decoration: underline; font-size: 1rem; cursor: pointer;">Download</a>
+        </div>
+
+        <div class="settings-view" id="settingsView">
+            <h1 class="title">Settings</h1>
+            <div class="settings-buttons">
+                <a href="../devices/index.html" class="bottom-button">Device Picker</a>
+                <a href="../test/index.html" class="bottom-button">Proxy Picker</a>
+                <a href="https://github.com/Kn0tzer" target="_blank" class="bottom-button">Made by Kn0tzer</a>
+                <a href="https://raw.githubusercontent.com/Kn0tzer/kn0tzer.github.io/refs/heads/main/math/index.html" onclick="downloadFile(event)" class="bottom-button">Download</a>
+            </div>
+            <div class="toggle-item">
+                <div style="display: flex; align-items: center;">
+                    <label>Escape Masking</label>
+                    <div class="help-button" id="escapeMaskingHelp" title="About Escape Masking">?</div>
+                </div>
+                <div class="toggle-switch" id="escapeMaskingToggle"></div>
+            </div>
+            <div class="toggle-item">
+                <label>Prevent Tab Close</label>
+                <div class="toggle-switch" id="preventCloseToggle"></div>
+            </div>
         </div>
     </div>
 
@@ -239,8 +505,296 @@
         <iframe id="embed" src=""></iframe>
     </div>
 
+    <div class="alert-overlay" id="alertOverlay">
+        <div class="alert-box">
+            <h3 class="alert-title">Escape Masking Warning</h3>
+            <p class="alert-message">
+                Escape masking disguises this website as a blank redirection page with nothing on it. You MUST press the escape key to load the GN-Math Link Picker. No instructions will be shown on the blank redirection page. You must REMEMBER to press escape when the page loads, otherwise the link picker will be permanently inaccessible unless you clear site data.
+            </p>
+            <div class="alert-buttons">
+                <button class="alert-button cancel" id="alertCancel">Cancel</button>
+                <button class="alert-button" id="alertConfirm">Enable</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        const UserDataManager = {
+            KEYS: {
+                ESCAPE_MASKING: 'gnmath_escape_masking',
+                PREVENT_CLOSE: 'gnmath_prevent_close',
+                LAST_HOST: 'gnmath_last_host'
+            },
+            
+            isAboutBlank: function() {
+                try {
+                    return window.location.href === 'about:blank' || 
+                           document.URL === 'about:blank' ||
+                           window.location.protocol === 'about:' ||
+                           !window.localStorage;
+                } catch (e) {
+                    return true;
+                }
+            },
+            
+            get: function(key) {
+                try {
+                    return localStorage.getItem(key);
+                } catch (e) {
+                    console.error(`[UserDataManager] Error getting ${key}:`, e);
+                    return null;
+                }
+            },
+            
+            set: function(key, value) {
+                try {
+                    localStorage.setItem(key, value);
+                    return true;
+                } catch (e) {
+                    console.error(`[UserDataManager] Error setting ${key}:`, e);
+                    return false;
+                }
+            },
+            
+            getEscapeMasking: function() {
+                if (this.isAboutBlank()) {
+                    return false;
+                }
+                const value = this.get(this.KEYS.ESCAPE_MASKING);
+                return value === 'true';
+            },
+            
+            setEscapeMasking: function(enabled) {
+                if (this.isAboutBlank()) {
+                    return false;
+                }
+                return this.set(this.KEYS.ESCAPE_MASKING, enabled ? 'true' : 'false');
+            },
+            
+            getPreventClose: function() {
+                const value = this.get(this.KEYS.PREVENT_CLOSE);
+                return value === 'true';
+            },
+            
+            setPreventClose: function(enabled) {
+                if (this.isAboutBlank()) {
+                    return false;
+                }
+                return this.set(this.KEYS.PREVENT_CLOSE, enabled ? 'true' : 'false');
+            },
+            
+            getLastHost: function() {
+                return this.get(this.KEYS.LAST_HOST);
+            },
+            
+            setLastHost: function(host) {
+                if (this.isAboutBlank()) {
+                    return false;
+                }
+                return this.set(this.KEYS.LAST_HOST, host);
+            },
+            
+            clearAll: function() {
+                Object.values(this.KEYS).forEach(key => {
+                    try {
+                        localStorage.removeItem(key);
+                    } catch (e) {
+                        console.error(`[UserDataManager] Error clearing ${key}:`, e);
+                    }
+                });
+            }
+        };
+
         let newTabVisible = false;
+        let escapeMaskingEnabled = false;
+        let preventCloseEnabled = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (UserDataManager.getEscapeMasking()) {
+                enableEscapeMasking(true);
+            } else {
+                disableEscapeMasking(true);
+            }
+            
+            if (UserDataManager.getPreventClose()) {
+                enablePreventClose();
+            } else {
+                disablePreventClose();
+            }
+        });
+
+        function enableEscapeMasking(skipSave = false) {
+            document.getElementById('maskingPage').classList.add('active');
+            document.body.classList.add('masked');
+            document.getElementById('escapeMaskingState').value = 'true';
+            document.title = 'Redirecting...';
+            escapeMaskingEnabled = true;
+            
+            const toggle = document.getElementById('escapeMaskingToggle');
+            if (toggle) {
+                toggle.classList.add('active');
+            }
+            
+            if (!skipSave) {
+                UserDataManager.setEscapeMasking(true);
+            }
+        }
+
+        function disableEscapeMasking(skipSave = false) {
+            document.getElementById('maskingPage').classList.remove('active');
+            document.body.classList.remove('masked');
+            document.getElementById('escapeMaskingState').value = '';
+            document.title = 'GN-Math Link Picker';
+            escapeMaskingEnabled = false;
+            
+            const toggle = document.getElementById('escapeMaskingToggle');
+            if (toggle) {
+                toggle.classList.remove('active');
+            }
+            
+            if (!skipSave) {
+                UserDataManager.setEscapeMasking(false);
+            }
+        }
+
+        function enablePreventClose() {
+            preventCloseEnabled = true;
+            
+            const toggle = document.getElementById('preventCloseToggle');
+            if (toggle) {
+                toggle.classList.add('active');
+            }
+            
+            window.addEventListener('beforeunload', handleBeforeUnload);
+            UserDataManager.setPreventClose(true);
+        }
+
+        function disablePreventClose() {
+            preventCloseEnabled = false;
+            
+            const toggle = document.getElementById('preventCloseToggle');
+            if (toggle) {
+                toggle.classList.remove('active');
+            }
+            
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            UserDataManager.setPreventClose(false);
+        }
+
+        function handleBeforeUnload(event) {
+            if (preventCloseEnabled) {
+                event.preventDefault();
+                event.returnValue = '';
+            }
+        }
+
+        document.getElementById('escapeMaskingToggle').addEventListener('click', function() {
+            const isCurrentlyActive = this.classList.contains('active');
+            
+            if (isCurrentlyActive) {
+                disableEscapeMasking();
+            } else {
+                showAlert('enable');
+            }
+        });
+
+        document.getElementById('preventCloseToggle').addEventListener('click', function() {
+            const isCurrentlyActive = this.classList.contains('active');
+            
+            if (isCurrentlyActive) {
+                disablePreventClose();
+            } else {
+                enablePreventClose();
+            }
+        });
+
+        function showAlert(type) {
+            const overlay = document.getElementById('alertOverlay');
+            const confirmBtn = document.getElementById('alertConfirm');
+            const cancelBtn = document.getElementById('alertCancel');
+            
+            overlay.classList.add('active');
+            
+            confirmBtn.onclick = function() {
+                overlay.classList.remove('active');
+                if (type === 'enable') {
+                    enableEscapeMasking();
+                }
+            };
+            
+            cancelBtn.onclick = function() {
+                overlay.classList.remove('active');
+            };
+        }
+
+        document.getElementById('escapeMaskingHelp').addEventListener('click', function() {
+            showAlert('info');
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (escapeMaskingEnabled && event.key === 'Escape') {
+                event.preventDefault();
+                openLinkPickerInBlank();
+            }
+        });
+
+        function openLinkPickerInBlank() {
+            const win = window.open('about:blank');
+            
+            const currentDoc = document.documentElement;
+            const clonedContent = currentDoc.outerHTML;
+            
+            const modifiedContent = clonedContent
+                .replace(
+                    /let escapeMaskingEnabled = false;/,
+                    'let escapeMaskingEnabled = false;'
+                )
+                .replace(
+                    /isAboutBlank: function\(\) \{[\s\S]*?catch \(e\) \{[\s\S]*?\}[\s\S]*?\}/,
+                    `isAboutBlank: function() { return true; }`
+                );
+            
+            win.document.open();
+            win.document.write(modifiedContent);
+            win.document.close();
+            
+            setTimeout(function() {
+                try {
+                    if (win.document.body) {
+                        win.document.body.classList.remove('masked');
+                    }
+                    const maskingPage = win.document.getElementById('maskingPage');
+                    if (maskingPage) {
+                        maskingPage.classList.remove('active');
+                    }
+                    const escapeToggle = win.document.getElementById('escapeMaskingToggle');
+                    if (escapeToggle) {
+                        escapeToggle.classList.remove('active');
+                    }
+                    win.document.title = 'GN-Math Link Picker';
+                } catch(e) {
+                    console.error('[OpenPicker] Error configuring new window:', e);
+                }
+            }, 50);
+            
+            setTimeout(function() {
+                window.location.href = 'https://google.com';
+            }, 100);
+        }
+
+        function openSettings() {
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('settingsView').classList.add('active');
+            document.getElementById('settingsIcon').classList.add('hidden');
+            document.getElementById('closeIcon').classList.remove('hidden');
+        }
+
+        function closeSettings() {
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('settingsView').classList.remove('active');
+            document.getElementById('settingsIcon').classList.remove('hidden');
+            document.getElementById('closeIcon').classList.add('hidden');
+        }
 
         function toggleNewTabLinks() {
             newTabVisible = !newTabVisible;
@@ -261,12 +815,12 @@
                     <path d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M12.0012 5C7.52354 5 3.73326 7.94288 2.45898 12C3.73324 16.0571 7.52354 19 12.0012 19C16.4788 19 20.2691 16.0571 21.5434 12C20.2691 7.94291 16.4788 5 12.0012 5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 `;
-                toggleButton.title = "Hide sites that must be opened in a new tab, marked by *";
+                toggleButton.title = "Hide sites that must be opened in an uncloaked new tab, marked by *";
             } else {
                 eyeIcon.innerHTML = `
                     <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 `;
-                toggleButton.title = "Show sites that must be opened in a new tab, marked by *";
+                toggleButton.title = "Show sites that must be opened in an uncloaked new tab, marked by *";
             }
         }
 
@@ -276,9 +830,12 @@
             const selectedText = select.options[select.selectedIndex].text;
             
             if (selectedValue) {
-                // Sites that should open in new tab (marked with *)
-                const newTabSites = ['*CodeHS', '*Google Scripts', '*Google Sites', '*W3Spaces', '*Random 8', '*Random 9'];
+                if (!UserDataManager.isAboutBlank()) {
+                    UserDataManager.setLastHost(selectedValue);
+                }
                 
+                const newTabSites = ['*CodeHS', '*Google Scripts', '*Google Sites', '*W3Spaces'];
+
                 if (newTabSites.some(site => selectedText.startsWith(site))) {
                     window.open(selectedValue, '_blank');
                 } else {
@@ -315,16 +872,6 @@
             }
         }
 
-        const embedContainer = document.querySelector('#embedContainer');
-        
-        function handleKeyPress(event) {
-            if (event.key === 'Escape') {
-                embedContainer.style.display = 'block';
-            }
-        }
-        
-        document.addEventListener('keydown', handleKeyPress);
-        
         document.getElementById('linkSelect').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 goToLink();
