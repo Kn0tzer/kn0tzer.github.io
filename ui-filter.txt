@@ -1,0 +1,120 @@
+! May 8, 2025 https://ticktick.com
+ticktick.com##div.relative > .relative.h-full.w-full > .justify-center.items-center.flex.h-full.w-full
+ticktick.com##.cursor-pointer.w-full.h-full > .relative.w-full.h-full > .justify-center.items-center.flex.w-full.h-full
+ticktick.com##div.relative > .w-full.h-full > .justify-center.items-center.flex.h-full.w-full
+ticktick.com###project-ul
+ticktick.com##.px-\[10px\].h-\[30px\].drop-hover-target
+ticktick.com##div.dark\:bg-grey-10.bg-grey-5.h-\[1px\]:nth-of-type(3)
+ticktick.com##div.smart-project-dropper.project:nth-of-type(3) > .px-\[10px\].h-\[40px\].drop-hover-target.project-list-view-item > .h-full > .pr-\[12px\].pl-\[14px\].dark\:hover\:bg-grey-3.hover\:bg-grey-10.w-full.text-left.overflow-hidden.group.cursor-pointer.items-center.flex.rounded-default.h-full.relative.drop-hover-effect.project-list-view-item-button
+ticktick.com##div.smart-project-dropper.project:nth-of-type(3) > .px-\[10px\].h-\[40px\].drop-hover-target.project-list-view-item > .h-full
+ticktick.com##div.smart-project-dropper.project:nth-of-type(3)
+ticktick.com##.upgrade-button
+ticktick.com##.text-\[\#aeaeae\].absolute.icon-s-normal-tny.icon-user-icon > use
+ticktick.com###left-menu-t > .bgIconWrapper_aJONI.group.items-center.flex.relative > .rounded-\[5px\].bg_LSNT6.dark\:bg-white-5.bg-grey-5.bg.z-0.opacity-0.absolute
+ticktick.com##.check-toggle.cr-pointer.items-center.flex.h-\[30px\].pr-\[12px\].z-\[9\].relative.td-check.btn-item.right\_1zJTU
+ticktick.com##.leading-\[30px\].text-grey-40.truncate
+ticktick.com##.text-grey-40.h-\[18px\].w-\[18px\].normal-icon.i-black.i-o-36.icon-detail-date-unselected
+ticktick.com##.action-btn > .bgIconWrapper_aJONI.group.items-center.flex.relative > .rounded-\[5px\].bg_LSNT6.dark\:bg-white-5.bg-grey-5.bg.z-0.opacity-0.absolute
+ticktick.com##.z-\[1\].relative.cursor-pointer.opacity-60.h-\[18px\].w-\[18px\].i-h-o-54.i-o-36.icon-sort
+ticktick.com##.justify-between.flex.mr-\[20px\].leading-\[48px\].h-\[48px\].relative.toolBar
+ticktick.com##div.group.justify-between.items-center.flex.relative.px-\[12px\].cursor-pointer.leading-\[36px\].open.section-header:nth-of-type(1)
+ticktick.com###leftListView
+ticktick.com##.justify-between.flex.leading-\[18px\].h-\[18px\].items-center.flex-auto.tl-bar-action-bar
+ticktick.com##.z-\[1\].relative.toggleSideBarIcon.opacity-60.h-\[18px\].w-\[18px\].icon-sidebar-collapse
+ticktick.com##.overflow-hidden.truncate.flex-auto.z-\[2\].relative.font-semibold.select-enabled.tl-des
+ticktick.com##.mr-\[12px\].items-center.flex.flex-none.overflow-hidden.tips
+ticktick.com##div.group.justify-between.items-center.flex.relative.px-\[12px\].cursor-pointer.leading-\[36px\].open.section-header
+ticktick.com###left-view
+ticktick.com##.overflow-hidden.inset-0.absolute.task-progress-wrapper
+ticktick.com##.pl-\[5px\].relative.overflow-hidden.flex-auto.inline-flex.td-reminder
+ticktick.com##.items-center.flex.pl-\[16px\].btn-item .bgIconWrapper_aJONI.group.items-center.flex.relative
+
+
+! May 11, 2025 https://earnapp.com
+earnapp.com##.AMoiLEGXh0Ritrit39BF
+earnapp.com##.JULM5d8btm6xPFtqLj8_.ea_sidebar
+earnapp.com##.viY3Ihgo0\_Pb9CSVOVCk
+earnapp.com##.mvf1d1lgqLCRiJuGzRm1
+earnapp.com##.OyBZ1Elc0ea12UvPDzTj
+earnapp.com##.O2_nehq9GCBJkQDorG8n > div.HmbDLe_uRCGtWyuqeQ0V:nth-of-type(2)
+earnapp.com##td.PSpHzs5SdKcOfQDDRo04.CTaxgE0Jnehoxx3BKW3M:nth-of-type(5)
+earnapp.com##th.LD788FrhCJmKz9bZUQUG.hEmZn4GGiuLUsHZGqCJQ:nth-of-type(5)
+earnapp.com##td.PSpHzs5SdKcOfQDDRo04.Z7uboT3rksc6k0WRq7Pw.CTaxgE0Jnehoxx3BKW3M:nth-of-type(3)
+earnapp.com##th.hEmZn4GGiuLUsHZGqCJQ:nth-of-type(3)
+earnapp.com##.fLYwr6GvDFbbcRYKinMB
+earnapp.com##.nSlKQxRyhsB\_Iw1Vx7lp
+
+
+! Jun 12, 2025 https://www.youtube.com
+www.youtube.com##.ytd-rich-section-renderer.style-scope > .ytd-shelf-renderer.style-scope
+www.youtube.com###section-items
+www.youtube.com###newness-dot
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(2)
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(5)
+www.youtube.com###guide-links-primary
+www.youtube.com###guide-links-secondary
+www.youtube.com###copyright
+www.youtube.com###voice-search-button
+www.youtube.com###end > .ytd-masthead.style-scope
+www.youtube.com##div.ytd-topbar-logo-renderer.style-scope > .ytd-topbar-logo-renderer.style-scope
+www.youtube.com###guide-icon > .yt-spec-icon-shape.yt-icon.style-scope.yt-icon-shape > div
+www.youtube.com##.ytd-badge-supported-renderer.style-scope.badge-style-type-verified.badge > yt-icon.ytd-badge-supported-renderer.style-scope > .yt-spec-icon-shape.yt-icon.style-scope.yt-icon-shape > div
+www.youtube.com##.ytp-button.ytp-pip-button
+www.youtube.com##.ytp-button.ytp-miniplayer-button
+www.youtube.com##.ytp-button.ytp-remote-button
+www.youtube.com##.ytd-menu-renderer.style-scope.yt-spec-button-view-model > .yt-spec-button-shape-next--enable-backdrop-filter-experiment.yt-spec-button-shape-next--icon-leading.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next
+www.youtube.com###button-shape > .yt-spec-button-shape-next--enable-backdrop-filter-experiment.yt-spec-button-shape-next--icon-button.yt-spec-button-shape-next--size-m.yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal.yt-spec-button-shape-next
+www.youtube.com##.paper-toast-open.yt-notification-action-renderer.style-scope.toast-button
+www.youtube.com##tp-yt-paper-dialog.ytd-popup-container.style-scope
+www.youtube.com##.ytd-mini-guide-entry-renderer.style-scope.title
+www.youtube.com##.ytp-paid-content-overlay
+www.youtube.com##.ytp-autonav-toggle.ytp-button
+www.youtube.com##.ytd-download-button-renderer.style-scope
+www.youtube.com##.ryd-tooltip-bar-container
+www.youtube.com###sponsor-button
+www.youtube.com##.ytd-statement-banner-renderer.style-scope
+www.youtube.com###dismissible > .ytd-brand-video-singleton-renderer.style-scope
+www.youtube.com##.ytdTalkToRecsFlowRendererHost
+www.youtube.com###flexible-item-buttons
+www.youtube.com###teaser-carousel
+www.youtube.com###top-level-buttons-computed > yt-button-view-model.ytd-menu-renderer
+www.youtube.com##ytd-badge-supported-renderer.ytd-channel-name.style-scope
+www.youtube.com###action-menu > .ytd-comment-view-model.style-scope
+www.youtube.com###video-summary
+www.youtube.com##.ytVideoDescriptionYouchatSectionViewModelHost
+www.youtube.com##ytd-horizontal-card-list-renderer.ytd-structured-description-content-renderer.style-scope
+www.youtube.com##ytd-video-description-infocards-section-renderer.ytd-structured-description-content-renderer.style-scope
+www.youtube.com###dislike-button
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(4)
+www.youtube.com##ytd-guide-section-renderer.ytd-guide-renderer.style-scope:nth-of-type(3)
+www.youtube.com##.ytp-button.ytp-prev-button
+www.youtube.com##.ytp-playlist-ui.ytp-button.ytp-next-button
+www.youtube.com##.ytp-button.ytp-size-button
+www.youtube.com###efyt-experiments
+www.youtube.com##.ytp-ce-element-show.ytp-ce-hide-button-container
+
+
+! Nov 22, 2025 https://app.cinny.in
+app.cinny.in##._1xki9of1.prxiv41t.prxiv41._1mqalmd0.\_1mqalmd1.prxiv40
+app.cinny.in###root > .prxiv41s.prxiv41._1mqalmd0._1mqalmd1.prxiv40 > .prxiv41t.prxiv41._1mqalmd0._1mqalmd1.prxiv40
+app.cinny.in##._1xki9of7._1xki9of5.hru6bec.hru6be2._1mqalmd0._1mqalmd1.hru6be0
+app.cinny.in##div.coabsl1.prxiv41t.prxiv41j.prxiv41a.prxiv41._1mqalmd0._1mqalmd1.prxiv40:nth-of-type(3) > button.cpipac2.brs7cei.brs7cec.brs7ce6._1bugis91._1bugis90._1mqalmd0._1mqalmd1.brs7ce5:nth-of-type(1)
+app.cinny.in##button.cpipac2.brs7cei.brs7cec.brs7ce6._1bugis91._1bugis90._1mqalmd0._1mqalmd1.brs7ce5:nth-of-type(2)
+app.cinny.in##button.cpipac2.brs7cei.brs7cec.brs7ce6._1bugis91._1bugis90._1mqalmd0._1mqalmd1.brs7ce5:nth-of-type(3)
+app.cinny.in##._1xny9xlo._1xny9xlc._1mqalmd0._1mqalmd1.\_1xny9xl0
+app.cinny.in##button.cpipac2._13tt0gbh._13tt0gbf._13tt0gb8._1bugis91._1bugis90._1mqalmd0._1mqalmd1._13tt0gb6:nth-of-type(3)
+app.cinny.in##button.cpipac2._13tt0gbh._13tt0gbf._13tt0gb8._1bugis91._1bugis90._1mqalmd0._1mqalmd1._13tt0gb6:nth-of-type(1)
+app.cinny.in##button.cpipac2._13tt0gbh._13tt0gbf._13tt0gb8._1bugis91._1bugis90._1mqalmd0._1mqalmd1._13tt0gb6:nth-of-type(5)
+app.cinny.in##button.cpipac2._13tt0gbh._13tt0gbf._13tt0gb8._1bugis91._1bugis90._1mqalmd0._1mqalmd1._13tt0gb6:nth-of-type(6)
+app.cinny.in##.prxiv41s.prxiv41l.prxiv41b.prxiv4i.prxiv44.prxiv41._1mqalmd0._1mqalmd1.prxiv40
+app.cinny.in##.\_161nxveo
+app.cinny.in##._1rwrsxz1._18fjf6z0.prxiv41t.prxiv46.prxiv41._1mqalmd0._1mqalmd1.prxiv40
+app.cinny.in##._1rwrsxz6.prxiv41a.prxiv4g.prxiv41._1mqalmd0._1mqalmd1.prxiv40
+app.cinny.in##._1yan8ddd._1yan8ddb._1yan8dd8._1mqalmd0._1mqalmd1._1yan8dd1
+
+! Mar 11, 2026 https://4get.canine.tools
+4get.work.gd##.filters
+4get.work.gd##.navigation
+4get.work.gd##a.tab:nth-of-type(5)
+4get.work.gd##a.tab:nth-of-type(4)
+4get.work.gd##a.tab:nth-of-type(3)
