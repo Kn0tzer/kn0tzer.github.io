@@ -1,4 +1,4 @@
-import * as THREE from "../../node_modules/three/build/three.webgpu.js";
+import * as THREE from "https://esm.sh/three@0.179.0/build/three.webgpu.js";
 
 
 const _P = new THREE.Vector3();
