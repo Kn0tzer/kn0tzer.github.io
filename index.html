@@ -1,304 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="/logo.webp">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kn0tzer</title>
-    <link rel="icon" type="image/x-icon" href="/logo.webp">
-    <style>
-        body {
-            font-family: "Inter", sans-serif;
-            margin: 0;
-            margin-bottom: 70px;
-            background-color: #1c1c1c;
-            color: #EEEEEE;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-image: url('/background.webp');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center center;
-            background-repeat: no-repeat;
-        }
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Kn0tzer"/>
+    <title>Kn0tzer — Portfolio</title>
 
-        header {
-            text-align: center;
-            margin-top: 115px;
-        }
-        header h1 {
-            font-size: 6em;
-            margin-top: 0px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            background: linear-gradient(0deg, #40A354 0%, #407E52 40%, #555555 100%);
-            text-shadow: 8px 8px 9px rgba(0, 0, 0, 0.7), -2px -2px 4px rgba(0, 0, 0, 0.3);
-            background-clip: text;
-            color: transparent;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            -webkit-text-stroke: 2px white;
-            paint-order: stroke fill;
-        }
-        header h2 {
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-top: 0;
-            text-shadow: 0 0 10px rgb(255, 255, 255);
-        }
-        header p {
-            font-size: 1.2em;
-            margin: 5px 0;
-        }
-        img {
-            width: 30px; height: 30px;
-        }
+    <link rel="shortcut icon" href="#">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        .links {
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-        .links a {
-            margin: 0 5px;
-            text-decoration: none;
-        }
-
-        .who-am-i {
-            background-color: rgba(45, 45, 45, 0.4);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            width: 80%;
-            max-width: 800px;
-            border-radius: 10px;
-            margin-top: 40px;
-            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .who-am-i:hover {
-            transform: scale(1.05);
-        }
-        .who-am-i h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-            margin-top: 0;
-        }
-        .who-am-i p {
-            font-size: 1.1em;
-            color: #cccccc;
-            line-height: 1.5em;
-        }
-
-        .projects {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .projects h2 {
-            font-size: 2.4em;
-            margin-bottom: 20px;
-        }
-        .projects hr {
-            border-color: #012237;
-            border-width: 2px; border-style: solid;
-        }
-
-        .project-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: left;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            width: 80%;
-            margin: 0 auto;
-            margin-top: 50px;
-        }
-
-        .project {
-            background-color: rgba(45, 45, 45, 0.5);
-            backdrop-filter: blur(10px);
-            flex: 1 1 calc(25% - 20px);
-            max-width: 350px;
-            box-sizing: border-box;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-        .project:hover {
-            transform: scale(1.05);
-        }
-        .project h3 {
-            margin: 10px 0;
-            font-size: 1.5em;
-        }
-        .project h4 {
-            margin: 10px 0;
-            font-size: 1.2em;
-        }
-        .project p {
-            font-size: 1.1em;
-            color: #cccccc;
-        }
-        .project a {
-            color: #cccccc;
-            text-decoration: underline;
-        }
-
-
-        .experience {
-            background-color: rgba(45, 45, 45, 0.5);
-            backdrop-filter: blur(10px);
-            flex: 1 1 calc(25% - 20px);
-            min-width: 60%;
-            box-sizing: border-box;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 7px 6px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
-        }
-        .experience:hover {
-            transform: scale(1.05);
-        }
-        .experience h3 {
-            margin: 10px 0;
-            font-size: 1.5em;
-        }
-        .experience h4 {
-            margin: 10px 0;
-            font-size: 1.2em;
-        }
-        .experience p {
-            font-size: 1.1em;
-            color: #cccccc;
-        }
-        .experience a {
-            color: #cccccc;
-            text-decoration: underline;
-        }
-    </style>
+    <script src="assets/coi-serviceworker.js"></script>
+    <script type="module" src="./assets/portfolio.js"></script>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <header>
-        <img src="/logo.webp" alt="Logo" style="width: 150px; height: 150px; margin-bottom: 8px;">
-        <h1>Kn0tzer</h1>
-        <h2>General Developer and Designer</h2>
-        <div class="links">
-            <a href="https://github.com/Kn0tzer" target="_blank";">
-                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/github.png" alt="GitHub">
-            </a>
-            <a href="https://discordapp.com/users/506628717125304334" target="_blank";" onclick="showDiscordAlert(event)">
-                <img src="https://img.icons8.com/material-rounded/120/FFFFFF/discord-logo.png" alt="Discord">
-            </a>
-            <a href="https://t.me/kn0tzer" target="_blank";">
-                <img src="https://img.icons8.com/?size=120&id=lUktdBVdL4Kb&format=png&color=FFFFFF" alt="GitHub">
-            </a>
-            <a href="javascript:void(0);" onclick="copy()";">
-                <img src="https://img.icons8.com/?size=120&id=53435&format=png&color=FFFFFF" alt="Email">
-            </a>
-            <script>
-                function copy() {
-                    var email = "g4marchi@gmail.com";
-                    navigator.clipboard.writeText(email).then(function() {
-                        alert("g4marchi@gmail.com Copied to clipboard.");
-                    }).catch(function(err) {
-                        alert("Failed to copy g4marchi@gmail.com: " + err);
-                    });
-                }
-                function showDiscordAlert(event) {
-                    event.preventDefault(); // Wait before opening link
-                    alert("I don't use Discord often at all, so you'll get a reply much faster contacting me any way other than Discord.");
-                    window.open(event.currentTarget.href, '_blank');
-                }
-            </script>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-content">
+            <h2 class="loader-name">KnOtzer</h2>
+            <div class="wip-warning">WORK IN PROGRESS</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+            <button id="skip-loading" class="skip-btn">Skip Loading</button>
         </div>
-    </header>
-    <section class="who-am-i">
-        <h2>Who am I?</h2>
-        <p>
-            I'm a 16 Year Old programmer and designer with a strong, self-motivated passion for everything technology.<br>
-            I taught myself how to code, and have never watched a coding tutorial or taken a coding class as of making this website. No AI was used to make this page.<br>
-            Some of my interests are UI/UX Design, Ethical Hacking, Game Design, and much more outside of technology. <br>
-        </p>
-    </section>
-    <div class="who-am-i-spacer"></div>
-    <section class="projects">
-        <h2>Projects</h2>
-        <hr>
-        <div class="project-grid">
-            <div class="project">
-                <h3>Microapps</h3>
-                <p>A group of small apps designed to have a good UI while being as simple as possible, even if that means compromising on features. Very early alpha.</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/microapps">GitHub</a><br><br>
-                <a href="https://microapps-dj.vercel.app/microtask">Microtask</a></p>
-            </div>
-            <div class="project">
-                <h3>Shortcuts Exploits and Bugs</h3>
-                <p>A lengthy list of exploits, bugs, oversights, and more I've found in my time creating iOS Shortcuts. (Nearly 100 stars on GitHub!)</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/iOS-Shortcuts-Exploits">Link</a></p>
-            </div>
-            <div class="project">
-                <h3>BlipBox</h3>
-                <p>A peer to peer file transfer app with infinite file size limits, file history, and cloud backup support. Unreleased since I would need to rewrite the entire backend. I recommend you use Keet since it has similar features.</p>
-                <h4>References</h4>
-                <p><a href="https://keet.io/">Keet</a></p>
-            </div>
-            <div class="project">
-                <h3>HBoard</h3>
-                <p>A web based jailbreak alternative providing tweak injection to a pixel perfect recreation of the iOS homescreen. This project has never been finished, see Prism for something similar (also unfinished).</p>
-                <h4>References</h4>
-                <p><a href="https://x.com/prismios">Prism</a><br><br>
-                <a href="https://hboard.netlify.app">Outdated archive</a></p>
-            </div>
-            <div class="project">
-                <h3>iMessage</h3>
-                <p>A janky but still working method to access iMessage from any device with a web browser. Never being released.</p>
-                <h4>References</h4>
-                <p>Somewhat but not really based on <a href="https://github.com/notAperson535/OneClick-macOS-Simple-KVM">this script</a></p>
-            </div>
-            <div class="project">
-                <h3>Remote Control iPhone</h3>
-                <p>A method to remotely control any iPhone from any device with a web browser</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Remote-Control-iPhone">No Jailbreak Guide</a></p>
-            </div>
-            <div class="project">
-                <h3>Web Proxy/Unblocker</h3>
-                <p>An Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices. Used in part for the Moonlight Proxy</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/Unblocker">GitHub</a><br><br>
-                <a href="https://titaniumnetwork.org">Titanium Network</a></p>
-            </div>
-            <div class="project">
-                <h3>Kn0tzer.is-a.dev</h3>
-                <p>See the GitHub for subdirectories of this website</p>
-                <h4>References</h4>
-                <p><a href="https://github.com/Kn0tzer/kn0tzer.github.io">GitHub</a></p>
-            </div>
+    </div>
+
+    <!-- Background -->
+    <canvas id="ocean-canvas"></canvas>
+    <div id="container"></div>
+
+    <!-- Navigation -->
+    <nav id="nav-dots" aria-label="Section navigation">
+        <button class="nav-dot active" data-section="0" aria-label="Go to top section"></button>
+        <button class="nav-dot" data-section="1" aria-label="Go to projects section"></button>
+        <button class="nav-dot" data-section="2" aria-label="Go to experience section"></button>
+    </nav>
+
+    <!-- Contact -->
+    <div class="hero-links" id="hero-links">
+        <a href="https://github.com/Kn0tzer" target="_blank" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="https://discordapp.com/users/506628717125304334" target="_blank" aria-label="Discord">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+        </a>
+        <a href="https://t.me/kn0tzer" target="_blank" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.29-.48.79-.74 3.08-1.34 5.15-2.23 6.19-2.66 2.95-1.23 3.56-1.44 3.97-1.45.09 0 .28.02.41.11.11.08.14.19.15.27-.02.04.01.12 0 .15z"/></svg>
+        </a>
+        <a href="javascript:void(0);" onclick="copyEmail()" aria-label="Copy email">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+    </div>
+    <div id="toast" class="toast">kn3tzer@gmail.com copied to clipboard</div>
+
+    <div class="scroll-indicator">
+        <span class="scroll-text">Projects</span>
+        <div class="scroll-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
-    </section>
-    <section class="projects">
-        <h2>My Experience</h2>
-        <hr>
-        <div class="project-grid">
-            <div class="experience">
-                <h3>Oracle Cloud Infrastructure</h3>
-                <p>I host a bunch of tools on Oracle Cloud Infrastructure. This gives me experience with many things, such as docker, server security, caddy, and more. I also host a private <a href="https://matrix.org/">Matrix</a> server, and Minecraft server.</p>
+    </div>
+
+    <main id="scroll-container">
+        <div id="scroll-inner">
+
+        <!-- Top -->
+        <section id="section-hero" class="snap-section">
+            <div class="hero-content">
+                <h1 class="hero-name">KnOtzer</h1>
+                <p class="hero-description">16 year old self-motivated programmer</p>
+                <ul class="hero-bullets">
+                    <li>
+                        <svg class="bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C12 22 12 12 22 12C12 12 12 2 12 2C12 2 12 12 2 12C12 12 12 22 12 22Z"/></svg>
+                        Frontend Design
+                    </li>
+                    <li>
+                        <svg class="bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C12 22 12 12 22 12C12 12 12 2 12 2C12 2 12 12 2 12C12 12 12 22 12 22Z"/></svg>
+                        Security Research
+                    </li>
+                    <li>
+                        <svg class="bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C12 22 12 12 22 12C12 12 12 2 12 2C12 2 12 12 2 12C12 12 12 22 12 22Z"/></svg>
+                        Game Design
+                    </li>
+                </ul>
             </div>
-            <div class="experience">
-                <h3>Backend Networking</h3>
-                <p>I have experience in networking and server side development through the iMessage project, and <a href="https://matrix.org/">Matrix</a> server listed above. Neither of these are open to the public for a variety of reasons.<br><br>
-                Something that did get released, however, is the Web Proxy/Unblocker listed above which involved full stack development, web proxies, working with a team, Google Chrome and Cisco Umbrella exploits, and much more.</p>
+        </section>
+
+        <!-- Middle -->
+        <section id="section-projects" class="snap-section">
+            <div class="projects-grid">
+                <div class="project-card glass-card">
+                    <h3>Microapps</h3>
+                    <p>A group of small apps designed to have a good UI while being as simple as possible, even if that means compromising on features. Very early alpha.</p>
+                    <div class="card-links">
+                        <a href="https://github.com/Kn0tzer/microapps" target="_blank">GitHub</a>
+                        <a href="https://microapps-dj.vercel.app/microtask" target="_blank">Microtask</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>Shortcuts Exploits and Bugs</h3>
+                    <p>A lengthy list of exploits, bugs, oversights, and more I've found in my time creating iOS Shortcuts. (Nearly 100 stars on GitHub!)</p>
+                    <div class="card-links">
+                        <a href="https://github.com/Kn0tzer/iOS-Shortcuts-Exploits" target="_blank">Link</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>BlipBox</h3>
+                    <p>A peer to peer file transfer app with infinite file size limits, file history, and cloud backup support. Unreleased since I would need to rewrite the entire backend. I recommend you use Keet since it has similar features.</p>
+                    <div class="card-links">
+                        <a href="https://keet.io/" target="_blank">Keet</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>HBoard</h3>
+                    <p>A web based jailbreak alternative providing tweak injection to a pixel perfect recreation of the iOS homescreen. This project has never been finished, see Prism for something similar (also unfinished).</p>
+                    <div class="card-links">
+                        <a href="https://x.com/prismios" target="_blank">Prism</a>
+                        <a href="https://hboard.netlify.app" target="_blank">Outdated archive</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>iMessage</h3>
+                    <p>A janky but still working method to access iMessage from any device with a web browser. Never being released.</p>
+                    <div class="card-links">
+                        <a href="https://github.com/notAperson535/OneClick-macOS-Simple-KVM" target="_blank">Somewhat but not really based on this script</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>Remote Control iPhone</h3>
+                    <p>A method to remotely control any iPhone from any device with a web browser</p>
+                    <div class="card-links">
+                        <a href="https://github.com/Kn0tzer/Remote-Control-iPhone" target="_blank">No Jailbreak Guide</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>Web Proxy/Unblocker</h3>
+                    <p>An Ultraviolet based web proxy designed to cleanly unblock websites on school distributed devices. Used in part for the Moonlight Proxy</p>
+                    <div class="card-links">
+                        <a href="https://github.com/Kn0tzer/Unblocker" target="_blank">GitHub</a>
+                        <a href="https://titaniumnetwork.org" target="_blank">Titanium Network</a>
+                    </div>
+                </div>
+
+                <div class="project-card glass-card">
+                    <h3>Kn0tzer.is-a.dev</h3>
+                    <p>See the GitHub for subdirectories of this website</p>
+                    <div class="card-links">
+                        <a href="https://github.com/Kn0tzer/kn0tzer.github.io" target="_blank">GitHub</a>
+                    </div>
+                </div>
             </div>
-            <div class="experience">
-                <h3>Web Development and Design</h3>
-                <p>If this website isn't enough (fair), then check out my app called <a href="https://microapps-dj.vercel.app/microtask">Microtask</a>. This is currently in it's early alpha stages, but I do have <a href="https://github.com/Kn0tzer/microapps">big plans for this suite of apps</a>.</p>
+        </section>
+
+        <!-- Bottom -->
+        <section id="section-experience" class="snap-section">
+            <div class="experience-panels">
+                <div class="experience-panel glass-panel">
+                    <h3>Oracle Cloud Infrastructure</h3>
+                    <p>I host a bunch of tools on Oracle Cloud Infrastructure. This gives me experience with many things, such as docker, server security, caddy, and more. I also host a private <a href="https://matrix.org/" target="_blank">Matrix</a> server, and Minecraft server.</p>
+                </div>
+
+                <div class="experience-panel glass-panel">
+                    <h3>Backend Networking</h3>
+                    <p>I have experience in networking and server side development through the iMessage project, and <a href="https://matrix.org/" target="_blank">Matrix</a> server listed above. Neither of these are open to the public for a variety of reasons.</p>
+                    <p>Something that did get released, however, is the Web Proxy/Unblocker listed above which involved full stack development, web proxies, working with a team, Google Chrome and Cisco Umbrella exploits, and much more.</p>
+                </div>
+                
+                <div class="experience-panel glass-panel">
+                    <h3>Web Development and Design</h3>
+                    <p>If this website isn't enough (fair), then check out my app called <a href="https://microapps-dj.vercel.app/microtask" target="_blank">Microtask</a>. This is currently in it's early alpha stages, but I do have <a href="https://github.com/Kn0tzer/microapps" target="_blank">big plans for this suite of apps</a>.</p>
+                </div>
             </div>
-    </section>
+        </section>
+        </div>
+    </main>
 </body>
 </html>

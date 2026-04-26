@@ -1,13 +1,10 @@
-/* ===== Reset & Base ===== */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     background: #000;
@@ -15,32 +12,26 @@ body {
     font-family: 'Outfit', sans-serif;
     color: #fff;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== Three.js Background ===== */
-#container {
+/* Background */
+#ocean-canvas, #container {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     z-index: 0;
-    overflow: hidden;
 }
 
-#container canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
+#container { overflow: hidden; }
+#container canvas { display: block; width: 100%; height: 100%; }
 
-/* ===== Scroll Container ===== */
+/* Sections Container */
 #scroll-container {
     position: relative;
     z-index: 1;
     height: 100vh;
-    overflow: hidden; /* Hide scrollbar for custom JS scroll */
+    overflow: hidden;
 }
 
 #scroll-inner {
@@ -48,19 +39,17 @@ body {
     will-change: transform;
 }
 
-/* ===== Sections ===== */
 .snap-section {
     height: 100vh;
     width: 100vw;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* ===== Loading Screen ===== */
+/* Loading Screen */
 #loading-screen {
     position: fixed;
     inset: 0;
@@ -91,14 +80,26 @@ body {
     letter-spacing: 0.1em;
 }
 
+.wip-warning {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ff3333;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border: 2px solid #ff3333;
+    border-radius: 4px;
+    background: rgba(255, 51, 51, 0.15);
+    animation: blink 1s infinite;
+}
+
 .progress-bar-container {
     width: 200px;
     height: 4px;
     background: rgba(255, 200, 150, 0.1);
     border-radius: 2px;
     overflow: hidden;
-    position: relative;
-    margin-top: 10px;
 }
 
 .progress-bar {
@@ -107,6 +108,13 @@ body {
     background: rgba(255, 200, 150, 0.8);
     border-radius: 2px;
     animation: fillBar 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fillBar { to { width: 100%; } }
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 .skip-btn {
@@ -126,15 +134,9 @@ body {
 .skip-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 230, 200, 0.9);
-    border-color: rgba(255, 255, 255, 0.2);
 }
 
-@keyframes fillBar {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
-
-/* ===== Navigation Dots ===== */
+/* Navigation */
 #nav-dots {
     position: fixed;
     right: 28px;
@@ -153,8 +155,7 @@ body {
     border-radius: 50%;
     border: 1.5px solid rgba(255,255,255,0.5);
     background: rgba(255,255,255,0.06);
-    backdrop-filter: url(#frosted-small) blur(6px);
-    -webkit-backdrop-filter: url(#frosted-small) blur(6px);
+    backdrop-filter: blur(6px);
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
@@ -174,7 +175,7 @@ body {
     transform: scale(1.2);
 }
 
-/* ===== Hero Section ===== */
+/* Hero Section */
 #section-hero {
     justify-content: flex-start;
     align-items: flex-start;
@@ -188,20 +189,14 @@ body {
 }
 
 .hero-content.fade-out {
-    opacity: 0 !important;
-    transform: translateY(-20px) !important;
-    pointer-events: none !important;
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-name {
@@ -220,7 +215,6 @@ body {
 }
 
 .hero-description {
-    font-family: 'Outfit', sans-serif;
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     font-weight: 300;
     color: rgba(255, 240, 225, 0.9);
@@ -237,11 +231,9 @@ body {
     gap: 0.8rem;
     margin-bottom: 1.5rem;
     animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-    max-width: fit-content;
 }
 
 .hero-bullets li {
-    font-family: 'Outfit', sans-serif;
     font-size: clamp(0.75rem, 1.1vw, 0.9rem);
     font-weight: 400;
     color: rgba(255, 240, 225, 0.8);
@@ -257,7 +249,7 @@ body {
     color: rgba(255, 200, 150, 0.8);
 }
 
-/* ===== Scroll Indicator ===== */
+/* Scroll Indicator */
 .scroll-indicator {
     position: fixed;
     bottom: 2vh;
@@ -274,12 +266,11 @@ body {
 }
 
 .scroll-indicator.fade-out {
-    opacity: 0 !important;
-    pointer-events: none !important;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .scroll-text {
-    font-family: 'Outfit', sans-serif;
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -299,7 +290,7 @@ body {
     50% { opacity: 1; transform: translateY(8px); }
 }
 
-/* ===== Contact Buttons ===== */
+/* Contact Links */
 .hero-links {
     position: fixed;
     bottom: 32px;
@@ -311,8 +302,8 @@ body {
 }
 
 .hero-links.hidden {
-    transform: translateX(calc(100% + 60px)) !important;
-    opacity: 0 !important;
+    transform: translateX(calc(100% + 60px));
+    opacity: 0;
     pointer-events: none;
 }
 
@@ -325,12 +316,8 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255,255,255,0.18);
-    backdrop-filter: url(#frosted-btn) blur(10px);
-    -webkit-backdrop-filter: url(#frosted-btn) blur(10px);
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.08),
-        0 4px 12px rgba(0,0,0,0.12);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.12);
     transition: all 0.3s ease;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.85);
@@ -340,25 +327,14 @@ body {
     background: rgba(255,255,255,0.12);
     border-color: rgba(255,255,255,0.35);
     transform: translateY(-2px);
-    box-shadow:
-        0 0 0 1px rgba(255,255,255,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.12),
-        0 8px 20px rgba(0,0,0,0.18);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.12), inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 20px rgba(0,0,0,0.18);
     color: #fff;
 }
 
-.hero-links a svg {
-    width: 32px;
-    height: 32px;
-    transition: opacity 0.3s ease;
-}
+.hero-links a svg { width: 32px; height: 32px; }
 
-/* ===== Projects Section ===== */
-#section-projects {
-    padding: 0 5vw;
-    align-items: center;
-    justify-content: center;
-}
+/* Projects Section */
+#section-projects { padding: 0 5vw; }
 
 .projects-grid {
     display: grid;
@@ -369,8 +345,8 @@ body {
     max-height: 85vh;
 }
 
-/* ===== Glass Card (Projects) ===== */
-.glass-card {
+/* Glass Card & Panel Base */
+.glass-card, .glass-panel {
     position: relative;
     border-radius: 22px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
@@ -379,28 +355,32 @@ body {
     border-left: 1px solid rgba(255,255,255,0.2);
     backdrop-filter: blur(2px) brightness(1.2) contrast(1.1) saturate(1.5);
     -webkit-backdrop-filter: blur(2px) brightness(1.2) contrast(1.1) saturate(1.5);
-    box-shadow:
-        0 8px 32px rgba(0,0,0,0.2),
-        inset 0 0 12px rgba(255,255,255,0.05);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 0 12px rgba(255,255,255,0.05);
     padding: 1.8rem 1.7rem 1.6rem;
     display: flex;
     flex-direction: column;
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, opacity 0.5s ease, background 0.35s ease;
+    opacity: 0;
+    transform: translateY(25px);
 }
 
-.glass-card::after {
+.glass-card.visible, .glass-panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.glass-card::after, .glass-panel::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background:
-        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.08), transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(255,255,255,0.04), transparent 40%),
-        linear-gradient(135deg, rgba(0,0,0,0.15), transparent);
+    background: radial-gradient(circle at 15% 20%, rgba(255,255,255,0.08), transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(255,255,255,0.04), transparent 40%),
+                linear-gradient(135deg, rgba(0,0,0,0.15), transparent);
     pointer-events: none;
 }
 
-.glass-card::before {
+.glass-card::before, .glass-panel::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -412,21 +392,17 @@ body {
     z-index: 0;
 }
 
-.glass-card:hover {
+.glass-card:hover, .glass-panel:hover {
     border-top: 1px solid rgba(255,255,255,0.45);
     border-left: 1px solid rgba(255,255,255,0.35);
-    transform: translateY(-4px) scale(1.01) !important;
-    box-shadow:
-        0 16px 40px rgba(0,0,0,0.3),
-        inset 0 0 16px rgba(255,255,255,0.08);
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3), inset 0 0 16px rgba(255,255,255,0.08);
+    transition-delay: 0s;
 }
 
-.glass-card:hover::before {
-    opacity: 1;
-}
+.glass-card:hover::before, .glass-panel:hover::before { opacity: 1; }
 
-.glass-card h3 {
-    font-family: 'Outfit', sans-serif;
+.glass-card h3, .glass-panel h3 {
     font-weight: 600;
     font-size: clamp(1rem, 1.3vw, 1.2rem);
     color: rgba(255, 255, 255, 0.95);
@@ -436,8 +412,7 @@ body {
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.glass-card p {
-    font-family: 'Outfit', sans-serif;
+.glass-card p, .glass-panel p {
     font-weight: 300;
     font-size: clamp(0.82rem, 1vw, 0.98rem);
     color: rgba(255, 245, 235, 0.85);
@@ -448,6 +423,7 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
+/* Card Links */
 .card-links {
     margin-top: 0.7rem;
     display: flex;
@@ -458,7 +434,6 @@ body {
 }
 
 .card-links a {
-    font-family: 'Outfit', sans-serif;
     font-size: clamp(0.6rem, 0.75vw, 0.72rem);
     font-weight: 500;
     color: rgba(255, 220, 180, 0.8);
@@ -476,12 +451,8 @@ body {
     background: rgba(255,200,150,0.12);
 }
 
-/* ===== Experience Section ===== */
-#section-experience {
-    padding: 0 8vw;
-    align-items: center;
-    justify-content: center;
-}
+/* Experience Section */
+#section-experience { padding: 0 8vw; }
 
 .experience-panels {
     display: flex;
@@ -491,83 +462,21 @@ body {
     max-height: 80vh;
 }
 
-/* ===== Glass Panel (Experience) ===== */
 .glass-panel {
-    position: relative;
-    border-radius: 20px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255,255,255,0.1);
-    border-top: 1px solid rgba(255,255,255,0.3);
-    border-left: 1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(2px) brightness(1.2) contrast(1.1) saturate(1.5);
-    -webkit-backdrop-filter: blur(2px) brightness(1.2) contrast(1.1) saturate(1.5);
-    box-shadow:
-        0 8px 32px rgba(0,0,0,0.2),
-        inset 0 0 12px rgba(255,255,255,0.05);
     padding: 1.8rem 2.2rem;
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    border-radius: 20px;
 }
 
-.glass-panel::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background:
-        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.08), transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(255,255,255,0.04), transparent 40%),
-        linear-gradient(135deg, rgba(0,0,0,0.15), transparent);
-    pointer-events: none;
-}
-
-.glass-panel::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.glass-panel:hover {
-    border-top: 1px solid rgba(255,255,255,0.45);
-    border-left: 1px solid rgba(255,255,255,0.35);
-    transform: translateY(-4px) scale(1.01) !important;
-    box-shadow:
-        0 16px 40px rgba(0,0,0,0.3),
-        inset 0 0 16px rgba(255,255,255,0.08);
-}
-
-.glass-panel:hover::before {
-    opacity: 1;
-}
-
-.glass-panel h3 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
-    color: rgba(255, 245, 235, 0.92);
-    margin-bottom: 0.6rem;
-    position: relative;
-    z-index: 1;
-}
+.glass-panel h3 { font-size: clamp(0.95rem, 1.3vw, 1.15rem); }
 
 .glass-panel p {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
     font-size: clamp(0.78rem, 0.95vw, 0.9rem);
     color: rgba(255, 240, 225, 0.7);
     line-height: 1.65;
-    position: relative;
-    z-index: 1;
+    flex: unset;
 }
 
-.glass-panel p + p {
-    margin-top: 0.6rem;
-}
+.glass-panel p + p { margin-top: 0.6rem; }
 
 .glass-panel a {
     color: rgba(255, 210, 160, 0.9);
@@ -581,15 +490,13 @@ body {
     border-color: rgba(255,200,150,0.5);
 }
 
-/* ===== Toast ===== */
+/* Toast */
 .toast {
     position: fixed;
     bottom: 90px;
     right: 32px;
     z-index: 200;
-    font-family: 'Outfit', sans-serif;
     font-size: 0.82rem;
-    font-weight: 400;
     color: rgba(255,245,235,0.9);
     padding: 0.6rem 1.2rem;
     border-radius: 10px;
@@ -610,25 +517,7 @@ body {
     pointer-events: auto;
 }
 
-/* ===== Section enter animations ===== */
-.glass-card,
-.glass-panel {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                background 0.35s ease,
-                border-color 0.35s ease,
-                box-shadow 0.35s ease;
-}
-
-.glass-card.visible,
-.glass-panel.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Stagger delays for project cards */
+/* Card Delays */
 .glass-card:nth-child(1) { transition-delay: 0.05s; }
 .glass-card:nth-child(2) { transition-delay: 0.1s; }
 .glass-card:nth-child(3) { transition-delay: 0.15s; }
@@ -638,18 +527,6 @@ body {
 .glass-card:nth-child(7) { transition-delay: 0.35s; }
 .glass-card:nth-child(8) { transition-delay: 0.4s; }
 
-/* Stagger delays for experience panels */
 .glass-panel:nth-child(1) { transition-delay: 0.05s; }
 .glass-panel:nth-child(2) { transition-delay: 0.15s; }
 .glass-panel:nth-child(3) { transition-delay: 0.25s; }
-
-/* Hover states should not have transition delays */
-.glass-card:hover,
-.glass-panel:hover {
-    transition-delay: 0s;
-}
-
-/* ===== Hide GUI ===== */
-.lil-gui {
-    display: none !important;
-}
