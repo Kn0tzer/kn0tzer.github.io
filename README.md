@@ -1,5 +1,5 @@
 ### https://kn0tzer.z.org
-
+Backup hosting at kn0tzer.is-a.dev
 <p><a href="https://kn0tzer.z.org">/</a> - My home page</p><br><br>
 
 <a href="https://kn0tzer.z.org/add">/add</a> - Hosting for <a href="https://github.com/Kn0tzer/Add-to-Homescreen">this</a><br><br>
