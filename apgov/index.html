@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP Gov Study Interface</title>
+    <style>
+        :root {
+            --bg-main: #0a0a0c;
+            --bg-sidebar: #111216;
+            --bg-card: #181a1f;
+            --bg-hover: #1e2128;
+            --text-main: #e2e2e2;
+            --text-muted: #8b8f98;
+            --border-color: #2a2d35;
+            --accent-blue: #2f65f6;
+            --priority-red: #e72c2c;
+            --priority-orange: #dd9c00;
+            --priority-yellow: #ffe722;
+            --priority-green: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+}
+
+        .nav-section {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: var(--text-muted);
+            padding: 0 20px 10px;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 16px;
+            border-left: 3px solid transparent;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-main);
+        }
+
+        .nav-item.active {
+            background-color: rgba(47, 101, 246, 0.1);
+            border-left-color: var(--accent-blue);
+            color: var(--text-main);
+        }
+
+        .nav-icon {
+            margin-right: 12px;
+        }
+
+        .nav-progress {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .progress-section {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .progress-block {
+            margin-bottom: 15px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            height: 4px;
+            background-color: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--accent-blue);
+            transition: width 0.4s ease;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 0 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .sort-dropdown {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .list-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            cursor: pointer;
+        }
+
+        .priority-container {
+            position: relative;
+            padding: 5px 15px 5px 0;
+        }
+
+        .priority-bar {
+            width: 12px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .priority-bar::before {
+            content: "❯";
+            color: rgba(255,255,255,1);
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .priority-bar:hover {
+            transform: scale(1.3);
+        }
+
+        .item-title {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .chevron {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            font-size: 24px;
+        }
+
+        .list-item.expanded .chevron {
+            transform: rotate(90deg);
+        }
+
+        .item-details {
+            display: none;
+            background-color: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .list-item.expanded .item-details {
+            display: block;
+        }
+
+        .item-details:focus {
+            border-color: var(--accent-blue);
+            outline: none;
+        }
+
+        .color-picker {
+            display: none;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #1f2229;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .color-picker.active {
+            display: flex;
+        }
+
+        .color-option {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .priority-red .priority-bar { background-color: var(--priority-red); }
+        .priority-red .item-title { color: var(--priority-red); }
+        .priority-orange .priority-bar { background-color: var(--priority-orange); }
+        .priority-orange .item-title { color: var(--priority-orange); }
+        .priority-yellow .priority-bar { background-color: var(--priority-yellow); }
+        .priority-yellow .item-title { color: var(--priority-yellow); }
+        .priority-green .priority-bar { background-color: var(--priority-green); }
+        .priority-green .item-title { color: var(--priority-green); }
+
+        .opt-red { background-color: var(--priority-red); }
+        .opt-orange { background-color: var(--priority-orange); }
+        .opt-yellow { background-color: var(--priority-yellow); }
+        .opt-green { background-color: var(--priority-green); }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                transform: translateX(-100%);
+            }
+
+            body.sidebar-open .sidebar {
+                transform: translateX(0);
+            }
+
+            body.sidebar-open .sidebar-overlay {
+                display: block;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .progress-section {
+                display: none;
+            }
+
+            .sidebar .progress-section {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <aside class="sidebar">
+        <nav class="nav-section">
+            <div class="section-title">Categories</div>
+            <ul class="nav-list" id="sidebar-list"></ul>
+        </nav>
+
+        <div class="progress-section">
+            <div class="progress-block">
+                <div class="progress-header">
+                    <span>Category Progress</span>
+                    <span id="cat-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="cat-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="progress-block">
+                <div class="progress-header">
+                    <span>Overall Progress</span>
+                    <span id="overall-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="overall-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <button class="menu-btn" onclick="openMenu()">☰</button>
+                <h1 id="category-title">All Words</h1>
+            </div>
+            <select class="sort-dropdown" id="sort-select" onchange="handleSortChange()">
+                <option value="high-low">Priority (High → Low)</option>
+                <option value="low-high">Priority (Low → High)</option>
+                <option value="a-z">Alphabetical (A → Z)</option>
+            </select>
+        </div>
+
+        <div class="list-container" id="main-list-container"></div>
+    </main>
+
+    <script>
+        const CATEGORIES = [
+            { id: "all", name: "All Words", icon: "📚" },
+            { id: "u1", name: "Unit 1: Foundations", icon: "🏛️" },
+            { id: "u2", name: "Unit 2: Branches", icon: "🌱" },
+            { id: "u3", name: "Unit 3: Civil Liberties", icon: "🗽" },
+            { id: "u4", name: "Unit 4: Ideology", icon: "🧠" },
+            { id: "u5", name: "Unit 5: Participation", icon: "🗳️" },
+            { id: "am", name: "Amendments", icon: "✍️" },
+            { id: "cc", name: "Court Cases", icon: "⚖️" },
+            { id: "fd", name: "Foundational Documents", icon: "📜" }
+        ];
+
+        const PRIORITY_ORDER = { red: 0, orange: 1, yellow: 2, green: 3 };
+        const DEFAULT_PRIORITY = "red";
+        const CATEGORY_ORDER = { u1: 1, u2: 2, u3: 3, u4: 4, u5: 5, am: 6, cc: 7, fd: 8 };
+
+        const getPriority = (item) => item.priority || DEFAULT_PRIORITY;
+
+        const DATA = {
+            "fd": [
+                { id: "fd_1", term: "Declaration of Independence", definition: "Established that natural rights like life, liberty, and the pursuit of happiness are unalienable. Argues government depends on the consent of the governed, and if it fails, the people have the right to overthrow it." },
+                { id: "fd_2", term: "Articles of Confederation", definition: "The first attempt at a constitution. It failed because it gave too much power to states and left the central government unable to tax, raise an army, or enforce laws." },
+                { id: "fd_3", term: "U.S. Constitution", definition: "Replaced the Articles of Confederation and set up a federal republic with three branches, separation of powers, and checks and balances. The Bill of Rights was added to protect individual freedoms and ensure ratification." },
+                { id: "fd_4", term: "Federalist No. 10", definition: "Argues that a large republic is the best way to control the dangers of factions. It suggests that in a massive country, no single group can easily dominate the others." },
+                { id: "fd_5", term: "Brutus No. 1", definition: "An essay that warned the new constitution gave the federal government too much power. The author feared that a large central government would crush state sovereignty and individual liberties." },
+                { id: "fd_6", term: "Federalist No. 51", definition: "Explains how checks and balances prevent tyranny. It argues that each branch will naturally limit the others because ambition must be made to counteract ambition." },
+                { id: "fd_7", term: "Federalist No. 70", definition: "Argues for a single, strong executive rather than a committee. A single president can act decisively and is easier for the public to hold accountable." },
+                { id: "fd_8", term: "Federalist No. 78", definition: "Defends lifetime terms for federal judges to keep them independent from political pressure. This laid the groundwork for judicial review." },
+                { id: "fd_9", term: "Letter from a Birmingham Jail", definition: "Defends nonviolent civil disobedience against systemic racism. It argues that people have a moral duty to break unjust laws and take direct action instead of waiting for change." }
+            ],
+            "u1": [
+                { id: "u1_1", term: "Natural Rights", definition: "Rights people have by nature, like life, liberty, and property. These are unalienable rights that cannot be taken away" },
+                { id: "u1_2", term: "Popular Sovereignty", definition: "Government gets its power from the people" },
+                { id: "u1_3", term: "Limited Government", definition: "Government power is restricted by law through a constitution or charter" },
+                { id: "u1_4", term: "Republicanism", definition: "Citizens choose representatives to make laws rather than directly participating in governance" },
+                { id: "u1_5", term: "Social Contract", definition: "People give up some freedom for government protection in exchange for security and order" },
+                { id: "u1_6", term: "Democracy", definition: "Rule by the people, either directly or through representatives" },
+                { id: "u1_7", term: "Pluralist Democracy", definition: "Many groups compete to influence policy, with government mediating between competing interests" },
+                { id: "u1_8", term: "Elite Democracy", definition: "Power is mostly held by a small wealthy or powerful group who influence decisions on behalf of the people" },
+                { id: "u1_9", term: "Faction", definition: "A group with a shared political interest that may work to advance their own interests at the expense of the general public" },
+                { id: "u1_10", term: "Federalists", definition: "Supporters of the Constitution who advocated for a stronger national government" },
+                { id: "u1_11", term: "Anti-Federalists", definition: "Opponents of the Constitution who feared central power would crush individual liberties and state sovereignty" },
+                { id: "u1_12", term: "Federalism", definition: "Power is shared between national and state governments in a federal system" },
+                { id: "u1_13", term: "Separation of Powers", definition: "Power is split among legislative, executive, and judicial branches to prevent tyranny" },
+                { id: "u1_14", term: "Checks and Balances", definition: "Each branch can limit the powers of the other branches to prevent any one branch from becoming too powerful" },
+                { id: "u1_15", term: "Shays' Rebellion", definition: "Uprising by Massachusetts farmers that showed the Articles of Confederation were too weak to maintain order" },
+                { id: "u1_16", term: "Great Compromise", definition: "One house based on population, one on equal state representation; created the bicameral legislature" },
+                { id: "u1_17", term: "Electoral College", definition: "Indirect system for choosing the president where voters cast ballots for electors who then vote for president" },
+                { id: "u1_18", term: "Three-Fifths Compromise", definition: "Enslaved people counted as three-fifths for representation in the House, counting slaves as property rather than people" },
+                { id: "u1_19", term: "Amendment Process", definition: "Formal way to change the Constitution requiring two-thirds of both houses and three-fourths of states to ratify" },
+                { id: "u1_20", term: "Concurrent Powers", definition: "Powers shared by both state and national governments, like taxation" },
+                { id: "u1_21", term: "Mandates", definition: "Federal requirements that states must follow, often without providing funding" },
+                { id: "u1_22", term: "Categorical Grants", definition: "Federal money given to states with strict rules on how it can be used" },
+                { id: "u1_23", term: "Block Grants", definition: "Federal money given to states with broad freedom on how to spend it for general purposes" },
+                { id: "u1_24", term: "Commerce Clause", definition: "gives Congress the power to regulate interstate commerce between states" },
+                { id: "u1_25", term: "Necessary and Proper Clause", definition: "Gives Congress implied powers to carry out its enumerated duties, also called the Elastic Clause" }
+            ],
+            "u2": [
+                { id: "u2_1", term: "Enumerated Powers", definition: "Powers specifically listed for Congress in Article I, Section 8" },
+                { id: "u2_2", term: "Implied Powers", definition: "Powers not explicitly listed but inferred from the Constitution through the necessary and proper clause" },
+                { id: "u2_3", term: "Speaker of the House", definition: "Leader of the House of Representatives chosen by the majority party who controls the legislative agenda" },
+                { id: "u2_4", term: "Vice President/President Pro Tempore", definition: "Vice President serves as President of the Senate; if absent, President Pro Tempore presides" },
+                { id: "u2_5", term: "Filibuster", definition: "Delay tactic in the Senate where a senator speaks indefinitely to prevent a vote on a bill" },
+                { id: "u2_6", term: "Cloture", definition: "Vote to end a filibuster, requiring 60 senators to invoke and limit debate" },
+                { id: "u2_7", term: "Holds", definition: "Informal Senate delay tactic where a senator can put a hold on a nomination or bill to slow it down" },
+                { id: "u2_8", term: "Unanimous Consent", definition: "Senate agreement to speed up action on a bill with no objections from any senator" },
+                { id: "u2_9", term: "Rules Committee", definition: "House committee that sets the rules for debate on bills, including time limits and amendments allowed" },
+                { id: "u2_10", term: "Discharge Petition", definition: "Way to force a bill out of committee to the House floor, requiring a majority of signatures" },
+                { id: "u2_11", term: "Treaty Ratification", definition: "Senate approval of treaties with foreign countries, requiring two-thirds consent" },
+                { id: "u2_12", term: "Discretionary Spending", definition: "Spending that Congress chooses each year through appropriations bills, about one-third of the budget" },
+                { id: "u2_13", term: "Mandatory Spending", definition: "Spending required by law for programs like Social Security and Medicare" },
+                { id: "u2_14", term: "Entitlement Spending", definition: "Mandatory benefits that people qualify for based on eligibility requirements" },
+                { id: "u2_15", term: "Budget Deficit", definition: "When federal spending exceeds federal revenue in a given year" },
+                { id: "u2_16", term: "Pork Barrel", definition: "Spending meant to help a specific local district or state to gain political support" },
+                { id: "u2_17", term: "Logrolling", definition: "Vote trading between lawmakers where they agree to support each other's bills" },
+                { id: "u2_18", term: "Gerrymandering", definition: "Drawing district boundaries to favor a specific party or group" },
+                { id: "u2_19", term: "Redistricting", definition: "The process of drawing new district boundaries after the census" },
+                { id: "u2_20", term: "One Person, One Vote", definition: " principle that districts should have roughly equal population for fair representation" },
+                { id: "u2_21", term: "Divided Government", definition: "Different parties control different branches of government" },
+                { id: "u2_22", term: "Lame Duck", definition: "Official near the end of their term who has less political power" },
+                { id: "u2_23", term: "Trustee", definition: "Representative who uses personal judgment to decide what is best for constituents" },
+                { id: "u2_24", term: "Delegate", definition: "Representative who follows constituents' wishes on every issue" },
+                { id: "u2_25", term: "Politico", definition: "Representative who mixes trustee and delegate behavior depending on the issue" },
+                { id: "u2_26", term: "Veto", definition: "President rejects a bill and returns it to Congress, requiring two-thirds to override" },
+                { id: "u2_27", term: "Pocket Veto", definition: "Bill dies when president does not sign it before Congress adjourns" },
+                { id: "u2_28", term: "Commander in Chief", definition: "President leads the armed forces as the highest military authority" },
+                { id: "u2_29", term: "Treaties", definition: "Formal agreements with foreign countries requiring Senate ratification" },
+                { id: "u2_30", term: "Executive Agreements", definition: "Informal deals with foreign governments that do not require Senate approval" },
+                { id: "u2_31", term: "Executive Orders", definition: "Presidential directives to the executive branch that have the force of law" },
+                { id: "u2_32", term: "Signing Statements", definition: "President's comments on how a law will be enforced, sometimes to assert power" },
+                { id: "u2_33", term: "Judicial Review", definition: "Supreme Court power to judge laws and actions as constitutional or unconstitutional. See Marbury v. Madison (CC_1)" },
+                { id: "u2_34", term: "Life Tenure", definition: "Federal judges serve for life unless removed for impeachment, ensuring independence" },
+                { id: "u2_35", term: "Precedent", definition: "Prior court case used to guide decisions in similar cases" },
+                { id: "u2_36", term: "Stare Decisis", definition: "Keep the previous courts decision; courts follow precedent in similar cases" },
+                { id: "u2_37", term: "Jurisdiction", definition: "Legal authority of a court to hear a case" },
+                { id: "u2_38", term: "Original Jurisdiction", definition: "First court to hear a case; for Supreme Court, only in disputes between states" },
+                { id: "u2_39", term: "Appellate Jurisdiction", definition: "Court reviews a lower court decision on appeal" },
+                { id: "u2_40", term: "Judicial Activism", definition: "Courts are more willing to overturn laws and actively interpret the Constitution" },
+                { id: "u2_41", term: "Judicial Restraint", definition: "Courts defer to elected branches and follow precedent strictly" },
+                { id: "u2_42", term: "Iron Triangle", definition: "Stable relationship among agencies, committees in Congress, and interest groups" },
+                { id: "u2_43", term: "Merit System", definition: "Hiring based on skill and exams rather than political connections" },
+                { id: "u2_44", term: "Bureaucratic Discretion", definition: "Agency choice in implementing policy within broad guidelines" },
+                { id: "u2_45", term: "Oversight", definition: "Congress monitors the bureaucracy through hearings and investigations" },
+                { id: "u2_46", term: "Power of the Purse", definition: "Congress controls federal funding through appropriations bills" }
+            ],
+            "u3": [
+                { id: "u3_1", term: "Bill of Rights", definition: "First ten amendments protecting individual liberties (see AM_1 through AM_10)" },
+                { id: "u3_2", term: "Civil Liberties", definition: "Freedoms protected from government interference" },
+                { id: "u3_3", term: "Establishment Clause", definition: "Government cannot establish an official religion or prefer one religion over another" },
+                { id: "u3_4", term: "Free Exercise Clause", definition: "People can practice religion freely without government interference" },
+                { id: "u3_5", term: "Symbolic Speech", definition: "Actions expressing an idea, like burning a flag, protected as speech" },
+                { id: "u3_6", term: "Prior Restraint", definition: "Government blocks speech or publication before it happens; usually unconstitutional" },
+                { id: "u3_7", term: "Selective Incorporation", definition: "Process that applies Bill of Rights protections to states through the 14th Amendment (see AM_9)" },
+                { id: "u3_8", term: "Due Process Clause", definition: "Government must follow fair legal procedures before depriving someone of life, liberty, or property. See 5th and 14th Amendments" },
+                { id: "u3_9", term: "Majority-Minority District", definition: "District where minorities are the majority to increase minority representation" },
+                { id: "u3_10", term: "Affirmative Action", definition: "Policies meant to increase opportunities for historically excluded groups" },
+                { id: "u3_11", term: "Title IX", definition: "Federal law banning sex discrimination in education programs" },
+                { id: "u3_12", term: "Civil Rights Act of 1964", definition: "Bans discrimination in public places and employment, enforced through the Equal Protection Clause of the 14th Amendment" },
+                { id: "u3_13", term: "Voting Rights Act of 1965", definition: "Protects access to voting through federal oversight of elections in discriminatory states" }
+            ],
+            "u4": [
+                { id: "u4_1", term: "Individualism", definition: "Belief that people should rely on themselves and that government should be limited" },
+                { id: "u4_2", term: "Equality of Opportunity", definition: "Everyone should have a fair shot at success, not equal outcomes" },
+                { id: "u4_3", term: "Free Enterprise", definition: "Market system with limited government control over business" },
+                { id: "u4_4", term: "Rule of Law", definition: "Everyone, including government leaders, is subject to and governed by law" },
+                { id: "u4_5", term: "Political Socialization", definition: "How people learn political beliefs through family, school, media, and other influences" },
+                { id: "u4_6", term: "Opinion Poll", definition: "Survey measuring public views on issues and candidates" },
+                { id: "u4_7", term: "Tracking Poll", definition: "Repeated poll showing how public opinion changes over time" },
+                { id: "u4_8", term: "Exit Poll", definition: "Survey of voters right after they vote to predict election results" },
+                { id: "u4_9", term: "Sampling Error", definition: "Gap between sample poll results and actual population views" },
+                { id: "u4_10", term: "Democratic Party", definition: "Major party generally favoring more government action to solve problems" },
+                { id: "u4_11", term: "Republican Party", definition: "Major party generally favoring smaller government and free markets" },
+                { id: "u4_12", term: "Conservative Ideology", definition: "Favors tradition, social order, and limited government intervention" },
+                { id: "u4_13", term: "Liberal Ideology", definition: "Favors government action to solve social and economic problems" },
+                { id: "u4_14", term: "Libertarian Ideology", definition: "Favors maximum personal freedom and minimal government in both economic and social matters" },
+                { id: "u4_15", term: "Keynesian Economics", definition: "Government should actively stabilize the economy through spending during downturns" },
+                { id: "u4_16", term: "Supply-Side Economics", definition: "Lower taxes and deregulation spur economic growth by helping businesses" },
+                { id: "u4_17", term: "Fiscal Policy", definition: "Government spending and taxation choices to influence the economy" },
+                { id: "u4_18", term: "Federal Reserve", definition: "Central bank that manages monetary policy and controls the money supply" }
+            ],
+            "u5": [
+                { id: "u5_1", term: "Rational Choice Voting", definition: "Voters choose the option they think helps them most based on self-interest" },
+                { id: "u5_2", term: "Retrospective Voting", definition: "Voters judge candidates based on past performance and results" },
+                { id: "u5_3", term: "Prospective Voting", definition: "Voters choose based on future promises and expected outcomes" },
+                { id: "u5_4", term: "Party-Line Voting", definition: "Voting consistently for all candidates of one party" },
+                { id: "u5_5", term: "Voter Turnout", definition: "Share of eligible voters who actually vote in an election" },
+                { id: "u5_6", term: "Political Efficacy", definition: "Belief that politics can affect you and that you can affect politics" },
+                { id: "u5_7", term: "Linkage Institutions", definition: "Groups connecting people to government, like parties, interest groups, and media" },
+                { id: "u5_8", term: "Party Platform", definition: "Official policy positions of a political party" },
+                { id: "u5_9", term: "Candidate-Centric Campaign", definition: "Campaign focused on the individual candidate rather than the party" },
+                { id: "u5_10", term: "Direct Primary", definition: "Voters choose a party's nominee in a primary election" },
+                { id: "u5_11", term: "Critical Election", definition: "Major election that creates lasting shifts in party coalitions" },
+                { id: "u5_12", term: "Realignment", definition: "Long-term change in which groups support which parties" },
+                { id: "u5_13", term: "Campaign Finance", definition: "Money raised and spent in elections, subject to regulations" },
+                { id: "u5_14", term: "Proportional System", definition: "Seats are divided among parties based on the percentage of votes each party receives" },
+                { id: "u5_15", term: "Winner-Take-All System", definition: "The candidate who wins the most votes in a state gets all the electoral seats or delegates" },
+                { id: "u5_16", term: "Free Rider Problem", definition: "People benefit from interest groups without paying or participating" },
+                { id: "u5_17", term: "Single-Issue Group", definition: "Interest group focused on one specific policy issue" },
+                { id: "u5_18", term: "Incumbency Advantage", definition: "Current officeholder has name recognition and resources that make winning easier" },
+                { id: "u5_19", term: "Open Primary", definition: "Any voter can choose a party's primary ballot regardless of party affiliation" },
+                { id: "u5_20", term: "Closed Primary", definition: "Only registered party members can vote in that party's primary" },
+                { id: "u5_21", term: "Caucus", definition: "Local meeting to select candidates or delegates for a party convention" },
+                { id: "u5_22", term: "Party Convention", definition: "Meeting where delegates formally choose a party's nominees" },
+                { id: "u5_23", term: "Political Consultant", definition: "Paid professional strategist who runs campaign operations" },
+                { id: "u5_24", term: "Media Gatekeeper", definition: "Media chooses which issues and candidates get attention" },
+                { id: "u5_25", term: "Horserace Journalism", definition: "Media focuses on who is winning rather than issues" },
+                { id: "u5_26", term: "Media Bias", definition: "Reporting that favors a particular viewpoint or party" },
+                { id: "u5_27", term: "Bipartisan Campaign Reform Act of 2002", definition: "Banned soft money contributions to national parties and limited campaign ads" },
+                { id: "u5_28", term: "Soft Money", definition: "Unregulated money donated to political parties for general political activity" },
+                { id: "u5_29", term: "PAC", definition: "Political action committee that raises money for candidates with limits on donations" },
+                { id: "u5_30", term: "Super PAC", definition: "Can raise and spend unlimited money independently but cannot donate directly to candidates" }
+            ],
+            "am": [
+                { id: "am_1", term: "1st Amendment", definition: "Protects freedom of religion, speech, press, assembly, and petition. Part of the Bill of Rights" },
+                { id: "am_2", term: "2nd Amendment", definition: "Protects the right to bear arms. Part of the Bill of Rights" },
+                { id: "am_3", term: "4th Amendment", definition: "Protects against unreasonable searches and seizures. Part of the Bill of Rights" },
+                { id: "am_4", term: "5th Amendment", definition: "Protects due process, self-incrimination, and double jeopardy. Part of the Bill of Rights" },
+                { id: "am_5", term: "6th Amendment", definition: "Protects counsel, speedy trial, public trial, and jury for defendants. Part of the Bill of Rights" },
+                { id: "am_6", term: "8th Amendment", definition: "Bans cruel and unusual punishment and excessive bail. Part of the Bill of Rights" },
+                { id: "am_7", term: "9th Amendment", definition: "Unlisted rights can still be protected. Part of the Bill of Rights" },
+                { id: "am_8", term: "10th Amendment", definition: "Powers not given to federal government go to states. Part of the Bill of Rights" },
+                { id: "am_9", term: "14th Amendment", definition: "Provides due process and equal protection; incorporates Bill of Rights to states through the Selective Incorporation process. See also Equal Protection Clause (U3_8)" },
+                { id: "am_10", term: "15th Amendment", definition: "Protects racial voting rights regardless of previous enslavement" },
+                { id: "am_11", term: "17th Amendment", definition: "Requires direct election of senators by the people" },
+                { id: "am_12", term: "19th Amendment", definition: "Protects women's suffrage and right to vote" },
+                { id: "am_13", term: "24th Amendment", definition: "Bans poll taxes in federal elections" },
+                { id: "am_14", term: "26th Amendment", definition: "Sets voting age at 18" }
+            ],
+            "cc": [
+                { id: "cc_1", term: "Marbury v. Madison", definition: "Established judicial review, giving courts power to strike down unconstitutional laws. Related to 1st Amendment, Judicial Review (U2_33)" },
+                { id: "cc_2", term: "McCulloch v. Maryland", definition: "Federal power is supreme over states and implied powers are valid. Related to Necessary and Proper Clause (U1_25)" },
+                { id: "cc_3", term: "United States v. Lopez", definition: "Congress cannot stretch the commerce clause beyond reasonable limits. Related to Commerce Clause (U1_24)" },
+                { id: "cc_4", term: "Baker v. Carr", definition: "Redistricting cases can be heard by federal courts. Related to One Person, One Vote (U2_20)" },
+                { id: "cc_5", term: "Shaw v. Reno", definition: "Racial gerrymandering can violate equal protection. Related to 14th Amendment and Gerrymandering" },
+                { id: "cc_6", term: "Engel v. Vitale", definition: "School-sponsored prayer is unconstitutional. Related to 1st Amendment Establishment Clause" },
+                { id: "cc_7", term: "Wisconsin v. Yoder", definition: "Amish families can withdraw children from school for religious reasons. Related to 1st Amendment Free Exercise Clause" },
+                { id: "cc_8", term: "Tinker v. Des Moines", definition: "Students keep speech rights at school unless it Disrupts. Related to 1st Amendment and Symbolic Speech" },
+                { id: "cc_9", term: "New York Times v. United States", definition: "Prior restraint on publication is usually unconstitutional. Related to 1st Amendment and Prior Restraint" },
+                { id: "cc_10", term: "Schenck v. United States", definition: "Speech can be limited if it creates a clear and present danger. Related to 1st Amendment" },
+                { id: "cc_11", term: "Gideon v. Wainwright", definition: "States must provide counsel to indigent defendants in felony cases. Related to 6th Amendment" },
+                { id: "cc_12", term: "Roe v. Wade", definition: "Recognized a constitutional right to privacy in abortion access. Overturned by Dobbs v. Jackson. Related to Right to Privacy and 14th Amendment Due Process" },
+                { id: "cc_13", term: "McDonald v. Chicago", definition: "Second Amendment applies to states through the 14th Amendment. Related to 2nd Amendment and 14th Amendment Incorporation" },
+                { id: "cc_14", term: "Brown v. Board of Education", definition: "School segregation is inherently unequal and unconstitutional. Related to 14th Amendment Equal Protection" },
+                { id: "cc_15", term: "FEC v. Citizens United", definition: "Ruled that corporations/unions/Super PACs can spend unlimited money on independent political ads because that spending is protected as free speech under the 1st Amendment. Related to 1st Amendment, Campaign Finance, and Free Speech" }
+            ]
+        };
+
+        let state = {
+            activeCategory: "all",
+            sortMethod: "high-low",
+            appData: structuredClone(DATA),
+            expandedItems: new Set()
+        };
+
+        function openMenu() { document.body.classList.add('sidebar-open'); }
+        function closeMenu() { document.body.classList.remove('sidebar-open'); }
+
+        function getAllItems() {
+            return Object.values(state.appData).flat();
+        }
+
+        function getCategoryItems(categoryId) {
+            return categoryId === "all" ? getAllItems() : state.appData[categoryId] || [];
+        }
+
+        function calculateProgress(items) {
+            if (!items.length) return 0;
+            const score = items.reduce((sum, item) => sum + PRIORITY_ORDER[getPriority(item)], 0);
+            return Math.round((score / (items.length * 3)) * 100);
+        }
+
+        function loadFromStorage() {
+            const savedPriority = JSON.parse(localStorage.getItem('studyAppProgress') || '{}');
+            const savedDefs = JSON.parse(localStorage.getItem('studyAppDefinitionChanges') || '{}');
+            const savedSort = localStorage.getItem('studyAppSort');
+
+            for (let catId in savedPriority) {
+                if (state.appData[catId]) {
+                    state.appData[catId].forEach(item => {
+                        if (savedPriority[catId][item.id]) {
+                            item.priority = savedPriority[catId][item.id];
+                        }
+                    });
+                }
+            }
+
+            for (let catId in savedDefs) {
+                if (state.appData[catId]) {
+                    state.appData[catId].forEach(item => {
+                        if (savedDefs[catId][item.id]) {
+                            item.definition = savedDefs[catId][item.id];
+                        }
+                    });
+                }
+            }
+
+            if (savedSort) {
+                state.sortMethod = savedSort;
+                document.getElementById('sort-select').value = savedSort;
+            }
+        }
+
+        function saveToStorage() {
+            const priorityData = {};
+            const defData = {};
+
+            for (let catId in state.appData) {
+                priorityData[catId] = {};
+                defData[catId] = {};
+                state.appData[catId].forEach(item => {
+                    if (item.priority && item.priority !== DEFAULT_PRIORITY) priorityData[catId][item.id] = item.priority;
+                    defData[catId][item.id] = item.definition;
+                });
+            }
+
+            localStorage.setItem('studyAppProgress', JSON.stringify(priorityData));
+            localStorage.setItem('studyAppDefinitionChanges', JSON.stringify(defData));
+        }
+
+        function renderSidebar() {
+            const sidebar = document.getElementById('sidebar-list');
+            sidebar.innerHTML = '';
+            const totalWords = getAllItems().length;
+
+            CATEGORIES.forEach(cat => {
+                const li = document.createElement('li');
+                const displayName = cat.id === "all" ? `All ${totalWords} Words` : cat.name;
+                const progress = calculateProgress(getCategoryItems(cat.id));
+
+                li.className = `nav-item ${cat.id === state.activeCategory ? 'active' : ''}`;
+                li.innerHTML = `<span class="nav-icon">${cat.icon}</span>${displayName}<span class="nav-progress">${progress}%</span>`;
+                li.onclick = () => switchCategory(cat.id);
+                sidebar.appendChild(li);
+            });
+        }
+
+        function switchCategory(categoryId) {
+            state.activeCategory = categoryId;
+            state.expandedItems.clear();
+            closeMenu();
+
+            const cat = CATEGORIES.find(c => c.id === categoryId);
+            const title = categoryId === "all" ? `All ${getAllItems().length} Words` : cat.name;
+            document.getElementById('category-title').innerText = title;
+
+            renderSidebar();
+            renderList();
+            updateProgress();
+        }
+
+        function renderList() {
+            const container = document.getElementById('main-list-container');
+            container.innerHTML = '';
+
+            const items = sortItems(getCategoryItems(state.activeCategory), state.sortMethod);
+
+            if (!items.length) {
+                container.innerHTML = '<div style="padding: 20px; color: var(--text-muted);">No terms in this category.</div>';
+                return;
+            }
+
+            items.forEach(item => {
+                const priority = getPriority(item);
+                const isExpanded = state.expandedItems.has(item.id);
+                const div = document.createElement('div');
+                div.className = `list-item priority-${priority} ${isExpanded ? 'expanded' : ''}`;
+                div.innerHTML = `
+                    <div class="item-header" onclick="toggleAccordion('${item.id}', this)">
+                        <div class="priority-container">
+                            <div class="priority-bar" onclick="openColorPicker(event, this)"></div>
+                            <div class="color-picker">
+                                ${['red', 'orange', 'yellow', 'green'].map(c => `<div class="color-option opt-${c}" onclick="setColor(event, '${item.id}', '${c}')"></div>`).join('')}
+                            </div>
+                        </div>
+                        <span class="item-title">${item.term}</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="item-details" contenteditable="true" spellcheck="false" onblur="saveDefinition(event, '${item.id}', this.innerText)" onclick="event.stopPropagation()">${item.definition}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleAccordion(itemId, headerEl) {
+            const listItem = headerEl.closest('.list-item');
+            if (state.expandedItems.has(itemId)) {
+                state.expandedItems.delete(itemId);
+                listItem.classList.remove('expanded');
+            } else {
+                state.expandedItems.add(itemId);
+                listItem.classList.add('expanded');
+            }
+        }
+
+        function openColorPicker(event, el) {
+            event.stopPropagation();
+            closeAllColorPickers();
+            el.nextElementSibling.classList.add('active');
+        }
+
+        function setColor(event, itemId, color) {
+            event.stopPropagation();
+            getAllItems().find(i => i.id === itemId).priority = color;
+            saveToStorage();
+            renderList();
+            updateProgress();
+            closeAllColorPickers();
+        }
+
+        function saveDefinition(event, itemId, newText) {
+            const item = getAllItems().find(i => i.id === itemId);
+            if (item && item.definition !== newText) {
+                item.definition = newText;
+                saveToStorage();
+                updateProgress();
+            }
+        }
+
+        function handleSortChange() {
+            state.sortMethod = document.getElementById('sort-select').value;
+            localStorage.setItem('studyAppSort', state.sortMethod);
+            renderList();
+        }
+
+        function sortItems(items, method) {
+            const sorted = [...items];
+            sorted.sort((a, b) => {
+                let diff = 0;
+                if (method === 'high-low') diff = PRIORITY_ORDER[getPriority(a)] - PRIORITY_ORDER[getPriority(b)];
+                else if (method === 'low-high') diff = PRIORITY_ORDER[getPriority(b)] - PRIORITY_ORDER[getPriority(a)];
+                else if (method === 'a-z') diff = a.term.localeCompare(b.term);
+
+                if (diff !== 0) return diff;
+                return (CATEGORY_ORDER[a.id.substring(0, 2)] || 99) - (CATEGORY_ORDER[b.id.substring(0, 2)] || 99);
+            });
+            return sorted;
+        }
+
+        function updateProgress() {
+            const catItems = getCategoryItems(state.activeCategory);
+            const catPercent = calculateProgress(catItems);
+
+            document.getElementById('cat-progress-text').innerText = `${catPercent}%`;
+            document.getElementById('cat-progress-bar').style.width = `${catPercent}%`;
+
+            const overallPercent = calculateProgress(getAllItems());
+            document.getElementById('overall-progress-text').innerText = `${overallPercent}%`;
+            document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
+        }
+
+        function closeAllColorPickers() {
+            document.querySelectorAll('.color-picker').forEach(p => p.classList.remove('active'));
+        }
+
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.priority-container')) closeAllColorPickers();
+        });
+
+        loadFromStorage();
+        renderSidebar();
+        switchCategory("all");
+    </script>
+</body>
+</html>
