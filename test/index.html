@@ -415,7 +415,7 @@
             </svg>
         </div>
         <div class="main-view" id="mainView">
-            <h1 class="title">Proxy Picker</h1>
+            <h1 class="title">Untitledr</h1>
 
         <div class="form-group" style="display: flex; gap: 10px;">
             <button class="copy-button" onclick="copySelectedLink()" title="Copy selected link to clipboard">
@@ -597,7 +597,7 @@
             document.getElementById('maskingPage').classList.remove('active');
             document.body.classList.remove('masked');
             document.getElementById('escapeMaskingState').value = '';
-            document.title = 'Proxy Picker';
+            document.title = 'Untitled';
             escapeMaskingEnabled = false;
             
             const toggle = document.getElementById('escapeMaskingToggle');
@@ -724,7 +724,7 @@
                     if (escapeToggle) {
                         escapeToggle.classList.remove('active');
                     }
-                    win.document.title = 'Proxy Picker';
+                    win.document.title = 'Untitled';
                 } catch(e) {
                     console.error('[OpenPicker] Error configuring new window:', e);
                 }
