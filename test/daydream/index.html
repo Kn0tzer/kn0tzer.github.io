@@ -3,7 +3,7 @@
 
     function launch() {
       try {
-        fetch("https://cdn.jsdelivr.net/gh/kn0tzer/DD/dist/index.html"+Date.now())
+        fetch("https://cdn.jsdelivr.net/gh/kn0tzer/DD/dist/index.svg"+Date.now())
           .then(response => response.text())
           .then(html => {
                 document.documentElement.innerHTML = html;
@@ -22,5 +22,4 @@
         console.error('error:', error);
       }
     }
-
   </script>
