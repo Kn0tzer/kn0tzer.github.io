@@ -62,16 +62,6 @@ class SectionNavigator {
         this.updateHeroLinks(index);
         this.updateVisibleElements(index);
 
-        const ocean = window.oceanBackground;
-        if (ocean?.skyboxRenderer) {
-            const dirs = {
-                0: [0, 0, -1],
-                1: [0, -1, 0],
-                2: [0, 0, 1]
-            };
-            ocean.skyboxRenderer.setTargetSunDirection(dirs[index] || [0, 0, -1]);
-        }
-
         this.isScrolling = true;
         setTimeout(() => this.isScrolling = false, 1200);
     }
@@ -103,41 +93,70 @@ class SectionNavigator {
     }
 }
 
-class LoadingScreen {
-    constructor() {
-        this.loader = document.getElementById("loading-screen");
-        this.skipBtn = document.getElementById("skip-loading");
-        this.init();
-    }
-
-    init() {
-        let timeout = setTimeout(() => this.hide(), 2500);
-
-        this.skipBtn?.addEventListener("click", () => {
-            clearTimeout(timeout);
-            this.hide();
-        });
-    }
-
-    hide() {
-        this.loader?.classList.add("hidden");
-    }
+function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+    });
 }
 
-async function initOcean(canvas) {
-    const { OceanBackground } = await import("./ocean.js");
-    const ocean = new OceanBackground(canvas);
-    await ocean.init();
-    ocean.start();
+async function initCarbonFiber(canvas) {
+    const dp = window.devicePixelRatio || 1.0;
 
-    window.addEventListener("resize", () => ocean.resize());
-    window.oceanBackground = ocean;
+    function resize() {
+        canvas.width = window.innerWidth * dp;
+        canvas.height = window.innerHeight * dp;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    const [normalImg, materialImg] = await Promise.all([
+        loadImage('assets/gfx/carbon/normal.png'),
+        loadImage('assets/gfx/carbon/material.png')
+    ]);
+
+    const lights = normalmap({
+        canvas: canvas,
+        normalMap: normalImg,
+        materialMap: materialImg,
+        metalness: 0.5,
+        roughness: 0.8,
+        baseColor: normalmap.vec3(0.0001, 0.0001, 0.0002),
+        singlePass: true,
+        repeat: true
+    });
+
+    const lightColor = normalmap.vec3(0.2, 0.2, 0.2);
+    const lightPos = new Float32Array(3);
+    const zOffset = 2;
+
+    function renderLight(x, y) {
+        lightPos[0] = x / window.innerWidth;
+        lightPos[1] = y / window.innerHeight;
+        lightPos[2] = zOffset;
+        lights.addPointLight(lightPos, lightColor);
+        lights.render();
+    }
+
+    document.addEventListener('mousemove', function(e) {
+        renderLight(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('touchmove', function(e) {
+        const t = e.touches[0];
+        renderLight(t.clientX, t.clientY);
+    }, { passive: true });
+
+    renderLight(window.innerWidth * 0.25, window.innerHeight * 0.1);
 }
 
 (async () => {
-    const canvas = document.getElementById("ocean-canvas");
-    if (canvas) await initOcean(canvas);
+    const canvas = document.getElementById("carbon-canvas");
+    if (canvas) await initCarbonFiber(canvas);
 
-    new LoadingScreen();
     new SectionNavigator();
 })();
