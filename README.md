@@ -1,4 +1,4 @@
-### https://kn0tzer.is-a.dev
+### https://kn0tzer.z.org
 Backup hosting at kn0tzer.is-a.dev
 <p><a href="https://kn0tzer.is-a.dev">/</a> - My home page</p><br><br>
 
