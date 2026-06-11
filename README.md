@@ -1,5 +1,5 @@
-### https://kn0tzer.z.org
-Backup hosting at kn0tzer.is-a.dev
+### https://kn0tzer.is-a.dev
+Alternate hosting at kn0tzer.z.org
 <p><a href="https://kn0tzer.is-a.dev">/</a> - My home page</p><br><br>
 
 <a href="https://kn0tzer.is-a.dev/math">/math</a> - <a href="https://github.com/gn-math">GN-Math</a> Link Picker<br><br>
