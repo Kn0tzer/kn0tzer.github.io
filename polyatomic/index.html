@@ -299,6 +299,149 @@
             z-index: 999;
         }
 
+        .nav-divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 8px 20px;
+            list-style: none;
+        }
+
+        .nav-section-title {
+            list-style: none;
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 10px 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flashcard-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flash-btn {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .flash-btn:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .flashcard-container {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .flashcard-counter {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .flashcard-scene {
+            width: min(520px, 90%);
+            height: 300px;
+            perspective: 1200px;
+            cursor: pointer;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        .flashcard-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 24px;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .flashcard-text {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--text-main);
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .flashcard-formula {
+            font-family: "SF Mono", Consolas, Menlo, monospace;
+            font-size: 30px;
+            color: var(--accent-blue);
+        }
+
+        .flashcard-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .flashcard-nav {
+            display: flex;
+            gap: 12px;
+        }
+
+        .flash-nav-btn {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .flash-nav-btn:hover {
+            background-color: var(--bg-hover);
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -372,14 +515,43 @@
                 <button class="menu-btn" onclick="openMenu()">☰</button>
                 <h1 id="category-title">All Words</h1>
             </div>
-            <select class="sort-dropdown" id="sort-select" onchange="handleSortChange()">
-                <option value="high-low">Priority (High → Low)</option>
-                <option value="low-high">Priority (Low → High)</option>
-                <option value="a-z">Alphabetical (A → Z)</option>
-            </select>
+            <div class="header-controls">
+                <select class="sort-dropdown" id="sort-select" onchange="handleSortChange()">
+                    <option value="high-low">Priority (High → Low)</option>
+                    <option value="low-high">Priority (Low → High)</option>
+                    <option value="a-z">Alphabetical (A → Z)</option>
+                </select>
+                <div class="flashcard-controls" id="flashcard-controls" style="display: none;">
+                    <select class="sort-dropdown" id="flashcat-select" onchange="handleFlashCategoryChange()"></select>
+                    <button class="flash-btn" onclick="shuffleFlashcards()">Shuffle</button>
+                </div>
+            </div>
         </div>
 
         <div class="list-container" id="main-list-container"></div>
+
+        <div class="flashcard-container" id="flashcard-container" style="display: none;">
+            <div class="flashcard-empty" id="flashcard-empty" style="display: none;"></div>
+            <div class="flashcard-counter" id="flash-counter"></div>
+            <div class="flashcard-scene" id="flashcard-scene" onclick="toggleFlip()">
+                <div class="flashcard-inner" id="flashcard-inner">
+                    <div class="flashcard-face flashcard-front">
+                        <div class="flashcard-label">ION NAME</div>
+                        <div class="flashcard-text" id="flash-front-text"></div>
+                        <div class="flashcard-hint">click to flip</div>
+                    </div>
+                    <div class="flashcard-face flashcard-back">
+                        <div class="flashcard-label">FORMULA</div>
+                        <div class="flashcard-text flashcard-formula" id="flash-back-text"></div>
+                        <div class="flashcard-hint">click to flip</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard-nav" id="flash-nav">
+                <button class="flash-nav-btn" onclick="flashPrev()">← Prev</button>
+                <button class="flash-nav-btn" onclick="flashNext()">Next →</button>
+            </div>
+        </div>
     </main>
 
     <script>
@@ -501,7 +673,11 @@
             activeCategory: "all",
             sortMethod: "high-low",
             appData: structuredClone(DATA),
-            expandedItems: new Set()
+            expandedItems: new Set(),
+            mode: "list",
+            flashItems: [],
+            flashIndex: 0,
+            flashFlipped: false
         };
 
         function openMenu() { document.body.classList.add('sidebar-open'); }
@@ -584,11 +760,27 @@
                 li.onclick = () => switchCategory(cat.id);
                 sidebar.appendChild(li);
             });
+
+            const divider = document.createElement('li');
+            divider.className = 'nav-divider';
+            sidebar.appendChild(divider);
+
+            const sectionTitle = document.createElement('li');
+            sectionTitle.className = 'nav-section-title';
+            sectionTitle.innerText = 'Study Tools';
+            sidebar.appendChild(sectionTitle);
+
+            const fc = document.createElement('li');
+            fc.className = `nav-item ${state.mode === 'flashcards' ? 'active' : ''}`;
+            fc.innerHTML = `<span class="nav-icon">🃏</span>Flashcards<span class="nav-progress">${calculateProgress(getCategoryItems(state.activeCategory))}%</span>`;
+            fc.onclick = () => openFlashcards();
+            sidebar.appendChild(fc);
         }
 
         function switchCategory(categoryId) {
             state.activeCategory = categoryId;
             state.expandedItems.clear();
+            state.mode = "list";
             closeMenu();
 
             const cat = CATEGORIES.find(c => c.id === categoryId);
@@ -601,6 +793,11 @@
         }
 
         function renderList() {
+            document.getElementById('main-list-container').style.display = '';
+            document.getElementById('flashcard-container').style.display = 'none';
+            document.getElementById('sort-select').style.display = '';
+            document.getElementById('flashcard-controls').style.display = 'none';
+
             const container = document.getElementById('main-list-container');
             container.innerHTML = '';
 
@@ -674,6 +871,103 @@
             renderList();
         }
 
+        function initFlashControls() {
+            const select = document.getElementById('flashcat-select');
+            CATEGORIES.forEach(cat => {
+                const opt = document.createElement('option');
+                const label = cat.id === "all" ? `All ${getAllItems().length} Words` : cat.name;
+                opt.value = cat.id;
+                opt.textContent = label;
+                select.appendChild(opt);
+            });
+        }
+
+        function rebuildFlashDeck() {
+            state.flashItems = sortItems(getCategoryItems(state.activeCategory), state.sortMethod);
+            state.flashIndex = 0;
+            state.flashFlipped = false;
+        }
+
+        function openFlashcards() {
+            state.mode = "flashcards";
+            closeMenu();
+            rebuildFlashDeck();
+            renderSidebar();
+            renderFlashcards();
+            updateProgress();
+        }
+
+        function handleFlashCategoryChange() {
+            state.activeCategory = document.getElementById('flashcat-select').value;
+            rebuildFlashDeck();
+            renderSidebar();
+            renderFlashcards();
+            updateProgress();
+        }
+
+        function renderFlashcards() {
+            document.getElementById('main-list-container').style.display = 'none';
+            document.getElementById('flashcard-container').style.display = 'flex';
+            document.getElementById('sort-select').style.display = 'none';
+            document.getElementById('flashcard-controls').style.display = '';
+
+            document.getElementById('flashcat-select').value = state.activeCategory;
+
+            const cat = CATEGORIES.find(c => c.id === state.activeCategory);
+            const title = state.activeCategory === "all"
+                ? `Flashcards — All ${getAllItems().length} Words`
+                : `Flashcards — ${cat.name}`;
+            document.getElementById('category-title').innerText = title;
+
+            const deck = state.flashItems;
+            const showEmpty = !deck.length;
+            document.getElementById('flashcard-empty').style.display = showEmpty ? 'block' : 'none';
+            ['flash-counter', 'flashcard-scene', 'flash-nav'].forEach(id => {
+                document.getElementById(id).style.display = showEmpty ? 'none' : '';
+            });
+            if (showEmpty) {
+                document.getElementById('flashcard-empty').innerText = 'No ions in this category.';
+                return;
+            }
+
+            const item = deck[state.flashIndex];
+            document.getElementById('flash-front-text').innerText = item.term;
+            document.getElementById('flash-back-text').innerText = item.definition;
+            document.getElementById('flash-counter').innerText = `${state.flashIndex + 1} / ${deck.length}`;
+            document.getElementById('flashcard-inner').classList.toggle('flipped', state.flashFlipped);
+        }
+
+        function toggleFlip() {
+            if (!state.flashItems.length) return;
+            state.flashFlipped = !state.flashFlipped;
+            document.getElementById('flashcard-inner').classList.toggle('flipped', state.flashFlipped);
+        }
+
+        function flashNext() {
+            if (!state.flashItems.length) return;
+            state.flashIndex = (state.flashIndex + 1) % state.flashItems.length;
+            state.flashFlipped = false;
+            renderFlashcards();
+        }
+
+        function flashPrev() {
+            if (!state.flashItems.length) return;
+            state.flashIndex = (state.flashIndex - 1 + state.flashItems.length) % state.flashItems.length;
+            state.flashFlipped = false;
+            renderFlashcards();
+        }
+
+        function shuffleFlashcards() {
+            if (state.flashItems.length < 2) return;
+            for (let i = state.flashItems.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [state.flashItems[i], state.flashItems[j]] = [state.flashItems[j], state.flashItems[i]];
+            }
+            state.flashIndex = 0;
+            state.flashFlipped = false;
+            renderFlashcards();
+        }
+
         function sortItems(items, method) {
             const sorted = [...items];
             sorted.sort((a, b) => {
@@ -708,7 +1002,15 @@
             if (!e.target.closest('.priority-container')) closeAllColorPickers();
         });
 
+        document.addEventListener('keydown', e => {
+            if (state.mode !== "flashcards") return;
+            if (e.key === "ArrowRight") flashNext();
+            else if (e.key === "ArrowLeft") flashPrev();
+            else if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleFlip(); }
+        });
+
         loadFromStorage();
+        initFlashControls();
         renderSidebar();
         switchCategory("all");
     </script>
