@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polyatomic Ion Study</title>
+    <style>
+        :root {
+            --bg-main: #0a0a0c;
+            --bg-sidebar: #111216;
+            --bg-card: #181a1f;
+            --bg-hover: #1e2128;
+            --text-main: #e2e2e2;
+            --text-muted: #8b8f98;
+            --border-color: #2a2d35;
+            --accent-blue: #2f65f6;
+            --priority-red: #e72c2c;
+            --priority-orange: #dd9c00;
+            --priority-yellow: #ffe722;
+            --priority-green: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+}
+
+        .nav-section {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: var(--text-muted);
+            padding: 0 20px 10px;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 16px;
+            border-left: 3px solid transparent;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-main);
+        }
+
+        .nav-item.active {
+            background-color: rgba(47, 101, 246, 0.1);
+            border-left-color: var(--accent-blue);
+            color: var(--text-main);
+        }
+
+        .nav-icon {
+            margin-right: 12px;
+        }
+
+        .nav-progress {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .progress-section {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .progress-block {
+            margin-bottom: 15px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            height: 4px;
+            background-color: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--accent-blue);
+            transition: width 0.4s ease;
+        }
+
+        .sidebar {
+            width: 320px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 0 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .menu-btn {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .sort-dropdown {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .list-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            cursor: pointer;
+        }
+
+        .priority-container {
+            position: relative;
+            padding: 5px 15px 5px 0;
+        }
+
+        .priority-bar {
+            width: 12px;
+            height: 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .priority-bar::before {
+            content: "❯";
+            color: rgba(255,255,255,1);
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .priority-bar:hover {
+            transform: scale(1.3);
+        }
+
+        .item-title {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .chevron {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            font-size: 24px;
+        }
+
+        .list-item.expanded .chevron {
+            transform: rotate(90deg);
+        }
+
+        .item-details {
+            display: none;
+            background-color: var(--bg-card);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .list-item.expanded .item-details {
+            display: block;
+        }
+
+        .item-details:focus {
+            border-color: var(--accent-blue);
+            outline: none;
+        }
+
+        .color-picker {
+            display: none;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #1f2229;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .color-picker.active {
+            display: flex;
+        }
+
+        .color-option {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .priority-red .priority-bar { background-color: var(--priority-red); }
+        .priority-red .item-title { color: var(--priority-red); }
+        .priority-orange .priority-bar { background-color: var(--priority-orange); }
+        .priority-orange .item-title { color: var(--priority-orange); }
+        .priority-yellow .priority-bar { background-color: var(--priority-yellow); }
+        .priority-yellow .item-title { color: var(--priority-yellow); }
+        .priority-green .priority-bar { background-color: var(--priority-green); }
+        .priority-green .item-title { color: var(--priority-green); }
+
+        .opt-red { background-color: var(--priority-red); }
+        .opt-orange { background-color: var(--priority-orange); }
+        .opt-yellow { background-color: var(--priority-yellow); }
+        .opt-green { background-color: var(--priority-green); }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 1000;
+                transform: translateX(-100%);
+            }
+
+            body.sidebar-open .sidebar {
+                transform: translateX(0);
+            }
+
+            body.sidebar-open .sidebar-overlay {
+                display: block;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .progress-section {
+                display: none;
+            }
+
+            .sidebar .progress-section {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <aside class="sidebar">
+        <nav class="nav-section">
+            <div class="section-title">Categories</div>
+            <ul class="nav-list" id="sidebar-list"></ul>
+        </nav>
+
+        <div class="progress-section">
+            <div class="progress-block">
+                <div class="progress-header">
+                    <span>Category Progress</span>
+                    <span id="cat-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="cat-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="progress-block">
+                <div class="progress-header">
+                    <span>Overall Progress</span>
+                    <span id="overall-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="overall-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <button class="menu-btn" onclick="openMenu()">☰</button>
+                <h1 id="category-title">All Words</h1>
+            </div>
+            <select class="sort-dropdown" id="sort-select" onchange="handleSortChange()">
+                <option value="high-low">Priority (High → Low)</option>
+                <option value="low-high">Priority (Low → High)</option>
+                <option value="a-z">Alphabetical (A → Z)</option>
+            </select>
+        </div>
+
+        <div class="list-container" id="main-list-container"></div>
+    </main>
+
+    <script>
+        const CATEGORIES = [
+            { id: "all", name: "All Words", icon: "📚" },
+            { id: "rc", name: "Red Cations", icon: "🔴" },
+            { id: "ra", name: "Red Anions", icon: "🔴" },
+            { id: "bc", name: "Blue Cations", icon: "🔵" },
+            { id: "ba", name: "Blue Anions", icon: "🔵" },
+            { id: "kc", name: "Black Cations", icon: "⚫" },
+            { id: "ka", name: "Black Anions", icon: "⚫" }
+        ];
+
+        const PRIORITY_ORDER = { red: 0, orange: 1, yellow: 2, green: 3 };
+        const DEFAULT_PRIORITY = "red";
+        const CATEGORY_ORDER = { rc: 1, ra: 2, bc: 3, ba: 4, kc: 5, ka: 6 };
+
+        const getPriority = (item) => item.priority || DEFAULT_PRIORITY;
+
+        const DATA = {
+            "rc": [
+                { id: "rc_1", term: "Antimony (III)", definition: "Sb(3+)" },
+                { id: "rc_2", term: "Antimony (V)", definition: "Sb(5+)" },
+                { id: "rc_3", term: "Arsenic (III)", definition: "As(3+)" },
+                { id: "rc_4", term: "Arsenic (V)", definition: "As(5+)" },
+                { id: "rc_5", term: "Barium", definition: "Ba(2+)" },
+                { id: "rc_6", term: "Bismuth (III)", definition: "Bi(3+)" },
+                { id: "rc_7", term: "Bismuth (V)", definition: "Bi(5+)" },
+                { id: "rc_8", term: "Calcium", definition: "Ca(2+)" },
+                { id: "rc_9", term: "Cadmium", definition: "Cd(2+)" },
+                { id: "rc_10", term: "Chromium (II) or chromous", definition: "Cr(2+)" },
+                { id: "rc_11", term: "Chromium (III) or chromic", definition: "Cr(3+)" },
+                { id: "rc_12", term: "Cobalt (II) or cobaltous", definition: "Co(2+)" },
+                { id: "rc_13", term: "Cobalt (III) or cobaltic", definition: "Co(3+)" },
+                { id: "rc_14", term: "Copper (I) or cuprous", definition: "Cu(+)" },
+                { id: "rc_15", term: "Copper (II) or cupric", definition: "Cu(2+)" },
+                { id: "rc_16", term: "Iron (II) or ferrous", definition: "Fe(2+)" },
+                { id: "rc_17", term: "Iron (III) or ferric", definition: "Fe(3+)" }
+            ],
+            "ra": [
+                { id: "ra_1", term: "Acetate", definition: "C2H3O2(-)" },
+                { id: "ra_2", term: "Arsenate", definition: "AsO4(3-)" },
+                { id: "ra_3", term: "Bicarbonate", definition: "HCO3(-)" },
+                { id: "ra_4", term: "Binoxalate", definition: "HC2O4(-)" },
+                { id: "ra_5", term: "Bisulfate", definition: "HSO4(-)" },
+                { id: "ra_6", term: "Bisulfide", definition: "HS(-)" },
+                { id: "ra_7", term: "Bisulfite", definition: "HSO3(-)" },
+                { id: "ra_8", term: "Borate", definition: "BO3(3-)" },
+                { id: "ra_9", term: "Bromate", definition: "BrO3(-)" },
+                { id: "ra_10", term: "Bromide", definition: "Br(-)" },
+                { id: "ra_11", term: "Bromite", definition: "BrO2(-)" },
+                { id: "ra_12", term: "Carbonate", definition: "CO3(2-)" },
+                { id: "ra_13", term: "Chlorate", definition: "ClO3(-)" },
+                { id: "ra_14", term: "Chloride", definition: "Cl(-)" },
+                { id: "ra_15", term: "Chlorite", definition: "ClO2(-)" },
+                { id: "ra_16", term: "Chromate", definition: "CrO4(2-)" },
+                { id: "ra_17", term: "Cyanide", definition: "CN(-)" },
+                { id: "ra_18", term: "Dichromate", definition: "Cr2O7(2-)" },
+                { id: "ra_19", term: "Dihydrogen phosphate", definition: "H2PO4(-)" },
+                { id: "ra_20", term: "Fluoride", definition: "F(-)" },
+                { id: "ra_21", term: "Hydrogen phosphate", definition: "HPO4(2-)" },
+                { id: "ra_22", term: "Hydroxide", definition: "OH(-)" },
+                { id: "ra_23", term: "Hypobromite", definition: "BrO(-)" },
+                { id: "ra_24", term: "Hypochlorite", definition: "ClO(-)" },
+                { id: "ra_25", term: "Hypoiodite", definition: "IO(-)" },
+                { id: "ra_26", term: "Iodate", definition: "IO3(-)" },
+                { id: "ra_27", term: "Iodide", definition: "I(-)" },
+                { id: "ra_28", term: "Iodite", definition: "IO2(-)" }
+            ],
+            "bc": [
+                { id: "bc_1", term: "Aluminum", definition: "Al(3+)" },
+                { id: "bc_2", term: "Ammonium", definition: "NH4(+)" },
+                { id: "bc_3", term: "Hydrogen", definition: "H(+)" },
+                { id: "bc_4", term: "Hydronium", definition: "H3O(+)" },
+                { id: "bc_5", term: "Lithium", definition: "Li(+)" }
+            ],
+            "ba": [],
+            "kc": [
+                { id: "kc_1", term: "Lead (II) or plumbous", definition: "Pb(2+)" },
+                { id: "kc_2", term: "Lead (IV) or plumbic", definition: "Pb(4+)" },
+                { id: "kc_3", term: "Magnesium", definition: "Mg(2+)" },
+                { id: "kc_4", term: "Manganese (II)", definition: "Mn(2+)" },
+                { id: "kc_5", term: "Manganese (IV)", definition: "Mn(4+)" },
+                { id: "kc_6", term: "Mercury (I) or mercurous", definition: "Hg2(2+)" },
+                { id: "kc_7", term: "Mercury (II) or mercuric", definition: "Hg(2+)" },
+                { id: "kc_8", term: "Nickel (II)", definition: "Ni(2+)" },
+                { id: "kc_9", term: "Nickel (III)", definition: "Ni(3+)" },
+                { id: "kc_10", term: "Potassium", definition: "K(+)" },
+                { id: "kc_11", term: "Silver", definition: "Ag(+)" },
+                { id: "kc_12", term: "Sodium", definition: "Na(+)" },
+                { id: "kc_13", term: "Strontium", definition: "Sr(2+)" },
+                { id: "kc_14", term: "Tin (II) or stannous", definition: "Sn(2+)" },
+                { id: "kc_15", term: "Tin (IV) or stannic", definition: "Sn(4+)" },
+                { id: "kc_16", term: "Zinc", definition: "Zn(2+)" }
+            ],
+            "ka": [
+                { id: "ka_1", term: "Nitride", definition: "N(3-)" },
+                { id: "ka_2", term: "Nitrate", definition: "NO3(-)" },
+                { id: "ka_3", term: "Nitrite", definition: "NO2(-)" },
+                { id: "ka_4", term: "Oxalate", definition: "C2O4(2-)" },
+                { id: "ka_5", term: "Oxide", definition: "O(2-)" },
+                { id: "ka_6", term: "Perbromate", definition: "BrO4(-)" },
+                { id: "ka_7", term: "Perchlorate", definition: "ClO4(-)" },
+                { id: "ka_8", term: "Permanganate", definition: "MnO4(-)" },
+                { id: "ka_9", term: "Peroxide", definition: "O2(2-)" },
+                { id: "ka_10", term: "Phosphate", definition: "PO4(3-)" },
+                { id: "ka_11", term: "Phosphide", definition: "P(3-)" },
+                { id: "ka_12", term: "Phosphite", definition: "PO3(3-)" },
+                { id: "ka_13", term: "Sulfate", definition: "SO4(2-)" },
+                { id: "ka_14", term: "Sulfide", definition: "S(2-)" },
+                { id: "ka_15", term: "Sulfite", definition: "SO3(2-)" },
+                { id: "ka_16", term: "Tartrate", definition: "C4H4O6(2-)" },
+                { id: "ka_17", term: "Thiocyanate", definition: "SCN(-)" },
+                { id: "ka_18", term: "Thiosulfate", definition: "S2O3(2-)" }
+            ]
+        };
+
+        let state = {
+            activeCategory: "all",
+            sortMethod: "high-low",
+            appData: structuredClone(DATA),
+            expandedItems: new Set()
+        };
+
+        function openMenu() { document.body.classList.add('sidebar-open'); }
+        function closeMenu() { document.body.classList.remove('sidebar-open'); }
+
+        function getAllItems() {
+            return Object.values(state.appData).flat();
+        }
+
+        function getCategoryItems(categoryId) {
+            return categoryId === "all" ? getAllItems() : state.appData[categoryId] || [];
+        }
+
+        function calculateProgress(items) {
+            if (!items.length) return 0;
+            const score = items.reduce((sum, item) => sum + PRIORITY_ORDER[getPriority(item)], 0);
+            return Math.round((score / (items.length * 3)) * 100);
+        }
+
+        function loadFromStorage() {
+            const savedPriority = JSON.parse(localStorage.getItem('studyAppProgress') || '{}');
+            const savedDefs = JSON.parse(localStorage.getItem('studyAppDefinitionChanges') || '{}');
+            const savedSort = localStorage.getItem('studyAppSort');
+
+            for (let catId in savedPriority) {
+                if (state.appData[catId]) {
+                    state.appData[catId].forEach(item => {
+                        if (savedPriority[catId][item.id]) {
+                            item.priority = savedPriority[catId][item.id];
+                        }
+                    });
+                }
+            }
+
+            for (let catId in savedDefs) {
+                if (state.appData[catId]) {
+                    state.appData[catId].forEach(item => {
+                        if (savedDefs[catId][item.id]) {
+                            item.definition = savedDefs[catId][item.id];
+                        }
+                    });
+                }
+            }
+
+            if (savedSort) {
+                state.sortMethod = savedSort;
+                document.getElementById('sort-select').value = savedSort;
+            }
+        }
+
+        function saveToStorage() {
+            const priorityData = {};
+            const defData = {};
+
+            for (let catId in state.appData) {
+                priorityData[catId] = {};
+                defData[catId] = {};
+                state.appData[catId].forEach(item => {
+                    if (item.priority && item.priority !== DEFAULT_PRIORITY) priorityData[catId][item.id] = item.priority;
+                    defData[catId][item.id] = item.definition;
+                });
+            }
+
+            localStorage.setItem('studyAppProgress', JSON.stringify(priorityData));
+            localStorage.setItem('studyAppDefinitionChanges', JSON.stringify(defData));
+        }
+
+        function renderSidebar() {
+            const sidebar = document.getElementById('sidebar-list');
+            sidebar.innerHTML = '';
+            const totalWords = getAllItems().length;
+
+            CATEGORIES.forEach(cat => {
+                const li = document.createElement('li');
+                const displayName = cat.id === "all" ? `All ${totalWords} Words` : cat.name;
+                const progress = calculateProgress(getCategoryItems(cat.id));
+
+                li.className = `nav-item ${cat.id === state.activeCategory ? 'active' : ''}`;
+                li.innerHTML = `<span class="nav-icon">${cat.icon}</span>${displayName}<span class="nav-progress">${progress}%</span>`;
+                li.onclick = () => switchCategory(cat.id);
+                sidebar.appendChild(li);
+            });
+        }
+
+        function switchCategory(categoryId) {
+            state.activeCategory = categoryId;
+            state.expandedItems.clear();
+            closeMenu();
+
+            const cat = CATEGORIES.find(c => c.id === categoryId);
+            const title = categoryId === "all" ? `All ${getAllItems().length} Words` : cat.name;
+            document.getElementById('category-title').innerText = title;
+
+            renderSidebar();
+            renderList();
+            updateProgress();
+        }
+
+        function renderList() {
+            const container = document.getElementById('main-list-container');
+            container.innerHTML = '';
+
+            const items = sortItems(getCategoryItems(state.activeCategory), state.sortMethod);
+
+            if (!items.length) {
+                container.innerHTML = '<div style="padding: 20px; color: var(--text-muted);">No terms in this category.</div>';
+                return;
+            }
+
+            items.forEach(item => {
+                const priority = getPriority(item);
+                const isExpanded = state.expandedItems.has(item.id);
+                const div = document.createElement('div');
+                div.className = `list-item priority-${priority} ${isExpanded ? 'expanded' : ''}`;
+                div.innerHTML = `
+                    <div class="item-header" onclick="toggleAccordion('${item.id}', this)">
+                        <div class="priority-container">
+                            <div class="priority-bar" onclick="openColorPicker(event, this)"></div>
+                            <div class="color-picker">
+                                ${['red', 'orange', 'yellow', 'green'].map(c => `<div class="color-option opt-${c}" onclick="setColor(event, '${item.id}', '${c}')"></div>`).join('')}
+                            </div>
+                        </div>
+                        <span class="item-title">${item.term}</span>
+                        <span class="chevron">›</span>
+                    </div>
+                    <div class="item-details" contenteditable="true" spellcheck="false" onblur="saveDefinition(event, '${item.id}', this.innerText)" onclick="event.stopPropagation()">${item.definition}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleAccordion(itemId, headerEl) {
+            const listItem = headerEl.closest('.list-item');
+            if (state.expandedItems.has(itemId)) {
+                state.expandedItems.delete(itemId);
+                listItem.classList.remove('expanded');
+            } else {
+                state.expandedItems.add(itemId);
+                listItem.classList.add('expanded');
+            }
+        }
+
+        function openColorPicker(event, el) {
+            event.stopPropagation();
+            closeAllColorPickers();
+            el.nextElementSibling.classList.add('active');
+        }
+
+        function setColor(event, itemId, color) {
+            event.stopPropagation();
+            getAllItems().find(i => i.id === itemId).priority = color;
+            saveToStorage();
+            renderList();
+            updateProgress();
+            closeAllColorPickers();
+        }
+
+        function saveDefinition(event, itemId, newText) {
+            const item = getAllItems().find(i => i.id === itemId);
+            if (item && item.definition !== newText) {
+                item.definition = newText;
+                saveToStorage();
+                updateProgress();
+            }
+        }
+
+        function handleSortChange() {
+            state.sortMethod = document.getElementById('sort-select').value;
+            localStorage.setItem('studyAppSort', state.sortMethod);
+            renderList();
+        }
+
+        function sortItems(items, method) {
+            const sorted = [...items];
+            sorted.sort((a, b) => {
+                let diff = 0;
+                if (method === 'high-low') diff = PRIORITY_ORDER[getPriority(a)] - PRIORITY_ORDER[getPriority(b)];
+                else if (method === 'low-high') diff = PRIORITY_ORDER[getPriority(b)] - PRIORITY_ORDER[getPriority(a)];
+                else if (method === 'a-z') diff = a.term.localeCompare(b.term);
+
+                if (diff !== 0) return diff;
+                return (CATEGORY_ORDER[a.id.substring(0, 2)] || 99) - (CATEGORY_ORDER[b.id.substring(0, 2)] || 99);
+            });
+            return sorted;
+        }
+
+        function updateProgress() {
+            const catItems = getCategoryItems(state.activeCategory);
+            const catPercent = calculateProgress(catItems);
+
+            document.getElementById('cat-progress-text').innerText = `${catPercent}%`;
+            document.getElementById('cat-progress-bar').style.width = `${catPercent}%`;
+
+            const overallPercent = calculateProgress(getAllItems());
+            document.getElementById('overall-progress-text').innerText = `${overallPercent}%`;
+            document.getElementById('overall-progress-bar').style.width = `${overallPercent}%`;
+        }
+
+        function closeAllColorPickers() {
+            document.querySelectorAll('.color-picker').forEach(p => p.classList.remove('active'));
+        }
+
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.priority-container')) closeAllColorPickers();
+        });
+
+        loadFromStorage();
+        renderSidebar();
+        switchCategory("all");
+    </script>
+</body>
+</html>
