@@ -473,10 +473,487 @@
             }
 
             .sidebar .progress-section {
-                display: block;
-            }
-        }
-    </style>
+                            display: block;
+                        }
+                    }
+
+                    /* ============ LEARN MODE ============ */
+                    .learn-container {
+                        flex: 1;
+                        min-height: 0;
+                        display: flex;
+                        flex-direction: column;
+                        max-width: 720px;
+                        width: 100%;
+                        margin: 0 auto;
+                    }
+
+                    .learn-topbar {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                        margin-bottom: 28px;
+                    }
+
+                    .learn-progress {
+                        height: 6px;
+                        background-color: var(--border-color);
+                        border-radius: 3px;
+                        overflow: hidden;
+                    }
+
+                    .learn-progress-fill {
+                        height: 100%;
+                        background-color: var(--accent-blue);
+                        border-radius: 3px;
+                        transition: width 0.4s ease;
+                        width: 0%;
+                    }
+
+                    .learn-status {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: var(--text-muted);
+                        font-size: 14px;
+                    }
+
+                    .learn-counter {
+                        font-weight: 600;
+                    }
+
+                    .learn-controls {
+                        display: flex;
+                        gap: 8px;
+                    }
+
+                    .learn-btn {
+                        background-color: var(--bg-main);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 7px 14px;
+                        border-radius: 6px;
+                        font-size: 14px;
+                        cursor: pointer;
+                    }
+
+                    .learn-btn:hover {
+                        background-color: var(--bg-hover);
+                    }
+
+                    .learn-btn.primary {
+                        background-color: var(--accent-blue);
+                        border-color: var(--accent-blue);
+                        color: #fff;
+                        font-weight: 600;
+                    }
+
+                    .learn-btn.ghost {
+                        background: transparent;
+                    }
+
+                    .learn-btn.starred {
+                        color: var(--priority-yellow);
+                    }
+
+                    .learn-screen {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+
+                    /* settings / intro */
+                    .learn-intro {
+                        text-align: center;
+                        padding: 30px 0 10px;
+                    }
+
+                    .learn-intro h2 {
+                        font-size: 26px;
+                        font-weight: 600;
+                        margin-bottom: 8px;
+                    }
+
+                    .learn-intro p {
+                        color: var(--text-muted);
+                        font-size: 15px;
+                        margin-bottom: 4px;
+                    }
+
+                    .learn-settings-panel {
+                        background-color: var(--bg-card);
+                        border: 1px solid var(--border-color);
+                        border-radius: 14px;
+                        padding: 26px 30px 30px;
+                        width: 100%;
+                        max-width: 560px;
+                        margin: 24px 0 8px;
+                        text-align: left;
+                    }
+
+                    .learn-setting-row {
+                        margin-bottom: 20px;
+                    }
+
+                    .learn-setting-row:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    .learn-setting-label {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: var(--text-main);
+                        margin-bottom: 10px;
+                    }
+
+                    .learn-setting-hint {
+                        font-size: 12px;
+                        color: var(--text-muted);
+                        margin-top: 6px;
+                    }
+
+                    .learn-seg {
+                        display: flex;
+                        gap: 8px;
+                        flex-wrap: wrap;
+                    }
+
+                    .learn-seg-btn {
+                        background-color: var(--bg-main);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 10px 16px;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        cursor: pointer;
+                        flex: 1;
+                        min-width: 130px;
+                        text-align: center;
+                    }
+
+                    .learn-seg-btn:hover {
+                        background-color: var(--bg-hover);
+                    }
+
+                    .learn-seg-btn.selected {
+                        background-color: rgba(47, 101, 246, 0.18);
+                        border-color: var(--accent-blue);
+                        color: #fff;
+                    }
+
+                    .learn-start-row {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            gap: 12px;
+                                            margin-top: 22px;
+                                        }
+
+                                        .learn-start-btn {
+                                            padding: 13px 40px;
+                                            font-size: 16px;
+                                        }
+
+                    .learn-question {
+                        width: 100%;
+                        max-width: 560px;
+                        background-color: var(--bg-card);
+                        border: 1px solid var(--border-color);
+                        border-radius: 14px;
+                        padding: 36px;
+                        text-align: center;
+                        min-height: 180px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 16px;
+                    }
+
+                    .learn-label {
+                        font-size: 12px;
+                        letter-spacing: 2px;
+                        text-transform: uppercase;
+                        color: var(--text-muted);
+                    }
+
+                    .learn-prompt {
+                        font-size: 26px;
+                        font-weight: 600;
+                        color: var(--text-main);
+                        line-height: 1.3;
+                        word-break: break-word;
+                    }
+
+                    .learn-prompt.formula {
+                        font-family: "SF Mono", Consolas, Menlo, monospace;
+                        color: var(--accent-blue);
+                        font-size: 32px;
+                    }
+
+                    /* multiple choice */
+                    .learn-options {
+                        width: 100%;
+                        max-width: 560px;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 10px;
+                        margin-top: 16px;
+                    }
+
+                    .learn-option {
+                        background-color: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        border-radius: 10px;
+                        padding: 18px 20px;
+                        font-size: 15px;
+                        cursor: pointer;
+                        text-align: center;
+                        transition: background-color 0.15s, border-color 0.15s;
+                        word-break: break-word;
+                        line-height: 1.3;
+                    }
+
+                    .learn-option:hover:not(:disabled) {
+                        background-color: var(--bg-hover);
+                    }
+
+                    .learn-option.correct {
+                        background-color: rgba(46, 204, 113, 0.16);
+                        border-color: var(--priority-green);
+                        color: var(--priority-green);
+                    }
+
+                    .learn-option.wrong {
+                        background-color: rgba(231, 44, 44, 0.16);
+                        border-color: var(--priority-red);
+                        color: var(--priority-red);
+                    }
+
+                    .learn-option:disabled {
+                        cursor: default;
+                    }
+
+                    /* written answer */
+                    .learn-written {
+                        width: 100%;
+                        max-width: 560px;
+                        display: flex;
+                        gap: 10px;
+                        margin-top: 16px;
+                    }
+
+                    .learn-input {
+                        flex: 1;
+                        background-color: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        border-radius: 10px;
+                        padding: 16px 18px;
+                        font-size: 17px;
+                        outline: none;
+                    }
+
+                    .learn-input:focus {
+                        border-color: var(--accent-blue);
+                    }
+
+                    .learn-answer-btn {
+                        background-color: var(--accent-blue);
+                        color: #fff;
+                        border: none;
+                        border-radius: 10px;
+                        padding: 0 26px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        cursor: pointer;
+                    }
+
+                    .learn-answer-btn:disabled {
+                        opacity: 0.5;
+                        cursor: default;
+                    }
+
+                    /* feedback / continue */
+                    .learn-feedback {
+                        margin-top: 18px;
+                        width: 100%;
+                        max-width: 560px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 12px;
+                    }
+
+                    .learn-feedback-msg {
+                        font-size: 16px;
+                        font-weight: 600;
+                        text-align: center;
+                    }
+
+                    .learn-feedback-msg .correct { color: var(--priority-green); }
+                    .learn-feedback-msg .incorrect { color: var(--priority-red); }
+
+                    .learn-feedback-answer {
+                        color: var(--text-muted);
+                        font-size: 14px;
+                        text-align: center;
+                    }
+
+                    .learn-feedback-btn {
+                        background-color: var(--accent-blue);
+                        color: #fff;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 12px 34px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        cursor: pointer;
+                    }
+
+                    .learn-feedback-btn:hover {
+                        opacity: 0.9;
+                    }
+
+.learn-keys {
+                            color: var(--text-muted);
+                            font-size: 12px;
+                            opacity: 0.6;
+                            margin-top: 12px;
+                        }
+
+                        .learn-term-chips {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            gap: 5px;
+                            width: 100%;
+                            max-width: 560px;
+                            margin: 0 auto 18px;
+                        }
+
+                        .learn-chip {
+                            width: 9px;
+                            height: 20px;
+                            border-radius: 3px;
+                            background-color: var(--border-color);
+                            transition: background-color 0.3s;
+                        }
+
+                        .learn-chip.partial {
+                            background-color: var(--priority-yellow);
+                        }
+
+                        .learn-chip.done {
+                            background-color: var(--priority-green);
+                        }
+
+                        .learn-reveal-row {
+                            margin-top: 14px;
+                            width: 100%;
+                            max-width: 560px;
+                            display: flex;
+                            justify-content: center;
+                        }
+
+                        /* results */
+                    .learn-results {
+                        max-width: 560px;
+                        width: 100%;
+                        background-color: var(--bg-card);
+                        border: 1px solid var(--border-color);
+                        border-radius: 14px;
+                        padding: 40px;
+                        text-align: center;
+                    }
+
+                    .learn-results h2 {
+                        font-size: 28px;
+                        font-weight: 700;
+                        margin-bottom: 6px;
+                    }
+
+                    .learn-results-sub {
+                        color: var(--text-muted);
+                        font-size: 15px;
+                        margin-bottom: 26px;
+                    }
+
+                    .learn-results-stats {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 12px;
+                        margin-bottom: 26px;
+                    }
+
+                    .learn-stat {
+                        background-color: var(--bg-main);
+                        border: 1px solid var(--border-color);
+                        border-radius: 10px;
+                        padding: 18px;
+                    }
+
+                    .learn-stat-value {
+                        font-size: 26px;
+                        font-weight: 700;
+                    }
+
+                    .learn-stat-value.good { color: var(--priority-green); }
+                    .learn-stat-value.bad { color: var(--priority-red); }
+
+                    .learn-stat-label {
+                        font-size: 12px;
+                        color: var(--text-muted);
+                        margin-top: 4px;
+                    }
+
+                    .learn-results-actions {
+                        display: flex;
+                        gap: 10px;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                    }
+
+                    .learn-missed {
+                        margin-top: 20px;
+                        text-align: left;
+                        background-color: var(--bg-main);
+                        border: 1px solid var(--border-color);
+                        border-radius: 10px;
+                        padding: 16px 20px;
+                    }
+
+                    .learn-missed-title {
+                        font-size: 13px;
+                        color: var(--text-muted);
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        margin-bottom: 10px;
+                    }
+
+                    .learn-missed-item {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 12px;
+                        padding: 6px 0;
+                        border-bottom: 1px solid var(--border-color);
+                        font-size: 14px;
+                    }
+
+                    .learn-missed-item:last-child {
+                        border-bottom: none;
+                    }
+
+                    .learn-missed-term { color: var(--text-main); }
+                    .learn-missed-def { color: var(--text-muted); }
+
+                    @media (max-width: 560px) {
+                        .learn-options {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                </style>
 </head>
 <body>
     <div class="sidebar-overlay" id="overlay" onclick="closeMenu()"></div>
@@ -548,11 +1025,25 @@
                 </div>
             </div>
             <div class="flashcard-nav" id="flash-nav">
-                <button class="flash-nav-btn" onclick="flashPrev()">← Prev</button>
-                <button class="flash-nav-btn" onclick="flashNext()">Next →</button>
-            </div>
-        </div>
-    </main>
+                            <button class="flash-nav-btn" onclick="flashPrev()">← Prev</button>
+                            <button class="flash-nav-btn" onclick="flashNext()">Next →</button>
+                        </div>
+                    </div>
+
+                    <div class="learn-container" id="learn-container" style="display: none;">
+                        <div class="learn-topbar" id="learn-topbar" style="display: none;">
+                            <div class="learn-progress"><div class="learn-progress-fill" id="learn-progress-fill"></div></div>
+                            <div class="learn-status">
+                                <span class="learn-counter" id="learn-counter"></span>
+                                <span class="learn-controls">
+                                    <button class="learn-btn" onclick="learnEnd()">End</button>
+                                    <button class="learn-btn" id="learn-star" onclick="learnToggleStar()">⭐ Star</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="learn-screen" id="learn-screen"></div>
+                    </div>
+                </main>
 
     <script>
         const CATEGORIES = [
@@ -698,52 +1189,67 @@
         }
 
         function loadFromStorage() {
-            const savedPriority = JSON.parse(localStorage.getItem('studyAppProgress') || '{}');
-            const savedDefs = JSON.parse(localStorage.getItem('studyAppDefinitionChanges') || '{}');
-            const savedSort = localStorage.getItem('studyAppSort');
+                    const savedPriority = JSON.parse(localStorage.getItem('studyAppProgress') || '{}');
+                    const savedDefs = JSON.parse(localStorage.getItem('studyAppDefinitionChanges') || '{}');
+                    const savedStars = JSON.parse(localStorage.getItem('studyAppStars') || '{}');
+                    const savedSort = localStorage.getItem('studyAppSort');
 
-            for (let catId in savedPriority) {
-                if (state.appData[catId]) {
-                    state.appData[catId].forEach(item => {
-                        if (savedPriority[catId][item.id]) {
-                            item.priority = savedPriority[catId][item.id];
+                    for (let catId in savedPriority) {
+                        if (state.appData[catId]) {
+                            state.appData[catId].forEach(item => {
+                                if (savedPriority[catId][item.id]) {
+                                    item.priority = savedPriority[catId][item.id];
+                                }
+                            });
                         }
-                    });
-                }
-            }
+                    }
 
-            for (let catId in savedDefs) {
-                if (state.appData[catId]) {
-                    state.appData[catId].forEach(item => {
-                        if (savedDefs[catId][item.id]) {
-                            item.definition = savedDefs[catId][item.id];
+                    for (let catId in savedDefs) {
+                        if (state.appData[catId]) {
+                            state.appData[catId].forEach(item => {
+                                if (savedDefs[catId][item.id]) {
+                                    item.definition = savedDefs[catId][item.id];
+                                }
+                            });
                         }
-                    });
-                }
-            }
+                    }
 
-            if (savedSort) {
-                state.sortMethod = savedSort;
-                document.getElementById('sort-select').value = savedSort;
-            }
-        }
+                    for (let catId in savedStars) {
+                        if (state.appData[catId]) {
+                            state.appData[catId].forEach(item => {
+                                if (savedStars[catId][item.id]) {
+                                    item.starred = true;
+                                }
+                            });
+                        }
+                    }
+
+                    if (savedSort) {
+                        state.sortMethod = savedSort;
+                        document.getElementById('sort-select').value = savedSort;
+                    }
+                }
 
         function saveToStorage() {
-            const priorityData = {};
-            const defData = {};
+                    const priorityData = {};
+                    const defData = {};
+                    const starData = {};
 
-            for (let catId in state.appData) {
-                priorityData[catId] = {};
-                defData[catId] = {};
-                state.appData[catId].forEach(item => {
-                    if (item.priority && item.priority !== DEFAULT_PRIORITY) priorityData[catId][item.id] = item.priority;
-                    defData[catId][item.id] = item.definition;
-                });
-            }
+                    for (let catId in state.appData) {
+                        priorityData[catId] = {};
+                        defData[catId] = {};
+                        starData[catId] = {};
+                        state.appData[catId].forEach(item => {
+                            if (item.priority && item.priority !== DEFAULT_PRIORITY) priorityData[catId][item.id] = item.priority;
+                            defData[catId][item.id] = item.definition;
+                            if (item.starred) starData[catId][item.id] = true;
+                        });
+                    }
 
-            localStorage.setItem('studyAppProgress', JSON.stringify(priorityData));
-            localStorage.setItem('studyAppDefinitionChanges', JSON.stringify(defData));
-        }
+                    localStorage.setItem('studyAppProgress', JSON.stringify(priorityData));
+                    localStorage.setItem('studyAppDefinitionChanges', JSON.stringify(defData));
+                    localStorage.setItem('studyAppStars', JSON.stringify(starData));
+                }
 
         function renderSidebar() {
             const sidebar = document.getElementById('sidebar-list');
@@ -771,10 +1277,16 @@
             sidebar.appendChild(sectionTitle);
 
             const fc = document.createElement('li');
-            fc.className = `nav-item ${state.mode === 'flashcards' ? 'active' : ''}`;
-            fc.innerHTML = `<span class="nav-icon">🃏</span>Flashcards<span class="nav-progress">${calculateProgress(getCategoryItems(state.activeCategory))}%</span>`;
-            fc.onclick = () => openFlashcards();
-            sidebar.appendChild(fc);
+                        fc.className = `nav-item ${state.mode === 'flashcards' ? 'active' : ''}`;
+                        fc.innerHTML = `<span class="nav-icon">🃏</span>Flashcards<span class="nav-progress">${calculateProgress(getCategoryItems(state.activeCategory))}%</span>`;
+                        fc.onclick = () => openFlashcards();
+                        sidebar.appendChild(fc);
+
+                        const ln = document.createElement('li');
+                        ln.className = `nav-item ${state.mode === 'learn' ? 'active' : ''}`;
+                        ln.innerHTML = `<span class="nav-icon">🎯</span>Learn<span class="nav-progress"></span>`;
+                        ln.onclick = () => openLearn();
+                        sidebar.appendChild(ln);
         }
 
         function switchCategory(categoryId) {
@@ -958,17 +1470,533 @@
         }
 
         function shuffleFlashcards() {
-            if (state.flashItems.length < 2) return;
-            for (let i = state.flashItems.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [state.flashItems[i], state.flashItems[j]] = [state.flashItems[j], state.flashItems[i]];
-            }
-            state.flashIndex = 0;
-            state.flashFlipped = false;
-            renderFlashcards();
-        }
+                    if (state.flashItems.length < 2) return;
+                    for (let i = state.flashItems.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [state.flashItems[i], state.flashItems[j]] = [state.flashItems[j], state.flashItems[i]];
+                    }
+                    state.flashIndex = 0;
+                    state.flashFlipped = false;
+                    renderFlashcards();
+                }
 
-        function sortItems(items, method) {
+                /* ==================== LEARN MODE (Quizlet-style) ==================== */
+                const LEARN_MODES = { MC: "mc", WRITE: "write", STAR: "star", ONCE: "once" };
+                const LEARN_ANSWER_TYPES = { TERM: "term", DEFINITION: "definition" };
+
+                let learnState = {
+                    settings: { mode: LEARN_MODES.MC, answerType: "mc" },
+                    screen: "settings",          // settings | question | results
+                    deck: [],                    // learn deck of item copies still in rotation
+                    order: [],                   // original (shuffled) order for the progress chips
+                    totalTerms: 0,               // starting deck size
+                    totalAnswered: 0,
+                    correctCount: 0,
+                    firstTryCorrect: 0,
+                    streak: 0,
+                    bestStreak: 0,
+                    wrongItems: [],              // all missed item ids, in order (for the review list)
+                    incorrectSet: new Set(),     // distinct missed ids (for results summary)
+                    current: null,               // { item, options, userAnswer, answered, correct }
+                    questionMode: LEARN_ANSWER_TYPES.TERM // 'term' | 'definition'
+                };
+
+                function learnSettings() {
+                    return {
+                        mode: learnState.settings.mode,
+                        answerType: learnState.settings.answerType,
+                        questionMode: learnState.questionMode
+                    };
+                }
+
+                function shuffleArr(arr) {
+                    for (let i = arr.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [arr[i], arr[j]] = [arr[j], arr[i]];
+                    }
+                    return arr;
+                }
+
+                function openLearn() {
+                    state.mode = "learn";
+                    closeMenu();
+                    learnState.screen = "settings";
+                    renderSidebar();
+                    renderLearn();
+                    updateProgress();
+                }
+
+                function learnCategoryItems() {
+                    return getCategoryItems(state.activeCategory);
+                }
+
+                function learnDisplayName() {
+                    const cat = CATEGORIES.find(c => c.id === state.activeCategory);
+                    return state.activeCategory === "all" ? `All ${learnCategoryItems().length} Words` : cat.name;
+                }
+
+                function renderLearn() {
+                    document.getElementById('main-list-container').style.display = 'none';
+                    document.getElementById('flashcard-container').style.display = 'none';
+                    document.getElementById('sort-select').style.display = 'none';
+                    document.getElementById('flashcard-controls').style.display = 'none';
+                    document.getElementById('learn-container').style.display = 'flex';
+
+                    document.getElementById('category-title').innerText = `Learn — ${learnDisplayName()}`;
+
+                    const showTopbar = learnState.screen === "question";
+                    document.getElementById('learn-topbar').style.display = showTopbar ? 'flex' : 'none';
+
+                    const screen = document.getElementById('learn-screen');
+                    screen.innerHTML = '';
+
+                    if (learnState.screen === "settings") renderLearnSettings(screen);
+                    else if (learnState.screen === "results") renderLearnResults(screen);
+                    // "question" is rendered by learnNext()/learnShowQuestion()
+                }
+
+                function renderLearnSettings(screen) {
+                    const starredCount = learnCategoryItems().filter(i => i.starred).length;
+                    screen.innerHTML = `
+                        <div class="learn-intro">
+                            <h2>🎯 Learn</h2>
+                            <p>Study the ${learnDisplayName()} set. Answer until you get them all right.</p>
+                        </div>
+
+                        <div class="learn-settings-panel">
+                            <div class="learn-setting-row">
+                                <div class="learn-setting-label">Answer with</div>
+                                <div class="learn-seg" id="learn-answertype-seg">
+                                    <button class="learn-seg-btn ${learnState.settings.answerType === "mc" ? 'selected' : ''}" onclick="learnSetAnswerType('mc')">Multiple choice</button>
+                                    <button class="learn-seg-btn ${learnState.settings.answerType === "write" ? 'selected' : ''}" onclick="learnSetAnswerType('write')">Written answer</button>
+                                </div>
+                                <div class="learn-setting-hint">Multiple choice — pick the matching side from 4 options. Written — type the answer.</div>
+                            </div>
+
+                            <div class="learn-setting-row">
+                                <div class="learn-setting-label">Which terms</div>
+                                <div class="learn-seg" id="learn-mode-seg">
+                                    <button class="learn-seg-btn ${learnState.settings.mode === LEARN_MODES.MC ? 'selected' : ''}" onclick="learnSetMode('mc')">All terms</button>
+                                    <button class="learn-seg-btn ${learnState.settings.mode === LEARN_MODES.STAR ? 'selected' : ''}" onclick="learnSetMode('star')">Starred only (${starredCount})</button>
+                                    <button class="learn-seg-btn ${learnState.settings.mode === LEARN_MODES.ONCE ? 'selected' : ''}" onclick="learnSetMode('once')">Repeat until mastered</button>
+                                </div>
+                                <div class="learn-setting-hint">All terms — wrong answers come back until you get them right. Starred only — only ⭐ terms. Repeat until mastered — every term repeats until you answer it correctly twice in a row.</div>
+                            </div>
+
+                            <div class="learn-start-row">
+                                <button class="learn-start-btn learn-btn primary" onclick="learnStart()">Start</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                function learnSetMode(m) {
+                    learnState.settings.mode = m;
+                    renderLearn();
+                }
+
+                function learnSetAnswerType(t) {
+                    learnState.settings.answerType = t;
+                    renderLearn();
+                }
+
+                function learnPickQuestionMode() {
+                    if (learnState.settings.answerType === "write") {
+                        learnState.questionMode = (learnState.totalAnswered % 2 === 0) ? LEARN_ANSWER_TYPES.TERM : LEARN_ANSWER_TYPES.DEFINITION;
+                    } else {
+                        learnState.questionMode = Math.random() < 0.5 ? LEARN_ANSWER_TYPES.TERM : LEARN_ANSWER_TYPES.DEFINITION;
+                    }
+                }
+
+                function learnDecayScore(item) {
+                    if (item._correctStreak >= 4) return 0.2;
+                    if (item._correctStreak >= 3) return 0.35;
+                    if (item._correctStreak >= 2) return 0.55;
+                    if (item._correctStreak === 1) return 0.75;
+                    return 1;
+                }
+
+                function learnIsMastered(item) {
+                    if (learnState.settings.mode === LEARN_MODES.ONCE) return item._correctStreak >= 2;
+                    return true;
+                }
+
+                function learnBuildDeck() {
+                    const src = learnCategoryItems().map(i => ({ ...i, _correctStreak: 0, _correct: 0, _attempts: 0 }));
+                    if (learnState.settings.mode === LEARN_MODES.STAR) return src.filter(i => i.starred);
+                    return src;
+                }
+
+                function learnStart() {
+                    const deck = learnBuildDeck();
+                    if (!deck.length) {
+                        alert(learnState.settings.mode === LEARN_MODES.STAR
+                            ? "No starred terms in this category. Star some terms (☆ Star) first."
+                            : "No terms to learn in this category.");
+                        return;
+                    }
+
+                    learnState.screen = "question";
+                    learnState.deck = deck;
+                    learnState.totalTerms = deck.length;
+                    learnState.totalAnswered = 0;
+                    learnState.correctCount = 0;
+                    learnState.firstTryCorrect = 0;
+                    learnState.streak = 0;
+                    learnState.bestStreak = 0;
+                    learnState.wrongItems = [];
+                    learnState.incorrectSet = new Set();
+
+                    shuffleArr(learnState.deck);
+                    learnState.order = learnState.deck.slice();
+
+                    renderSidebar();
+                    renderLearn();
+                    learnNext();
+                }
+
+                function learnAnswerIsTerm() {
+                    return learnState.questionMode === LEARN_ANSWER_TYPES.TERM;
+                }
+
+                function learnQuestion(item) {
+                    const showTerm = learnAnswerIsTerm();
+                    return {
+                        prompt: showTerm ? item.term : item.definition,
+                        answer: showTerm ? item.definition : item.term
+                    };
+                }
+
+                function learnBuildOptions(item) {
+                    const count = Math.max(2, Math.min(4, learnState.deck.length));
+                    const others = shuffleArr(learnState.deck.filter(o => o.id !== item.id));
+                    const picks = others.slice(0, count - 1);
+                    const correct = learnQuestion(item).answer;
+                    return shuffleArr([correct, ...picks.map(o => (learnAnswerIsTerm() ? o.definition : o.term))]);
+                }
+
+                function learnShowQuestion() {
+                    const item = learnState.current.item;
+                    if (!item) return;
+
+                    const ans = learnQuestion(item);
+                    const isTerm = learnAnswerIsTerm();
+
+                    document.getElementById('learn-topbar').style.display = 'flex';
+                    const pct = learnState.totalTerms ? Math.round(((learnState.totalTerms - learnState.deck.length) / learnState.totalTerms) * 100) : 0;
+                    document.getElementById('learn-progress-fill').style.width = pct + '%';
+                    document.getElementById('learn-counter').innerText = `${learnState.totalAnswered} answered · ${learnState.deck.length} left`;
+
+                    const star = document.getElementById('learn-star');
+                    star.classList.toggle('starred', !!item.starred);
+                    star.innerText = item.starred ? '⭐ Starred' : '☆ Star';
+
+                    const screen = document.getElementById('learn-screen');
+                    screen.innerHTML = '';
+
+                    const chips = learnTermChipsHtml();
+                    if (chips) screen.insertAdjacentHTML('beforeend', chips);
+
+                    const container = document.createElement('div');
+                    container.className = 'learn-question-wrap';
+
+                    const q = document.createElement('div');
+                    q.className = 'learn-question';
+                    q.innerHTML = `
+                        <div class="learn-label">${isTerm ? 'TERM' : 'DEFINITION'}</div>
+                        <div class="learn-prompt${isTerm ? '' : ' formula'}">${escapeHtml(ans.prompt)}</div>
+                    `;
+                    container.appendChild(q);
+
+                    if (learnState.settings.answerType === "mc") {
+                        const opts = learnBuildOptions(item);
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'learn-options';
+                        container.appendChild(wrapper);
+                        learnState.current.options = opts;
+                        opts.forEach(o => {
+                            const b = document.createElement('button');
+                            b.className = 'learn-option';
+                            b.innerText = o;
+                            b.onclick = () => learnPickMC(o, b);
+                            wrapper.appendChild(b);
+                        });
+                    } else {
+                        const w = document.createElement('div');
+                        w.className = 'learn-written';
+                        w.innerHTML = `
+                            <input class="learn-input" id="learn-input" type="text" placeholder="Type the ${isTerm ? 'definition' : 'term'}…" autocomplete="off" spellcheck="false" autocapitalize="off">
+                            <button class="learn-answer-btn" onclick="checkWritten()">Check</button>
+                        `;
+                        container.appendChild(w);
+                        const reveal = document.createElement('div');
+                        reveal.className = 'learn-reveal-row';
+                        reveal.innerHTML = `<button class="learn-btn ghost" onclick="learnReveal()">Can't remember</button>`;
+                        container.appendChild(reveal);
+                    }
+
+                    screen.appendChild(container);
+
+                    const keys = document.createElement('div');
+                    keys.className = 'learn-keys';
+                    keys.innerText = learnState.settings.answerType === "mc"
+                        ? 'Keyboard: 1–4 or A–D to pick an answer'
+                        : 'Keyboard: type your answer, Enter to check';
+                    screen.appendChild(keys);
+
+                    const inp = document.getElementById('learn-input');
+                    if (inp) { inp.focus(); inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkWritten(); }); }
+                }
+
+                function learnTermChipsHtml() {
+                    if (!learnState.order || learnState.order.length < 2) return '';
+                    return `<div class="learn-term-chips">${learnState.order.map(t => {
+                        const s = learnChipStatus(t);
+                        return `<div class="learn-chip ${s}" title="${escapeHtml(t.term)}"></div>`;
+                    }).join('')}</div>`;
+                }
+
+                function learnChipStatus(item) {
+                    const cur = learnState.deck.find(d => d.id === item.id);
+                    if (!cur) return "done";
+                    if (cur._correctStreak >= 1) return "partial";
+                    return "todo";
+                }
+
+                function learnPickMC(choice, el) {
+                    if (learnState.current.answered) return;
+                    learnState.current.userAnswer = choice;
+                    learnState.current.answered = true;
+                    const isRight = choice === learnQuestion(learnState.current.item).answer;
+                    learnState.current.correct = isRight;
+
+                    const buttons = document.querySelectorAll('.learn-option');
+                    const correctAnswer = learnQuestion(learnState.current.item).answer;
+                    buttons.forEach(b => {
+                        b.disabled = true;
+                        if (b.innerText === correctAnswer) b.classList.add('correct');
+                        else if (b.innerText === choice) b.classList.add('wrong');
+                    });
+
+                    learnResolve(isRight);
+                }
+
+                function checkWritten() {
+                    const inp = document.getElementById('learn-input');
+                    if (!inp) return;
+                    const val = inp.value.trim();
+                    if (!val) return;
+                    if (learnState.current.answered) return;
+                    learnState.current.userAnswer = val;
+                    learnState.current.answered = true;
+                    const isRight = learnCheckAnswer(val, learnState.current.item);
+                    learnState.current.correct = isRight;
+                    learnResolve(isRight);
+                }
+
+                function learnReveal() {
+                    if (learnState.current.answered) return;
+                    learnState.current.userAnswer = "I don't know";
+                    learnState.current.answered = true;
+                    learnState.current.correct = false;
+                    learnResolve(false);
+                }
+
+                function learnCheckAnswer(user, item) {
+                    const isTerm = learnAnswerIsTerm();
+                    const target = isTerm ? item.definition : item.term;
+                    const a = normalize(user);
+                    const b = normalize(target);
+
+                    if (a === b) return true;
+
+                    if (isTerm) {
+                        // typed a formula: allow spacing/parentheses differences if the core and charge match
+                        const core = s => s.replace(/[()0-9+\-\s]/g, '').toLowerCase();
+                        if (core(a) && core(a) === core(b)) {
+                            const ca = extractCharge(a);
+                            const cb = extractCharge(b);
+                            if (ca !== null && cb !== null) return ca === cb;
+                        }
+                        return false;
+                    }
+
+                    // typed a term: allow omitting the "or <alias>" part
+                    const beforeOr = b.split(' or ')[0].trim();
+                    if (beforeOr && a === beforeOr) return true;
+                    return false;
+                }
+
+                function extractCharge(s) {
+                    const str = String(s).replace(/\s+/g, ' ').trim();
+                    const tokens = str.split(/\s+/);
+                    for (let i = tokens.length - 1; i >= 0; i--) {
+                        const m = tokens[i].match(/^\(?(\d*)([+-])\)?$/);
+                        if (m) return (m[1] || '1') + m[2];
+                    }
+                    const pm = str.match(/\((\d*)([+-])\)/);
+                    if (pm) return (pm[1] || '1') + pm[2];
+                    const tm = str.match(/(\d*)([+-])$/);
+                    if (tm) {
+                        const d = tm[1] || '1';
+                        if (/^\d+$/.test(d) && +d <= 4) return d + tm[2];
+                    }
+                    return null;
+                }
+
+                function normalize(s) {
+                    return String(s).toLowerCase().replace(/\s+/g, ' ').trim();
+                }
+
+                function learnResolve(isRight) {
+                    const item = learnState.current.item;
+                    learnState.totalAnswered++;
+                    item._attempts++;
+                    if (isRight) {
+                        item._correct++;
+                        item._correctStreak++;
+                        learnState.correctCount++;
+                        if (item._attempts === 1) learnState.firstTryCorrect++;
+                        learnState.streak++;
+                        if (learnState.streak > learnState.bestStreak) learnState.bestStreak = learnState.streak;
+                        if (learnIsMastered(item)) {
+                            learnState.deck = learnState.deck.filter(i => i.id !== item.id);
+                        }
+                    } else {
+                        item._correctStreak = 0;
+                        learnState.streak = 0;
+                        learnState.incorrectSet.add(item.id);
+                        learnState.wrongItems.push(item.id);
+                    }
+                    learnRenderFeedback(isRight);
+                }
+
+                function learnRenderFeedback(isRight) {
+                    const item = learnState.current.item;
+                    const screen = document.getElementById('learn-screen');
+
+                    const msg = document.createElement('div');
+                    msg.className = 'learn-feedback';
+
+                    const m = document.createElement('div');
+                    m.className = 'learn-feedback-msg';
+                    m.innerHTML = isRight
+                        ? `<span class="correct">Correct!${learnState.streak > 1 ? ` ${learnState.streak} streak` : ''}</span>`
+                        : `<span class="incorrect">Not quite</span>`;
+                    msg.appendChild(m);
+
+                    if (!isRight) {
+                        const a = document.createElement('div');
+                        a.className = 'learn-feedback-answer';
+                        a.innerHTML = `Correct answer: <b>${escapeHtml(learnState.questionMode === LEARN_ANSWER_TYPES.TERM ? item.definition : item.term)}</b>${learnState.current.userAnswer && learnState.current.userAnswer !== "I don't know" ? ` (you typed: ${escapeHtml(learnState.current.userAnswer)})` : ''}`;
+                        msg.appendChild(a);
+                    }
+
+                    const btn = document.createElement('button');
+                    btn.className = 'learn-feedback-btn';
+                    btn.innerText = isRight ? 'Continue' : 'Got it — try again';
+                    btn.onclick = () => learnAfterAnswer(isRight);
+                    msg.appendChild(btn);
+
+                    screen.appendChild(msg);
+                    btn.focus();
+                }
+
+                function learnAfterAnswer() {
+                    if (learnState.deck.length === 0) { learnFinish(); return; }
+                    learnNext();
+                }
+
+                function learnNext() {
+                    if (learnState.deck.length === 0) { learnFinish(); return; }
+                    const pickIdx = learnPickWeightedIndex();
+                    const item = learnState.deck[pickIdx];
+                    learnState.current = { item, options: [], userAnswer: undefined, answered: false, correct: null };
+                    learnPickQuestionMode();
+                    learnShowQuestion();
+                }
+
+                function learnPickWeightedIndex() {
+                    const weights = learnState.deck.map(i => learnDecayScore(i));
+                    const total = weights.reduce((a, b) => a + b, 0);
+                    let r = Math.random() * total;
+                    for (let i = 0; i < weights.length; i++) {
+                        r -= weights[i];
+                        if (r <= 0) return i;
+                    }
+                    return weights.length - 1;
+                }
+
+                function learnFinish() {
+                    learnState.screen = "results";
+                    renderLearn();
+                }
+
+                function renderLearnResults(screen) {
+                    document.getElementById('learn-topbar').style.display = 'none';
+                    document.getElementById('learn-progress-fill').style.width = '100%';
+                    document.getElementById('learn-counter').innerText = '';
+
+                    const total = learnState.totalAnswered;
+                    const acc = total ? Math.round((learnState.correctCount / total) * 100) : 0;
+                    const missed = learnState.incorrectSet.size;
+                    const learnedTerms = learnState.totalTerms;
+
+                    screen.innerHTML = `
+                        <div class="learn-results">
+                            <h2>Learned! 🎉</h2>
+                            <div class="learn-results-sub">You've mastered ${learnedTerms} ${learnedTerms === 1 ? 'term' : 'terms'} in the ${learnDisplayName()} set.</div>
+                            <div class="learn-results-stats">
+                                <div class="learn-stat"><div class="learn-stat-value ${acc >= 80 ? 'good' : acc < 60 ? 'bad' : ''}">${acc}%</div><div class="learn-stat-label">Accuracy</div></div>
+                                <div class="learn-stat"><div class="learn-stat-value">${learnState.correctCount}</div><div class="learn-stat-label">Correct answers</div></div>
+                                <div class="learn-stat"><div class="learn-stat-value">${learnState.bestStreak}</div><div class="learn-stat-label">Best streak</div></div>
+                                <div class="learn-stat"><div class="learn-stat-value ${missed ? 'bad' : 'good'}">${missed}</div><div class="learn-stat-label">Missed</div></div>
+                            </div>
+                            <div class="learn-results-actions">
+                                <button class="learn-btn primary" onclick="learnStart()">Restart</button>
+                                <button class="learn-btn" onclick="openLearn()">Change settings</button>
+                                <button class="learn-btn" onclick="switchCategory(state.activeCategory)">Back to list</button>
+                            </div>
+                            ${missed ? `<div class="learn-missed"><div class="learn-missed-title">Terms to review</div>${learnMissedHtml()}</div>` : ''}
+                        </div>
+                    `;
+                }
+
+                function learnMissedHtml() {
+                    const all = getAllItems();
+                    const seen = new Set();
+                    let html = '';
+                    learnState.wrongItems.forEach(id => {
+                        if (seen.has(id)) return;
+                        seen.add(id);
+                        const it = all.find(x => x.id === id);
+                        if (it) html += `<div class="learn-missed-item"><span class="learn-missed-term">${escapeHtml(it.term)}</span><span class="learn-missed-def">${escapeHtml(it.definition)}</span></div>`;
+                    });
+                    return html;
+                }
+
+                function learnEnd() {
+                    if (!confirm('End the Learn session? Your progress so far will be shown.')) return;
+                    learnFinish();
+                }
+
+                function learnToggleStar() {
+                    if (!learnState.current || !learnState.current.item) return;
+                    const it = getAllItems().find(x => x.id === learnState.current.item.id);
+                    if (!it) return;
+                    it.starred = !it.starred;
+                    learnState.current.item.starred = it.starred;
+                    saveToStorage();
+                    const star = document.getElementById('learn-star');
+                    star.classList.toggle('starred', it.starred);
+                    star.innerText = it.starred ? '⭐ Starred' : '☆ Star';
+                }
+
+                function escapeHtml(s) {
+                    return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                }
+
+function sortItems(items, method) {
             const sorted = [...items];
             sorted.sort((a, b) => {
                 let diff = 0;
@@ -1003,11 +2031,42 @@
         });
 
         document.addEventListener('keydown', e => {
-            if (state.mode !== "flashcards") return;
-            if (e.key === "ArrowRight") flashNext();
-            else if (e.key === "ArrowLeft") flashPrev();
-            else if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleFlip(); }
-        });
+                    if (state.mode === "learn") {
+                        if (learnState.screen !== "question" || !learnState.current) return;
+                        if (learnState.current.answered) {
+                            // feedback shown; Enter continues
+                            if (e.key === "Enter") { e.preventDefault(); learnAfterAnswer(learnState.current.correct); }
+                            return;
+                        }
+                        if (e.key === "Enter") {
+                            // confirm written answer
+                            e.preventDefault();
+                            if (learnState.settings.answerType === "write") checkWritten();
+                            return;
+                        }
+                        if (learnState.settings.answerType === "mc") {
+                            const opts = learnState.current.options || [];
+                            const i = parseInt(e.key, 10) - 1;
+                            if (i >= 0 && i < opts.length && opts[i]) {
+                                e.preventDefault();
+                                learnPickMC(opts[i]);
+                                return;
+                            }
+                            // A-L letters map to options
+                            const idx = "abcdefghijkl".indexOf(e.key.toLowerCase());
+                            if (idx >= 0 && idx < opts.length && opts[idx]) {
+                                e.preventDefault();
+                                learnPickMC(opts[idx]);
+                            }
+                        }
+                        return;
+                    }
+
+                    if (state.mode !== "flashcards") return;
+                    if (e.key === "ArrowRight") flashNext();
+                    else if (e.key === "ArrowLeft") flashPrev();
+                    else if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggleFlip(); }
+                });
 
         loadFromStorage();
         initFlashControls();
