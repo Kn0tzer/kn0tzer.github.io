@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Sets — Kn0tzer</title>
+    <title>Vocab — Kn0tzer</title>
     <link rel="stylesheet" href="../assets/study.css">
     <style>
         /* Page chrome for the hub/builder views (study view styles come from study.css) */
@@ -241,16 +241,79 @@
             color: var(--priority-red);
         }
 
-        .ws-import-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+        /* New-set choice modal */
+        #newset-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1500;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
         }
 
-        @media (max-width: 760px) {
-            .ws-import-grid {
-                grid-template-columns: 1fr;
-            }
+        #newset-backdrop.open {
+            display: flex;
+        }
+
+        .ws-modal-box {
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px 34px;
+            max-width: 620px;
+            width: 100%;
+        }
+
+        .ws-modal-box h2 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .ws-modal-sub {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .choice-wrap {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .choice-card {
+            flex: 1;
+            min-width: 220px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: border-color 0.15s, transform 0.15s;
+        }
+
+        .choice-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .choice-icon {
+            font-size: 32px;
+        }
+
+        .choice-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin: 10px 0 6px;
+        }
+
+        .choice-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.55;
         }
 
         .ws-textarea {
@@ -406,10 +469,10 @@
     <!-- ==================== HUB ==================== -->
     <div class="ws-page" id="hub-view">
         <div class="ws-header">
-            <h1>📚 Word Sets</h1>
+            <h1>📚 Vocab</h1>
             <button class="ws-btn" onclick="openDocs()">JSON format guide</button>
         </div>
-        <p class="ws-subtitle">Study built-in sets or create your own — type words in manually or upload a JSON file. Everything saves in your browser.</p>
+        <p class="ws-subtitle">Study built-in sets or create your own — add words by hand or import a JSON file. Everything saves in your browser.</p>
 
         <div class="ws-section-title">Built-in sets</div>
         <div class="ws-grid" id="builtin-grid"></div>
@@ -423,7 +486,7 @@
         <div class="ws-header">
             <h1 id="builder-title">New word set</h1>
         </div>
-        <p class="ws-subtitle">Give the set a name, then add words by typing them below or importing a JSON / text file.</p>
+        <p class="ws-subtitle" id="builder-subtitle">Give the set a name, then type your words below.</p>
 
         <div class="ws-panel">
             <label class="ws-field-label" for="set-name-input">Set name</label>
@@ -438,33 +501,68 @@
                 <button class="ws-btn danger small" onclick="wbClearRows()">Clear all</button>
                 <span class="ws-card-meta" id="word-count-label">0 words</span>
             </div>
-        </div>
-
-        <div class="ws-panel">
-            <label class="ws-field-label">Import words</label>
-            <div class="ws-import-grid">
-                <div>
-                    <span class="ws-btn" role="button" tabindex="0">
-                        📄 Choose JSON / TXT file…
-                        <input type="file" id="import-file" accept=".json,.txt,.csv,application/json,text/plain,text/csv" onchange="wbHandleFile(this)">
-                    </span>
-                    <div class="ws-hint">Upload a file. See the <span class="ws-link" onclick="openDocs()">JSON format guide</span> for the exact shapes accepted.</div>
-                </div>
-                <div>
-                    <textarea class="ws-textarea" id="import-text" placeholder='…or paste here:
-
-[{"term": "Photosynthesis", "definition": "Plants convert light energy into chemical energy"}]'></textarea>
-                    <div class="ws-toolbar">
-                        <button class="ws-btn" onclick="wbImportText(document.getElementById('import-text').value)">Import pasted text</button>
-                    </div>
-                </div>
-            </div>
             <div class="ws-status" id="import-status"></div>
         </div>
 
         <div class="ws-builder-footer">
             <button class="ws-btn primary" onclick="wbSave()">Save set</button>
             <button class="ws-btn" onclick="wbCancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- ==================== JSON IMPORT ==================== -->
+    <div class="ws-page" id="json-view" style="display:none">
+        <div class="ws-header">
+            <h1>Import with JSON</h1>
+        </div>
+        <p class="ws-subtitle">Upload a JSON file of words and definitions — or have any AI create one for you.</p>
+
+        <div class="ws-panel">
+            <label class="ws-field-label" for="json-name-input">Set name</label>
+            <input class="ws-input" id="json-name-input" type="text" maxlength="80" placeholder="e.g. Spanish Vocab Unit 3" autocomplete="off">
+        </div>
+
+        <div class="ws-panel">
+            <label class="ws-field-label">Upload JSON file</label>
+            <span class="ws-btn" role="button" tabindex="0">
+                📄 Choose JSON file…
+                <input type="file" id="json-file" accept=".json,.txt,application/json,text/plain" onchange="jsonHandleFile(this)">
+            </span>
+            <div class="ws-status" id="json-status"></div>
+        </div>
+
+        <div class="ws-panel">
+            <label class="ws-field-label">Don't have a file? Let an AI make one</label>
+            <div class="ws-hint">Copy this prompt into ChatGPT, Claude, Gemini or any assistant, fill in what you want vocab words for, and save its reply as a <code>.json</code> file to upload above.</div>
+            <textarea class="ws-textarea" id="ai-prompt" readonly></textarea>
+            <div class="ws-toolbar">
+                <button class="ws-btn" onclick="copyAiPrompt()">Copy AI prompt</button>
+            </div>
+        </div>
+
+        <div class="ws-builder-footer">
+            <button class="ws-btn primary" onclick="jsonSave()">Save set</button>
+            <button class="ws-btn" onclick="jsonCancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- ==================== NEW-SET CHOICE MODAL ==================== -->
+    <div id="newset-backdrop" onclick="if (event.target === this) closeNewModal()">
+        <div class="ws-modal-box">
+            <h2>New word set</h2>
+            <p class="ws-modal-sub">How do you want to create it?</p>
+            <div class="choice-wrap">
+                <div class="choice-card" onclick="chooseManual()" role="button" tabindex="0">
+                    <div class="choice-icon">✏️</div>
+                    <div class="choice-title">Manual words</div>
+                    <div class="choice-desc">Type terms and definitions one by one in a simple editor.</div>
+                </div>
+                <div class="choice-card" onclick="chooseJson()" role="button" tabindex="0">
+                    <div class="choice-icon">📄</div>
+                    <div class="choice-title">JSON import</div>
+                    <div class="choice-desc">Upload a JSON file — with a ready-made prompt so any AI can generate it for you.</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -686,9 +784,26 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
 
         /* ==================== HUB ==================== */
 
+        // Copy-paste prompt shown in the JSON import view so any AI can generate
+        // a properly formatted word-set file.
+        const AI_PROMPT_TEXT = `Create a study vocabulary set for me.
+
+Topic: [fill in what you want vocab words for, e.g. "Spanish food vocabulary" or "AP Bio Unit 4"]
+Number of words: about 20
+
+Output ONLY a valid JSON array — no markdown code fences, no commentary — where each element is an object shaped exactly like this:
+{"term": "the word or phrase", "definition": "a clear, concise definition"}
+
+Rules:
+- Every entry must have a non-empty "term" and a non-empty "definition", both as JSON strings.
+- Keep each definition under 200 characters.
+- Do not number the entries or add any keys other than "term" and "definition".
+
+I will save your reply as a .json file and import it into my study app.`; 
+
         const BUILTIN_SETS = [
-            { name: 'Polyatomic Ions', icon: '🧪', url: '../polyatomic/', words: 84, blurb: 'Chemistry ions with formulas, colors and priorities.' },
-            { name: 'AP Gov', icon: '🏛️', url: '../apgov/', words: 170, blurb: 'Units, amendments, court cases and foundational documents.' }
+            { name: 'Polyatomic Ions', icon: '🧪', url: 'polyatomic/', words: 84, blurb: 'Chemistry ions with formulas, colors and priorities.' },
+            { name: 'AP Gov', icon: '🏛️', url: 'apgov/', words: 170, blurb: 'Units, amendments, court cases and foundational documents.' }
         ];
 
         function hubRender() {
@@ -711,8 +826,8 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
 
             const newCard = document.createElement('div');
             newCard.className = 'ws-card new-set';
-            newCard.innerHTML = `<span class="plus">＋</span>New word set<br><span class="ws-card-meta">type words or upload JSON</span>`;
-            newCard.onclick = () => builderOpen(null);
+            newCard.innerHTML = `<span class="plus">＋</span>New word set<br><span class="ws-card-meta">manual entry or JSON import</span>`;
+            newCard.onclick = () => openNewModal();
             cg.appendChild(newCard);
 
             wsLoadIndex().forEach(entry => {
@@ -878,38 +993,6 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
             document.getElementById('word-count-label').innerText = `${n} word${n === 1 ? '' : 's'}`;
         }
 
-        function wbHandleFile(input) {
-            const file = input.files && input.files[0];
-            input.value = '';
-            if (!file) return;
-            if (file.size > 2 * 1024 * 1024 && !confirm('This file is larger than 2 MB and may not save properly. Import anyway?')) return;
-            const reader = new FileReader();
-            reader.onload = () => wbImportText(String(reader.result));
-            reader.onerror = () => setStatus('Could not read that file.', true);
-            reader.readAsText(file);
-        }
-
-        function wbImportText(text) {
-            let result;
-            try {
-                result = parseWordsInput(text);
-            } catch (e) {
-                setStatus(e.message, true);
-                return;
-            }
-            if (!result.words.length) {
-                setStatus('No usable words found. ' + result.skipped + ' row(s) skipped. ' + (result.note || ''), true);
-                return;
-            }
-            wbSyncFromInputs();
-            // drop rows the user left completely empty (e.g. the blank starter row)
-            builderState.words = builderState.words.filter(w => String(w.term).trim() || String(w.definition || '').trim());
-            result.words.forEach(w => builderState.words.push({ id: null, term: w.term, definition: w.definition }));
-            wbRenderRows(true);
-            const extra = result.skipped ? ` ${result.skipped} row(s) skipped.` : '';
-            setStatus(`✓ Imported ${result.words.length} word${result.words.length === 1 ? '' : 's'} from ${result.format}.${extra}`);
-        }
-
         // Accepts the three documented JSON shapes plus Quizlet-style TSV text.
         // Throws Error with a friendly message when nothing can be parsed.
         function parseWordsInput(text) {
@@ -1002,25 +1085,24 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
             return { words: words.filter(w => w.term), skipped, format: 'plain text (TSV)', note: noTabLines ? 'Lines without a Tab were treated as terms without definitions.' : '' };
         }
 
-        function wbSave() {
-            wbSyncFromInputs();
-            const name = document.getElementById('set-name-input').value.trim() || 'My word set';
-            const words = builderState.words
-                .map(w => ({ term: w.term.trim(), definition: (w.definition || '').trim() }))
-                .filter(w => w.term);
+        function jsonCancel() {
+            jsonPending = null;
+            document.getElementById('json-view').style.display = 'none';
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
+        }
 
-            if (!words.length) {
-                setStatus('Add at least one word with a term before saving.', true);
-                return;
-            }
-
+        // Shared save path for both the manual builder and the JSON import view.
+        // Returns true on success. rowsWithIds (optional) supplies existing word ids
+        // so editing keeps study progress attached to unchanged terms.
+        function persistSet(name, words, existingId, rowsWithIds) {
             let set;
-            if (builderState.editingId) {
-                set = wsLoadSet(builderState.editingId);
-                if (!set) { wbCancel(); return; }
+            if (existingId) {
+                set = wsLoadSet(existingId);
+                if (!set) { wbCancel(); return false; }
                 set.name = name;
                 // keep existing ids so saved progress stays attached; new rows get fresh ones
-                const byIdRow = new Map(builderState.words.filter(bw => bw.id).map(bw => [bw.term.trim(), bw]));
+                const byIdRow = new Map((rowsWithIds || []).filter(bw => bw.id).map(bw => [bw.term.trim(), bw]));
                 const consumed = new Set();
                 const next = [];
                 words.forEach(w => {
@@ -1042,11 +1124,27 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
                 };
             }
 
-            if (!wsWriteSet(set)) return;
+            if (!wsWriteSet(set)) return false;
 
             const idx = wsLoadIndex().filter(s => s.id !== set.id);
             idx.unshift({ id: set.id, name: set.name, createdAt: set.createdAt, updatedAt: set.updatedAt, count: set.words.length });
             wsSaveIndex(idx);
+            return true;
+        }
+
+        function wbSave() {
+            wbSyncFromInputs();
+            const name = document.getElementById('set-name-input').value.trim() || 'My word set';
+            const words = builderState.words
+                .map(w => ({ term: w.term.trim(), definition: (w.definition || '').trim() }))
+                .filter(w => w.term);
+
+            if (!words.length) {
+                setStatus('Add at least one word with a term before saving.', true);
+                return;
+            }
+
+            if (!persistSet(name, words, builderState.editingId, builderState.words)) return;
 
             builderState.editingId = null;
             document.getElementById('builder-view').classList.remove('active');
@@ -1059,6 +1157,100 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
             document.getElementById('builder-view').classList.remove('active');
             document.getElementById('hub-view').style.display = '';
             hubRender();
+        }
+
+        /* ==================== NEW-SET CHOICE MODAL ==================== */
+
+        function openNewModal() {
+            document.getElementById('newset-backdrop').classList.add('open');
+        }
+
+        function closeNewModal() {
+            document.getElementById('newset-backdrop').classList.remove('open');
+        }
+
+        function chooseManual() {
+            closeNewModal();
+            builderOpen(null);
+        }
+
+        function chooseJson() {
+            closeNewModal();
+            jsonOpen();
+        }
+
+        /* ==================== JSON IMPORT ==================== */
+
+        let jsonPending = null;
+
+        function jsonOpen() {
+            jsonPending = null;
+            document.getElementById('json-name-input').value = '';
+            setJsonStatus('');
+            document.getElementById('hub-view').style.display = 'none';
+            document.getElementById('json-view').style.display = '';
+            window.scrollTo(0, 0);
+        }
+
+        function setJsonStatus(msg, isError) {
+            const el = document.getElementById('json-status');
+            el.innerText = msg || '';
+            el.classList.toggle('error', !!isError);
+        }
+
+        function jsonHandleFile(input) {
+            const file = input.files && input.files[0];
+            input.value = '';
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024 && !confirm('This file is larger than 2 MB and may not save properly. Import anyway?')) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const result = parseWordsInput(String(reader.result));
+                    if (!result.words.length) {
+                        jsonPending = null;
+                        setJsonStatus('No usable words found in that file.' + (result.skipped ? ` ${result.skipped} row(s) skipped.` : ''), true);
+                        return;
+                    }
+                    jsonPending = result.words;
+                    setJsonStatus(`✓ Parsed ${result.words.length} word${result.words.length === 1 ? '' : 's'} from ${file.name}. Give the set a name, then click “Save set”.`);
+                } catch (e) {
+                    jsonPending = null;
+                    setJsonStatus(e.message, true);
+                }
+            };
+            reader.onerror = () => setJsonStatus('Could not read that file.', true);
+            reader.readAsText(file);
+        }
+
+        function jsonSave() {
+            if (!jsonPending || !jsonPending.length) {
+                setJsonStatus('Choose a JSON file with words first — or create one with the AI prompt below.', true);
+                return;
+            }
+            const name = document.getElementById('json-name-input').value.trim() || 'My word set';
+            const words = jsonPending
+                .map(w => ({ term: w.term.trim(), definition: (w.definition || '').trim() }))
+                .filter(w => w.term);
+            if (!words.length) {
+                setJsonStatus('That file had no usable terms.', true);
+                return;
+            }
+            if (!persistSet(name, words, null)) return;
+            jsonPending = null;
+            document.getElementById('json-view').style.display = 'none';
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
+        }
+
+        function copyAiPrompt() {
+            const text = document.getElementById('ai-prompt').value;
+            const done = () => alert('Prompt copied to clipboard.');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+            } else {
+                fallbackCopy(text, done);
+            }
         }
 
         function setStatus(msg, isError) {
@@ -1103,9 +1295,10 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
         }
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeDocs();
+            if (e.key === 'Escape') { closeDocs(); closeNewModal(); }
         });
 
+        document.getElementById('ai-prompt').value = AI_PROMPT_TEXT;
         hubRender();
     </script>
 </body>
