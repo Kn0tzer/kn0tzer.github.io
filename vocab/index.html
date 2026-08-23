@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Sets — Kn0tzer</title>
+    <link rel="stylesheet" href="../assets/study.css">
+    <style>
+        /* Page chrome for the hub/builder views (study view styles come from study.css) */
+        body {
+            display: block;
+            height: auto;
+            overflow: auto;
+            min-height: 100vh;
+        }
+
+        .ws-page {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        .ws-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .ws-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .ws-subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 34px;
+        }
+
+        .ws-section-title {
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin: 30px 0 12px;
+        }
+
+        .ws-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .ws-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: border-color 0.15s, transform 0.15s;
+        }
+
+        .ws-card:hover {
+            border-color: #3a3e49;
+            transform: translateY(-2px);
+        }
+
+        .ws-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .ws-card-meta {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .ws-card-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .ws-btn {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ws-btn:hover {
+            background-color: var(--bg-hover);
+        }
+
+        .ws-btn.primary {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .ws-btn.primary:hover {
+            opacity: 0.92;
+        }
+
+        .ws-btn.danger {
+            color: var(--priority-red);
+            border-color: rgba(231, 44, 44, 0.45);
+        }
+
+        .ws-btn.danger:hover {
+            background-color: rgba(231, 44, 44, 0.12);
+        }
+
+        .ws-btn.small {
+            padding: 5px 10px;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+
+        .ws-card.new-set {
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-style: dashed;
+            color: var(--text-muted);
+            min-height: 130px;
+            font-size: 16px;
+            gap: 6px;
+        }
+
+        .ws-card.new-set:hover {
+            color: var(--text-main);
+            border-color: var(--accent-blue);
+        }
+
+        .ws-card.new-set .plus {
+            font-size: 34px;
+            line-height: 1;
+        }
+
+        /* Builder */
+        #builder-view {
+            display: none;
+        }
+
+        #builder-view.active {
+            display: block;
+        }
+
+        .ws-panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .ws-field-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .ws-input {
+            width: 100%;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 11px 13px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .ws-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .ws-word-row {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .ws-word-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ws-row-remove {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            width: 40px;
+        }
+
+        .ws-row-remove:hover {
+            color: var(--priority-red);
+            border-color: rgba(231, 44, 44, 0.4);
+        }
+
+        .ws-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .ws-status {
+            color: var(--priority-green);
+            font-size: 14px;
+            min-height: 20px;
+            margin-top: 10px;
+        }
+
+        .ws-status.error {
+            color: var(--priority-red);
+        }
+
+        .ws-import-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 760px) {
+            .ws-import-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ws-textarea {
+            width: 100%;
+            min-height: 150px;
+            resize: vertical;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 11px 13px;
+            font-family: "SF Mono", Consolas, Menlo, monospace;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .ws-textarea:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .ws-hint {
+            color: var(--text-muted);
+            font-size: 12.5px;
+            margin-top: 8px;
+            line-height: 1.55;
+        }
+
+        .ws-link {
+            color: var(--accent-blue);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .file-label {
+            display: inline-flex;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .ws-builder-footer {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Docs modal */
+        #docs-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 40px 16px;
+        }
+
+        #docs-backdrop.open {
+            display: block;
+        }
+
+        .ws-docs {
+            max-width: 760px;
+            margin: 0 auto;
+            background-color: var(--bg-sidebar);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 36px 40px;
+            line-height: 1.65;
+            font-size: 14.5px;
+        }
+
+        .ws-docs h2 {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .ws-docs h3 {
+            font-size: 16px;
+            margin: 26px 0 8px;
+            color: var(--text-main);
+        }
+
+        .ws-docs p, .ws-docs li {
+            color: var(--text-muted);
+        }
+
+        .ws-docs ul {
+            padding-left: 22px;
+        }
+
+        .ws-docs pre {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 16px;
+            overflow-x: auto;
+            font-family: "SF Mono", Consolas, Menlo, monospace;
+            font-size: 12.5px;
+            color: var(--text-main);
+            margin: 10px 0;
+        }
+
+        .ws-docs code {
+            font-family: "SF Mono", Consolas, Menlo, monospace;
+            font-size: 0.92em;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1px 5px;
+            color: var(--text-main);
+        }
+
+        .ws-docs-close {
+            float: right;
+        }
+
+        /* Study shell */
+        #study-shell {
+            display: none;
+        }
+
+        #study-shell.active {
+            display: flex;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background-color: var(--bg-main);
+        }
+
+        #study-back {
+            position: fixed;
+            left: 14px;
+            bottom: 14px;
+            z-index: 1200;
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        #study-back:hover {
+            color: var(--text-main);
+            background-color: var(--bg-hover);
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== HUB ==================== -->
+    <div class="ws-page" id="hub-view">
+        <div class="ws-header">
+            <h1>📚 Word Sets</h1>
+            <button class="ws-btn" onclick="openDocs()">JSON format guide</button>
+        </div>
+        <p class="ws-subtitle">Study built-in sets or create your own — type words in manually or upload a JSON file. Everything saves in your browser.</p>
+
+        <div class="ws-section-title">Built-in sets</div>
+        <div class="ws-grid" id="builtin-grid"></div>
+
+        <div class="ws-section-title">My sets</div>
+        <div class="ws-grid" id="custom-grid"></div>
+    </div>
+
+    <!-- ==================== BUILDER ==================== -->
+    <div class="ws-page" id="builder-view">
+        <div class="ws-header">
+            <h1 id="builder-title">New word set</h1>
+        </div>
+        <p class="ws-subtitle">Give the set a name, then add words by typing them below or importing a JSON / text file.</p>
+
+        <div class="ws-panel">
+            <label class="ws-field-label" for="set-name-input">Set name</label>
+            <input class="ws-input" id="set-name-input" type="text" maxlength="80" placeholder="e.g. Spanish Vocab Unit 3" autocomplete="off">
+        </div>
+
+        <div class="ws-panel">
+            <label class="ws-field-label">Words</label>
+            <div id="word-rows"></div>
+            <div class="ws-toolbar">
+                <button class="ws-btn primary" onclick="wbAddRow()">+ Add word</button>
+                <button class="ws-btn danger small" onclick="wbClearRows()">Clear all</button>
+                <span class="ws-card-meta" id="word-count-label">0 words</span>
+            </div>
+        </div>
+
+        <div class="ws-panel">
+            <label class="ws-field-label">Import words</label>
+            <div class="ws-import-grid">
+                <div>
+                    <span class="ws-btn" role="button" tabindex="0">
+                        📄 Choose JSON / TXT file…
+                        <input type="file" id="import-file" accept=".json,.txt,.csv,application/json,text/plain,text/csv" onchange="wbHandleFile(this)">
+                    </span>
+                    <div class="ws-hint">Upload a file. See the <span class="ws-link" onclick="openDocs()">JSON format guide</span> for the exact shapes accepted.</div>
+                </div>
+                <div>
+                    <textarea class="ws-textarea" id="import-text" placeholder='…or paste here:
+
+[{"term": "Photosynthesis", "definition": "Plants convert light energy into chemical energy"}]'></textarea>
+                    <div class="ws-toolbar">
+                        <button class="ws-btn" onclick="wbImportText(document.getElementById('import-text').value)">Import pasted text</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ws-status" id="import-status"></div>
+        </div>
+
+        <div class="ws-builder-footer">
+            <button class="ws-btn primary" onclick="wbSave()">Save set</button>
+            <button class="ws-btn" onclick="wbCancel()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- ==================== STUDY VIEW (shared engine markup injected below) ==================== -->
+    <div id="study-shell">
+<div class="sidebar-overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <aside class="sidebar">
+        <nav class="nav-section">
+            <div class="section-title">Categories</div>
+            <ul class="nav-list" id="sidebar-list"></ul>
+        </nav>
+
+        <div class="progress-section">
+            <div class="progress-block">
+                <div class="progress-header">
+                    <span>Category Progress</span>
+                    <span id="cat-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="cat-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="progress-block">
+                <div class="progress-header">
+                    <span>Overall Progress</span>
+                    <span id="overall-progress-text">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="overall-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <button class="menu-btn" onclick="openMenu()">☰</button>
+                <h1 id="category-title">All Words</h1>
+            </div>
+            <div class="header-controls">
+                <select class="sort-dropdown" id="sort-select" onchange="handleSortChange()">
+                    <option value="high-low">Priority (High → Low)</option>
+                    <option value="low-high">Priority (Low → High)</option>
+                    <option value="a-z">Alphabetical (A → Z)</option>
+                    <option value="starred">Starred first</option>
+                </select>
+                <div class="flashcard-controls" id="flashcard-controls" style="display: none;">
+                    <select class="sort-dropdown" id="flashcat-select" onchange="handleFlashCategoryChange()"></select>
+                    <button class="flash-btn" onclick="shuffleFlashcards()">Shuffle</button>
+                    <button class="flash-btn flash-star-btn" id="flash-star" onclick="flashToggleStar()">☆ Star</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-container" id="main-list-container"></div>
+
+        <div class="flashcard-container" id="flashcard-container" style="display: none;">
+            <div class="flashcard-empty" id="flashcard-empty" style="display: none;"></div>
+            <div class="flashcard-counter" id="flash-counter"></div>
+            <div class="flashcard-scene" id="flashcard-scene" onclick="toggleFlip()">
+                <div class="flashcard-inner" id="flashcard-inner">
+                    <div class="flashcard-face flashcard-front">
+                        <div class="flashcard-label">ION NAME</div>
+                        <div class="flashcard-text" id="flash-front-text"></div>
+                        <div class="flashcard-hint">click to flip</div>
+                    </div>
+                    <div class="flashcard-face flashcard-back">
+                        <div class="flashcard-label">FORMULA</div>
+                        <div class="flashcard-text flashcard-formula" id="flash-back-text"></div>
+                        <div class="flashcard-hint">click to flip</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flashcard-nav" id="flash-nav">
+                            <button class="flash-nav-btn" onclick="flashPrev()">← Prev</button>
+                            <button class="flash-nav-btn flash-star-btn" id="flash-star-nav" onclick="flashToggleStar()">☆ Star</button>
+                            <button class="flash-nav-btn" onclick="flashNext()">Next →</button>
+                        </div>
+                    </div>
+
+                    <div class="learn-container" id="learn-container" style="display: none;">
+                        <div class="learn-topbar" id="learn-topbar" style="display: none;">
+                            <div class="learn-progress"><div class="learn-progress-fill" id="learn-progress-fill"></div></div>
+                            <div class="learn-status">
+                                <span class="learn-counter" id="learn-counter"></span>
+                                <span class="learn-controls">
+                                    <button class="learn-btn" onclick="learnEnd()">End</button>
+                                    <span class="learn-btn learn-star-badge" id="learn-star">⭐ 0 starred</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="learn-screen" id="learn-screen"></div>
+                    </div>
+                </main>
+        <button id="study-back" onclick="exitStudy()">← All sets</button>
+    </div>
+
+    <!-- ==================== DOCS MODAL ==================== -->
+    <div id="docs-backdrop" onclick="if (event.target === this) closeDocs()">
+        <div class="ws-docs">
+            <button class="ws-btn small ws-docs-close" onclick="closeDocs()">Close ✕</button>
+            <h2>JSON format guide</h2>
+            <p>Word set files are ordinary JSON documents. Three shapes are accepted, plus a plain-text fallback. Files should be UTF‑8 encoded.</p>
+
+            <h3>1. Array of objects <span style="color: var(--priority-green); font-size: 12px;">(recommended)</span></h3>
+            <p>A JSON array where each element is one word. Use <code>term</code> for the word and <code>definition</code> for its meaning:</p>
+            <pre>[
+  { "term": "Marbury v. Madison", "definition": "Established judicial review" },
+  { "term": "Federalism",         "definition": "Power shared between national and state governments" }
+]</pre>
+            <p>These alternative key names are recognized too, so exports from many flashcard tools work out of the box:</p>
+            <ul>
+                <li><b>Term side:</b> <code>term</code>, <code>word</code>, <code>front</code>, <code>name</code></li>
+                <li><b>Definition side:</b> <code>definition</code>, <code>def</code>, <code>meaning</code>, <code>description</code>, <code>back</code>, <code>formula</code></li>
+            </ul>
+            <pre>[{ "front": "Hola", "back": "Hello" }]   ✅ works</pre>
+
+            <h3>2. Object mapping</h3>
+            <p>A simple object whose keys are the terms and values are the definitions:</p>
+            <pre>{
+  "Photosynthesis": "Converts light into chemical energy",
+  "Osmosis": "Water moves across a membrane"
+}</pre>
+
+            <h3>3. Array of pairs</h3>
+            <p>An array of two-element arrays, first the term then the definition:</p>
+            <pre>[
+  ["Hola", "Hello"],
+  ["Adiós", "Goodbye"]
+]</pre>
+
+            <h3>Plain text fallback (TSV)</h3>
+            <p>If the pasted text or uploaded <code>.txt</code>/<code>.csv</code> file isn't valid JSON, it is parsed as tab-separated lines: one word per line, term and definition separated by a Tab character (the format Quizlet's "Export" produces):</p>
+            <pre>Hola<span style="color:#556;">⇥</span>Hello
+Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
+
+            <h3>Parsing rules</h3>
+            <ul>
+                <li>Each entry must have a non-empty term; entries without one are skipped.</li>
+                <li>Definitions are optional — an empty definition is kept and can be filled in later (definitions are editable right in the list view).</li>
+                <li>Duplicate terms are allowed but discouraged.</li>
+                <li>When a value is missing both sides entirely the importer reports how many rows were skipped instead of failing the whole file.</li>
+                <li>Keep files under ~2 MB; sets are stored in your browser's localStorage (roughly 5 MB budget, shared with your study progress).</li>
+            </ul>
+
+            <h3>Where sets are saved</h3>
+            <p>Custom sets live in your browser's local storage on this device, together with your priorities, stars, edited definitions and Learn history. They are not uploaded anywhere. To move a set to another device or share it, use <b>Export</b> on its card and import the downloaded JSON elsewhere.</p>
+
+            <h3>Minimal copy-paste example</h3>
+            <pre id="docs-sample">[
+  { "term": "Example term", "definition": "Example definition" },
+  { "term": "Second term", "definition": "Second definition" }
+]</pre>
+            <button class="ws-btn small" onclick="copySample()">Copy example</button>
+        </div>
+    </div>
+
+    <script src="../assets/study.js"></script>
+    <script>
+        /* ==================== CUSTOM SET STORAGE ==================== */
+
+        const WS_INDEX_KEY = 'wordSets.index';
+        const WS_SET_PREFIX = 'wordSets.set.';
+        const WS_OVERLAY_KEYS = ['Progress', 'DefinitionChanges', 'Stars', 'Sort', 'LearnStats', 'LearnSettings'];
+
+        function wsLoadIndex() {
+            try { return JSON.parse(localStorage.getItem(WS_INDEX_KEY) || '[]'); }
+            catch (e) { return []; }
+        }
+
+        function wsSaveIndex(idx) {
+            localStorage.setItem(WS_INDEX_KEY, JSON.stringify(idx));
+        }
+
+        function wsLoadSet(id) {
+            try { return JSON.parse(localStorage.getItem(WS_SET_PREFIX + id)); }
+            catch (e) { return null; }
+        }
+
+        function wsWriteSet(set) {
+            try {
+                localStorage.setItem(WS_SET_PREFIX + set.id, JSON.stringify(set));
+                return true;
+            } catch (e) {
+                alert('Could not save the set (browser storage is full?): ' + e.message);
+                return false;
+            }
+        }
+
+        function wsDeleteSet(id) {
+            localStorage.removeItem(WS_SET_PREFIX + id);
+            WS_OVERLAY_KEYS.forEach(k => localStorage.removeItem('wordSets.' + id + '.' + k));
+            wsSaveIndex(wsLoadIndex().filter(s => s.id !== id));
+        }
+
+        function wsNewId() {
+            return 'ws_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+        }
+
+        // Definitions edited while studying are kept as an overlay by the engine;
+        // fold them back into the base words so editing/exporting sees them.
+        function wsFoldDefinitionEdits(id) {
+            const set = wsLoadSet(id);
+            if (!set) return null;
+            let overlay = null;
+            try { overlay = JSON.parse(localStorage.getItem('wordSets.' + id + '.DefinitionChanges') || 'null'); } catch (e) {}
+            if (overlay && overlay.all) {
+                set.words.forEach(w => {
+                    const d = overlay.all[w.id];
+                    if (typeof d === 'string' && d) w.definition = d;
+                });
+                localStorage.removeItem('wordSets.' + id + '.DefinitionChanges');
+                wsWriteSet(set);
+            }
+            return set;
+        }
+
+        /* ==================== HUB ==================== */
+
+        const BUILTIN_SETS = [
+            { name: 'Polyatomic Ions', icon: '🧪', url: '../polyatomic/', words: 84, blurb: 'Chemistry ions with formulas, colors and priorities.' },
+            { name: 'AP Gov', icon: '🏛️', url: '../apgov/', words: 170, blurb: 'Units, amendments, court cases and foundational documents.' }
+        ];
+
+        function hubRender() {
+            const bg = document.getElementById('builtin-grid');
+            bg.innerHTML = '';
+            BUILTIN_SETS.forEach(s => {
+                const div = document.createElement('div');
+                div.className = 'ws-card';
+                div.innerHTML = `
+                    <div class="ws-card-title"><span>${s.icon}</span>${escapeWs(s.name)}</div>
+                    <div class="ws-card-meta">${s.words} words · built-in</div>
+                    <div class="ws-card-meta">${escapeWs(s.blurb)}</div>
+                    <div class="ws-card-actions"><a class="ws-btn primary" href="${s.url}">Open set →</a></div>
+                `;
+                bg.appendChild(div);
+            });
+
+            const cg = document.getElementById('custom-grid');
+            cg.innerHTML = '';
+
+            const newCard = document.createElement('div');
+            newCard.className = 'ws-card new-set';
+            newCard.innerHTML = `<span class="plus">＋</span>New word set<br><span class="ws-card-meta">type words or upload JSON</span>`;
+            newCard.onclick = () => builderOpen(null);
+            cg.appendChild(newCard);
+
+            wsLoadIndex().forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'ws-card';
+                div.innerHTML = `
+                    <div class="ws-card-title"><span>📗</span>${escapeWs(entry.name)}</div>
+                    <div class="ws-card-meta">${entry.count} word${entry.count === 1 ? '' : 's'} · updated ${new Date(entry.updatedAt).toLocaleDateString()}</div>
+                    <div class="ws-card-actions">
+                        <button class="ws-btn primary" onclick="studyCustomSet('${entry.id}')">Study</button>
+                        <button class="ws-btn" onclick="builderOpen('${entry.id}')">Edit</button>
+                        <button class="ws-btn" onclick="exportSet('${entry.id}')">Export</button>
+                        <button class="ws-btn danger" onclick="deleteSetConfirm('${entry.id}')">Delete</button>
+                    </div>
+                `;
+                cg.appendChild(div);
+            });
+        }
+
+        function deleteSetConfirm(id) {
+            const entry = wsLoadIndex().find(s => s.id === id);
+            if (!entry) return;
+            if (!confirm(`Delete "${entry.name}" (${entry.count} words)? This also erases its study progress and cannot be undone.`)) return;
+            wsDeleteSet(id);
+            hubRender();
+        }
+
+        function exportSet(id) {
+            const set = wsFoldDefinitionEdits(id);
+            if (!set) return;
+            const payload = JSON.stringify(set.words.map(w => ({ term: w.term, definition: w.definition })), null, 2);
+            const blob = new Blob([payload], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = set.name.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '-').toLowerCase() + '.json';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+        }
+
+        /* ==================== STUDY VIEW ==================== */
+
+        function studyCustomSet(id) {
+            const set = wsLoadSet(id);
+            if (!set) return;
+
+            StudyApp.init({
+                title: set.name,
+                storagePrefix: 'wordSets.' + id + '.',
+                chemMode: false,
+                frontLabel: 'TERM',
+                backLabel: 'DEFINITION',
+                categories: [{ id: 'all', name: set.name, icon: '📗' }],
+                data: { all: structuredClone(set.words) }
+            });
+
+            document.getElementById('hub-view').style.display = 'none';
+            document.getElementById('builder-view').classList.remove('active');
+            document.getElementById('study-shell').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function exitStudy() {
+            document.getElementById('study-shell').classList.remove('active');
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
+        }
+
+        /* ==================== BUILDER ==================== */
+
+        let builderState = { editingId: null, words: [] };
+
+        function builderOpen(editingId) {
+            builderState.editingId = editingId;
+            builderState.words = [];
+            setStatus('');
+
+            const titleEl = document.getElementById('builder-title');
+            const nameInput = document.getElementById('set-name-input');
+
+            if (editingId) {
+                const set = wsFoldDefinitionEdits(editingId);
+                if (!set) { hubRender(); return; }
+                titleEl.innerText = 'Edit word set';
+                nameInput.value = set.name;
+                builderState.words = set.words.map(w => ({ ...w }));
+            } else {
+                titleEl.innerText = 'New word set';
+                nameInput.value = '';
+                builderAddWordRow('', '');
+            }
+
+            wbRenderRows(true);
+            document.getElementById('hub-view').style.display = 'none';
+            document.getElementById('builder-view').classList.add('active');
+            window.scrollTo(0, 0);
+            nameInput.focus();
+        }
+
+        function wbAddRow() {
+            builderAddWordRow('', '');
+            wbRenderRows();
+            const inputs = document.querySelectorAll('#word-rows .ws-input');
+            if (inputs.length >= 2) inputs[inputs.length - 2].focus();
+        }
+
+        function builderAddWordRow(term, definition) {
+            builderState.words.push({ id: null, term, definition });
+        }
+
+        function wbRemoveRow(i) {
+            builderState.words.splice(i, 1);
+            wbRenderRows(true);
+        }
+
+        function wbClearRows() {
+            if (!builderState.words.length) return;
+            if (!confirm('Remove all words from this set? (Nothing is deleted until you save.)')) return;
+            builderState.words = [];
+            wbRenderRows();
+        }
+
+        function wbSyncFromInputs() {
+            const rows = document.querySelectorAll('#word-rows .ws-word-row');
+            rows.forEach((row, i) => {
+                const [t, d] = row.querySelectorAll('.ws-input');
+                if (!builderState.words[i]) builderState.words[i] = { id: null, term: '', definition: '' };
+                builderState.words[i].term = t.value;
+                builderState.words[i].definition = d.value;
+            });
+        }
+
+        // Renders builderState.words into #word-rows. Pass preserveState=true when
+        // builderState was just mutated programmatically (open/import/remove); the
+        // usual DOM-to-state sync would then read STALE inputs and overwrite it.
+        function wbRenderRows(preserveState) {
+            if (!preserveState) wbSyncFromInputs();
+            const wrap = document.getElementById('word-rows');
+            wrap.innerHTML = '';
+            builderState.words.forEach((w, i) => {
+                const row = document.createElement('div');
+                row.className = 'ws-word-row';
+                const t = document.createElement('input');
+                t.className = 'ws-input';
+                t.placeholder = 'Term';
+                t.value = w.term;
+                t.autocomplete = 'off';
+                const d = document.createElement('input');
+                d.className = 'ws-input';
+                d.placeholder = 'Definition';
+                d.value = w.definition;
+                d.autocomplete = 'off';
+                const x = document.createElement('button');
+                x.className = 'ws-row-remove';
+                x.title = 'Remove word';
+                x.textContent = '✕';
+                x.onclick = () => wbRemoveRow(i);
+                row.append(t, d, x);
+                wrap.appendChild(row);
+            });
+            const n = builderState.words.filter(w => w.term.trim()).length;
+            document.getElementById('word-count-label').innerText = `${n} word${n === 1 ? '' : 's'}`;
+        }
+
+        function wbHandleFile(input) {
+            const file = input.files && input.files[0];
+            input.value = '';
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024 && !confirm('This file is larger than 2 MB and may not save properly. Import anyway?')) return;
+            const reader = new FileReader();
+            reader.onload = () => wbImportText(String(reader.result));
+            reader.onerror = () => setStatus('Could not read that file.', true);
+            reader.readAsText(file);
+        }
+
+        function wbImportText(text) {
+            let result;
+            try {
+                result = parseWordsInput(text);
+            } catch (e) {
+                setStatus(e.message, true);
+                return;
+            }
+            if (!result.words.length) {
+                setStatus('No usable words found. ' + result.skipped + ' row(s) skipped. ' + (result.note || ''), true);
+                return;
+            }
+            wbSyncFromInputs();
+            // drop rows the user left completely empty (e.g. the blank starter row)
+            builderState.words = builderState.words.filter(w => String(w.term).trim() || String(w.definition || '').trim());
+            result.words.forEach(w => builderState.words.push({ id: null, term: w.term, definition: w.definition }));
+            wbRenderRows(true);
+            const extra = result.skipped ? ` ${result.skipped} row(s) skipped.` : '';
+            setStatus(`✓ Imported ${result.words.length} word${result.words.length === 1 ? '' : 's'} from ${result.format}.${extra}`);
+        }
+
+        // Accepts the three documented JSON shapes plus Quizlet-style TSV text.
+        // Throws Error with a friendly message when nothing can be parsed.
+        function parseWordsInput(text) {
+            const trimmed = String(text || '').trim();
+            if (!trimmed) throw new Error('Nothing to import — the text is empty.');
+
+            if (trimmed[0] === '[' || trimmed[0] === '{') {
+                let data = null;
+                try { data = JSON.parse(trimmed); }
+                catch (e) { throw new Error('That looks like JSON but it does not parse: ' + e.message + '. If it is plain text (one word per line, Tab separated) remove any brackets so it imports as TSV.'); }
+                return normalizeParsed(data);
+            }
+            return parseTsv(trimmed);
+        }
+
+        function normalizeParsed(data) {
+            const words = [];
+            const TERM_KEYS = ['term', 'word', 'front', 'name'];
+            const DEF_KEYS = ['definition', 'def', 'meaning', 'description', 'back', 'formula'];
+            let skipped = 0;
+
+            const pickKey = (obj, keys) => {
+                const lower = {};
+                for (const k of Object.keys(obj)) lower[k.toLowerCase()] = k;
+                for (const k of keys) if (typeof lower[k] === 'string' && typeof obj[lower[k]] === 'string') return obj[lower[k]];
+                return null;
+            };
+
+            const handleEntry = (entry) => {
+                if (entry === null || entry === undefined) { skipped++; return; }
+                if (Array.isArray(entry)) {
+                    const term = entry.length > 0 ? entry[0] : null;
+                    const def = entry.length > 1 ? entry[1] : '';
+                    push(String(term ?? ''), String(def ?? ''));
+                    return;
+                }
+                if (typeof entry === 'object') {
+                    const term = pickKey(entry, TERM_KEYS);
+                    const def = pickKey(entry, DEF_KEYS);
+                    if (term === null) { skipped++; return; }
+                    push(term, def || '');
+                    return;
+                }
+                if (typeof entry === 'string') { push(entry, ''); return; }
+                skipped++;
+            };
+
+            const push = (term, def) => {
+                term = term.trim();
+                def = String(def ?? '').trim();
+                if (!term) { skipped++; return; }
+                words.push({ term, definition: def });
+            };
+
+            if (Array.isArray(data)) {
+                data.forEach(handleEntry);
+            } else if (data && typeof data === 'object') {
+                for (const [k, v] of Object.entries(data)) {
+                    if (v && typeof v === 'object' && !Array.isArray(v)) handleEntry(v);
+                    else push(k, typeof v === 'string' || typeof v === 'number' ? String(v) : '');
+                }
+            } else {
+                throw new Error('Unsupported JSON: expected an array of objects, an object map, or an array of pairs. See the format guide.');
+            }
+
+            const format = Array.isArray(data) ? 'JSON array' : 'JSON object map';
+            return { words, skipped, format, note: '' };
+        }
+
+        function parseTsv(text) {
+            const words = [];
+            let skipped = 0;
+            let noTabLines = 0;
+            text.split(/\r?\n/).forEach(line => {
+                if (!line.trim()) return;
+                const idx = line.indexOf('\t');
+                if (idx === -1) {
+                    // no tab: treat the whole line as a bare term
+                    noTabLines++;
+                    words.push({ term: line.trim(), definition: '' });
+                    return;
+                }
+                words.push({ term: line.slice(0, idx).trim(), definition: line.slice(idx + 1).replace(/\t/g, ' ').trim() });
+            });
+            const usable = words.filter(w => w.term).length;
+            skipped += words.length - usable;
+            if (!usable && noTabLines) {
+                throw new Error('Could not find any words. Plain text must be one word per line with a Tab between the term and the definition.');
+            }
+            return { words: words.filter(w => w.term), skipped, format: 'plain text (TSV)', note: noTabLines ? 'Lines without a Tab were treated as terms without definitions.' : '' };
+        }
+
+        function wbSave() {
+            wbSyncFromInputs();
+            const name = document.getElementById('set-name-input').value.trim() || 'My word set';
+            const words = builderState.words
+                .map(w => ({ term: w.term.trim(), definition: (w.definition || '').trim() }))
+                .filter(w => w.term);
+
+            if (!words.length) {
+                setStatus('Add at least one word with a term before saving.', true);
+                return;
+            }
+
+            let set;
+            if (builderState.editingId) {
+                set = wsLoadSet(builderState.editingId);
+                if (!set) { wbCancel(); return; }
+                set.name = name;
+                // keep existing ids so saved progress stays attached; new rows get fresh ones
+                const byIdRow = new Map(builderState.words.filter(bw => bw.id).map(bw => [bw.term.trim(), bw]));
+                const consumed = new Set();
+                const next = [];
+                words.forEach(w => {
+                    const old = byIdRow.get(w.term);
+                    const reuseId = old && !consumed.has(old.id) ? old.id : null;
+                    if (reuseId) consumed.add(reuseId);
+                    next.push({ id: reuseId || wsNewId(), term: w.term, definition: w.definition });
+                });
+                set.words = next;
+                set.updatedAt = Date.now();
+            } else {
+                const id = wsNewId();
+                set = {
+                    id,
+                    name,
+                    createdAt: Date.now(),
+                    updatedAt: Date.now(),
+                    words: words.map(w => ({ id: wsNewId(), term: w.term, definition: w.definition }))
+                };
+            }
+
+            if (!wsWriteSet(set)) return;
+
+            const idx = wsLoadIndex().filter(s => s.id !== set.id);
+            idx.unshift({ id: set.id, name: set.name, createdAt: set.createdAt, updatedAt: set.updatedAt, count: set.words.length });
+            wsSaveIndex(idx);
+
+            builderState.editingId = null;
+            document.getElementById('builder-view').classList.remove('active');
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
+        }
+
+        function wbCancel() {
+            builderState.editingId = null;
+            document.getElementById('builder-view').classList.remove('active');
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
+        }
+
+        function setStatus(msg, isError) {
+            const el = document.getElementById('import-status');
+            el.innerText = msg || '';
+            el.classList.toggle('error', !!isError);
+        }
+
+        /* ==================== DOCS MODAL ==================== */
+
+        function openDocs() {
+            document.getElementById('docs-backdrop').classList.add('open');
+        }
+
+        function closeDocs() {
+            document.getElementById('docs-backdrop').classList.remove('open');
+        }
+
+        function copySample() {
+            const text = document.getElementById('docs-sample').innerText;
+            const done = () => alert('Example copied to clipboard.');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+            } else {
+                fallbackCopy(text, done);
+            }
+        }
+
+        function fallbackCopy(text, done) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); done(); } catch (e) {}
+            ta.remove();
+        }
+
+        function escapeWs(s) {
+            return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeDocs();
+        });
+
+        hubRender();
+    </script>
+</body>
+</html>
