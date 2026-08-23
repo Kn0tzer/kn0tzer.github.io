@@ -6,97 +6,32 @@
     <title>Vocab — Kn0tzer</title>
     <link rel="stylesheet" href="../assets/study.css">
     <style>
-        /* Page chrome for the hub/builder views (study view styles come from study.css) */
-        body {
-            display: block;
-            height: auto;
-            overflow: auto;
-            min-height: 100vh;
-        }
-
-        .ws-page {
-            max-width: 1060px;
-            margin: 0 auto;
-            padding: 48px 24px 80px;
-        }
-
-        .ws-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-        }
-
-        .ws-header h1 {
-            font-size: 32px;
-            font-weight: 700;
-        }
+        /* Hub shares the study app's exact frame — .sidebar, .main-content,
+         * .header, .nav-item, .list-item and .flash-btn all come straight from
+         * study.css. Only set-management specifics live here, on the same vars. */
 
         .ws-subtitle {
             color: var(--text-muted);
-            font-size: 15px;
-            margin-bottom: 34px;
+            font-size: 14px;
+            margin-top: 4px;
         }
 
-        .ws-section-title {
+        .list-heading {
             font-size: 13px;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin: 30px 0 12px;
+            margin: 28px 0 2px;
         }
 
-        .ws-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
-        }
-
-        .ws-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: border-color 0.15s, transform 0.15s;
-        }
-
-        .ws-card:hover {
-            border-color: #3a3e49;
-            transform: translateY(-2px);
-        }
-
-        .ws-card-title {
-            font-size: 18px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
-        .ws-card-meta {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        .ws-card-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-
+        /* Buttons mirror .flash-btn from study.css */
         .ws-btn {
             background-color: var(--bg-main);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
@@ -119,6 +54,10 @@
             opacity: 0.92;
         }
 
+        .ws-btn.primary:hover {
+            opacity: 0.92;
+        }
+
         .ws-btn.danger {
             color: var(--priority-red);
             border-color: rgba(231, 44, 44, 0.45);
@@ -134,25 +73,67 @@
             border-radius: 6px;
         }
 
-        .ws-card.new-set {
-            align-items: center;
-            justify-content: center;
+        /* Set rows reuse the study app's word-list anatomy
+         * (.list-item / .item-header / .item-title). */
+        .set-row .item-header {
             cursor: pointer;
-            border-style: dashed;
-            color: var(--text-muted);
-            min-height: 130px;
-            font-size: 16px;
-            gap: 6px;
         }
 
-        .ws-card.new-set:hover {
+        .set-icon {
+            font-size: 20px;
+            margin-right: 13px;
+        }
+
+        .set-row-main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .set-row-main .item-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: var(--text-main);
+        }
+
+        .set-meta {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .set-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .set-row.new-row {
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .set-row.new-row .item-header {
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        .set-row.new-row:hover {
             border-color: var(--accent-blue);
         }
 
-        .ws-card.new-set .plus {
-            font-size: 34px;
-            line-height: 1;
+        .set-row.new-row:hover .item-header {
+            color: var(--text-main);
+        }
+
+        .flash-btn.danger-btn {
+            color: var(--priority-red);
+            border-color: rgba(231, 44, 44, 0.45);
+        }
+
+        .flash-btn.danger-btn:hover {
+            background-color: rgba(231, 44, 44, 0.12);
         }
 
         /* Builder */
@@ -466,27 +447,55 @@
     </style>
 </head>
 <body>
-    <!-- ==================== HUB ==================== -->
-    <div class="ws-page" id="hub-view">
-        <div class="ws-header">
-            <h1>📚 Vocab</h1>
-            <button class="ws-btn" onclick="openDocs()">JSON format guide</button>
+    <!-- Mobile slide-in menu backdrop (same pattern as the study view) -->
+    <div class="sidebar-overlay" onclick="closeMenu()"></div>
+
+    <!-- ==================== HUB SIDEBAR (same .sidebar as the study app) ==================== -->
+    <aside class="sidebar">
+        <nav class="nav-section">
+            <div class="section-title">📚 Vocab</div>
+            <ul class="nav-list">
+                <li class="nav-item active"><span class="nav-icon">🏠</span>All sets</li>
+                <li class="nav-item" onclick="openNewModal()"><span class="nav-icon">＋</span>New word set</li>
+                <li class="nav-item" onclick="openDocs()"><span class="nav-icon">📖</span>JSON format guide</li>
+            </ul>
+            <div class="nav-divider"></div>
+            <div class="nav-section-title">Built-in sets</div>
+            <ul class="nav-list" id="builtin-nav"></ul>
+            <div class="nav-divider"></div>
+            <div class="nav-section-title">My sets</div>
+            <ul class="nav-list" id="custom-nav"></ul>
+        </nav>
+    </aside>
+
+    <!-- ==================== HUB MAIN (same .main-content as the study app) ==================== -->
+    <main class="main-content">
+
+    <!-- ==================== HOME ==================== -->
+    <div id="hub-view">
+        <div class="header">
+            <div class="header-top">
+                <button class="menu-btn" onclick="openMenu()">☰</button>
+                <h1>All sets</h1>
+            </div>
+            <p class="ws-subtitle">Study built-in sets or create your own — add words by hand or import a JSON file. Everything saves in your browser.</p>
         </div>
-        <p class="ws-subtitle">Study built-in sets or create your own — add words by hand or import a JSON file. Everything saves in your browser.</p>
 
-        <div class="ws-section-title">Built-in sets</div>
-        <div class="ws-grid" id="builtin-grid"></div>
+        <div class="list-heading">Built-in sets</div>
+        <div class="list-container" id="builtin-list"></div>
 
-        <div class="ws-section-title">My sets</div>
-        <div class="ws-grid" id="custom-grid"></div>
+        <div class="list-heading">My sets</div>
+        <div class="list-container" id="custom-list"></div>
     </div>
 
     <!-- ==================== BUILDER ==================== -->
-    <div class="ws-page" id="builder-view">
-        <div class="ws-header">
-            <h1 id="builder-title">New word set</h1>
+    <div id="builder-view">
+        <div class="header">
+            <div class="header-top">
+                <h1 id="builder-title">New word set</h1>
+            </div>
+            <p class="ws-subtitle" id="builder-subtitle">Give the set a name, then type your words below.</p>
         </div>
-        <p class="ws-subtitle" id="builder-subtitle">Give the set a name, then type your words below.</p>
 
         <div class="ws-panel">
             <label class="ws-field-label" for="set-name-input">Set name</label>
@@ -499,7 +508,7 @@
             <div class="ws-toolbar">
                 <button class="ws-btn primary" onclick="wbAddRow()">+ Add word</button>
                 <button class="ws-btn danger small" onclick="wbClearRows()">Clear all</button>
-                <span class="ws-card-meta" id="word-count-label">0 words</span>
+                <span class="set-meta" id="word-count-label">0 words</span>
             </div>
             <div class="ws-status" id="import-status"></div>
         </div>
@@ -511,11 +520,13 @@
     </div>
 
     <!-- ==================== JSON IMPORT ==================== -->
-    <div class="ws-page" id="json-view" style="display:none">
-        <div class="ws-header">
-            <h1>Import with JSON</h1>
+    <div id="json-view" style="display:none">
+        <div class="header">
+            <div class="header-top">
+                <h1>Import with JSON</h1>
+            </div>
+            <p class="ws-subtitle">Upload a JSON file of words and definitions — or have any AI create one for you.</p>
         </div>
-        <p class="ws-subtitle">Upload a JSON file of words and definitions — or have any AI create one for you.</p>
 
         <div class="ws-panel">
             <label class="ws-field-label" for="json-name-input">Set name</label>
@@ -545,6 +556,8 @@
             <button class="ws-btn" onclick="jsonCancel()">Cancel</button>
         </div>
     </div>
+
+    </main><!-- /hub main-content -->
 
     <!-- ==================== NEW-SET CHOICE MODAL ==================== -->
     <div id="newset-backdrop" onclick="if (event.target === this) closeNewModal()">
@@ -723,7 +736,15 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
     </div>
 
     <script src="../assets/study.js"></script>
+    <script src="../assets/builtin-sets.js"></script>
     <script>
+        // study.js exposes openMenu/closeMenu onto window during StudyApp.init();
+        // the hub needs them before that, so provide equivalents up front.
+        if (typeof window.openMenu !== 'function') {
+            window.openMenu = () => document.body.classList.add('sidebar-open');
+            window.closeMenu = () => document.body.classList.remove('sidebar-open');
+        }
+
         /* ==================== CUSTOM SET STORAGE ==================== */
 
         const WS_INDEX_KEY = 'wordSets.index';
@@ -801,49 +822,86 @@ Rules:
 
 I will save your reply as a .json file and import it into my study app.`; 
 
-        const BUILTIN_SETS = [
-            { name: 'Polyatomic Ions', icon: '🧪', url: 'polyatomic/', words: 84, blurb: 'Chemistry ions with formulas, colors and priorities.' },
-            { name: 'AP Gov', icon: '🏛️', url: 'apgov/', words: 170, blurb: 'Units, amendments, court cases and foundational documents.' }
-        ];
+        // Built-in presets live in assets/builtin-sets.js as pure data; this map
+        // turns them into hub cards.
+        const PRESET_NAMES = { polyatomic: 'Polyatomic Ions', apgov: 'AP Gov' };
+        const BUILTIN_SETS = Object.values(window.BUILTIN_PRESETS || {}).map(p => ({
+            id: p.id,
+            name: PRESET_NAMES[p.id] || p.title,
+            icon: p.icon,
+            words: Object.values(p.data).flat().length,
+            blurb: p.blurb
+        }));
 
         function hubRender() {
-            const bg = document.getElementById('builtin-grid');
-            bg.innerHTML = '';
+            /* Sidebar nav (same .nav-item anatomy as the study app's category list) */
+            const bn = document.getElementById('builtin-nav');
+            bn.innerHTML = '';
             BUILTIN_SETS.forEach(s => {
-                const div = document.createElement('div');
-                div.className = 'ws-card';
-                div.innerHTML = `
-                    <div class="ws-card-title"><span>${s.icon}</span>${escapeWs(s.name)}</div>
-                    <div class="ws-card-meta">${s.words} words · built-in</div>
-                    <div class="ws-card-meta">${escapeWs(s.blurb)}</div>
-                    <div class="ws-card-actions"><a class="ws-btn primary" href="${s.url}">Open set →</a></div>
-                `;
-                bg.appendChild(div);
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                li.innerHTML = `<span class="nav-icon">${s.icon}</span>${escapeWs(s.name)}<span class="nav-progress">${s.words}</span>`;
+                li.onclick = () => studyBuiltin(s.id);
+                bn.appendChild(li);
             });
 
-            const cg = document.getElementById('custom-grid');
-            cg.innerHTML = '';
+            const cn = document.getElementById('custom-nav');
+            cn.innerHTML = '';
+            wsLoadIndex().forEach(entry => {
+                const li = document.createElement('li');
+                li.className = 'nav-item';
+                li.innerHTML = `<span class="nav-icon">📗</span>${escapeWs(entry.name)}<span class="nav-progress">${entry.count}</span>`;
+                li.onclick = () => studyCustomSet(entry.id);
+                cn.appendChild(li);
+            });
 
-            const newCard = document.createElement('div');
-            newCard.className = 'ws-card new-set';
-            newCard.innerHTML = `<span class="plus">＋</span>New word set<br><span class="ws-card-meta">manual entry or JSON import</span>`;
-            newCard.onclick = () => openNewModal();
-            cg.appendChild(newCard);
+            /* Home rows reuse the study app's word-list anatomy */
+            const bl = document.getElementById('builtin-list');
+            bl.innerHTML = '';
+            BUILTIN_SETS.forEach(s => {
+                const row = document.createElement('div');
+                row.className = 'list-item set-row';
+                row.innerHTML = `
+                    <div class="item-header">
+                        <span class="set-icon">${s.icon}</span>
+                        <div class="set-row-main">
+                            <div class="item-title">${escapeWs(s.name)}</div>
+                            <div class="set-meta">${s.words} words · built-in · ${escapeWs(s.blurb)}</div>
+                        </div>
+                        <div class="set-actions"><button class="flash-btn" onclick="event.stopPropagation();studyBuiltin('${s.id}')">Study →</button></div>
+                    </div>`;
+                row.querySelector('.item-header').onclick = () => studyBuiltin(s.id);
+                bl.appendChild(row);
+            });
+
+            const cl = document.getElementById('custom-list');
+            cl.innerHTML = '';
+
+            const newRow = document.createElement('div');
+            newRow.className = 'list-item set-row new-row';
+            newRow.innerHTML = `<div class="item-header"><div class="set-row-main" style="text-align:center;"><div class="item-title" style="justify-content:center;">＋ New word set</div><div class="set-meta">manual entry or JSON import</div></div></div>`;
+            newRow.onclick = () => openNewModal();
+            cl.appendChild(newRow);
 
             wsLoadIndex().forEach(entry => {
-                const div = document.createElement('div');
-                div.className = 'ws-card';
-                div.innerHTML = `
-                    <div class="ws-card-title"><span>📗</span>${escapeWs(entry.name)}</div>
-                    <div class="ws-card-meta">${entry.count} word${entry.count === 1 ? '' : 's'} · updated ${new Date(entry.updatedAt).toLocaleDateString()}</div>
-                    <div class="ws-card-actions">
-                        <button class="ws-btn primary" onclick="studyCustomSet('${entry.id}')">Study</button>
-                        <button class="ws-btn" onclick="builderOpen('${entry.id}')">Edit</button>
-                        <button class="ws-btn" onclick="exportSet('${entry.id}')">Export</button>
-                        <button class="ws-btn danger" onclick="deleteSetConfirm('${entry.id}')">Delete</button>
-                    </div>
-                `;
-                cg.appendChild(div);
+                const row = document.createElement('div');
+                row.className = 'list-item set-row';
+                row.innerHTML = `
+                    <div class="item-header">
+                        <span class="set-icon">📗</span>
+                        <div class="set-row-main">
+                            <div class="item-title">${escapeWs(entry.name)}</div>
+                            <div class="set-meta">${entry.count} word${entry.count === 1 ? '' : 's'} · updated ${new Date(entry.updatedAt).toLocaleDateString()}</div>
+                        </div>
+                        <div class="set-actions">
+                            <button class="flash-btn" onclick="event.stopPropagation();studyCustomSet('${entry.id}')">Study →</button>
+                            <button class="flash-btn" onclick="event.stopPropagation();builderOpen('${entry.id}')">Edit</button>
+                            <button class="flash-btn" onclick="event.stopPropagation();exportSet('${entry.id}')">Export</button>
+                            <button class="flash-btn danger-btn" onclick="event.stopPropagation();deleteSetConfirm('${entry.id}')">Delete</button>
+                        </div>
+                    </div>`;
+                row.querySelector('.item-header').onclick = () => studyCustomSet(entry.id);
+                cl.appendChild(row);
             });
         }
 
@@ -871,11 +929,50 @@ I will save your reply as a .json file and import it into my study app.`;
 
         /* ==================== STUDY VIEW ==================== */
 
+        // Opens a built-in preset (assets/builtin-sets.js) or a custom saved set
+        // through the same shared engine instance. Returns true when opened.
+        function openPresetStudy(cfg) {
+            StudyApp.init({
+                title: cfg.title,
+                storagePrefix: cfg.storagePrefix,
+                chemMode: !!cfg.chemMode,
+                frontLabel: cfg.frontLabel,
+                backLabel: cfg.backLabel,
+                categories: cfg.categories,
+                data: cfg.data
+            });
+
+            document.getElementById('hub-view').style.display = 'none';
+            document.getElementById('builder-view').classList.remove('active');
+            document.getElementById('json-view').style.display = 'none';
+            document.getElementById('study-shell').classList.add('active');
+            window.scrollTo(0, 0);
+            return true;
+        }
+
+        function studyBuiltin(id) {
+            const p = (window.BUILTIN_PRESETS || {})[id];
+            if (!p) return;
+            // Clone so engine mutations (priorities, edits) never touch the shared preset data.
+            openPresetStudy({
+                title: p.title,
+                storagePrefix: p.storagePrefix,
+                chemMode: p.chemMode,
+                frontLabel: p.frontLabel,
+                backLabel: p.backLabel,
+                categories: structuredClone(p.categories),
+                data: structuredClone(p.data)
+            });
+            const u = new URL(location.href);
+            u.searchParams.set('set', id);
+            history.pushState({ set: id }, '', u);
+        }
+
         function studyCustomSet(id) {
             const set = wsLoadSet(id);
             if (!set) return;
 
-            StudyApp.init({
+            openPresetStudy({
                 title: set.name,
                 storagePrefix: 'wordSets.' + id + '.',
                 chemMode: false,
@@ -884,18 +981,39 @@ I will save your reply as a .json file and import it into my study app.`;
                 categories: [{ id: 'all', name: set.name, icon: '📗' }],
                 data: { all: structuredClone(set.words) }
             });
-
-            document.getElementById('hub-view').style.display = 'none';
-            document.getElementById('builder-view').classList.remove('active');
-            document.getElementById('study-shell').classList.add('active');
-            window.scrollTo(0, 0);
         }
 
         function exitStudy() {
             document.getElementById('study-shell').classList.remove('active');
             document.getElementById('hub-view').style.display = '';
+            const u = new URL(location.href);
+            if (u.searchParams.has('set')) {
+                u.searchParams.delete('set');
+                history.pushState({}, '', u);
+            }
             hubRender();
         }
+
+        // Back/forward buttons move in and out of a studied set.
+        window.addEventListener('popstate', () => {
+            const id = new URL(location.href).searchParams.get('set');
+            const p = id && (window.BUILTIN_PRESETS || {})[id];
+            if (p) {
+                openPresetStudy({
+                    title: p.title,
+                    storagePrefix: p.storagePrefix,
+                    chemMode: p.chemMode,
+                    frontLabel: p.frontLabel,
+                    backLabel: p.backLabel,
+                    categories: structuredClone(p.categories),
+                    data: structuredClone(p.data)
+                });
+                return;
+            }
+            document.getElementById('study-shell').classList.remove('active');
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
+        });
 
         /* ==================== BUILDER ==================== */
 
@@ -1299,7 +1417,10 @@ I will save your reply as a .json file and import it into my study app.`;
         });
 
         document.getElementById('ai-prompt').value = AI_PROMPT_TEXT;
-        hubRender();
+
+        // Deep link: /vocab/?set=polyatomic opens straight into that preset.
+        const initialSet = new URLSearchParams(location.search).get('set');
+        if (!(initialSet && (window.BUILTIN_PRESETS || {})[initialSet] && (studyBuiltin(initialSet), true))) hubRender();
     </script>
 </body>
 </html>
