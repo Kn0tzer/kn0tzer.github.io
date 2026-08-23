@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocab — Kn0tzer</title>
+    <title>Vocab</title>
     <style>
 /* ===== assets/study.css — inlined so this page is fully self-contained ===== */
 /* Shared stylesheet for the study apps (polyatomic, apgov, custom word sets). */
@@ -343,8 +343,6 @@
             font-size: 13px;
             color: var(--text-muted);
             padding: 10px 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .header-controls {
@@ -429,7 +427,6 @@
 
         .flashcard-label {
             font-size: 12px;
-            letter-spacing: 2px;
             color: var(--text-muted);
         }
 
@@ -783,8 +780,6 @@
 
                     .learn-label {
                         font-size: 12px;
-                        letter-spacing: 2px;
-                        text-transform: uppercase;
                         color: var(--text-muted);
                     }
 
@@ -967,8 +962,6 @@
 
                     .learn-answer-kicker {
                         font-size: 11px;
-                        letter-spacing: 1.6px;
-                        text-transform: uppercase;
                         color: var(--text-muted);
                         margin-bottom: 8px;
                     }
@@ -1196,8 +1189,6 @@
                     .learn-missed-title {
                         font-size: 13px;
                         color: var(--text-muted);
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
                         margin-bottom: 10px;
                     }
 
@@ -1232,14 +1223,6 @@
             color: var(--text-muted);
             font-size: 14px;
             margin-top: 4px;
-        }
-
-        .list-heading {
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin: 28px 0 2px;
         }
 
         /* Buttons mirror .flash-btn from study.css */
@@ -1540,95 +1523,96 @@
             line-height: 1.55;
         }
 
+        /* AI set creator — three steps on one non-scrollable page */
+        #json-view {
+            flex: 1;
+            min-height: 0;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .json-steps {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .json-step {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .json-step.json-grow {
+            flex: 1;
+            min-height: 0;
+        }
+
+        .step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: var(--accent-blue);
+            color: #fff;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .json-step-body {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .json-step-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .json-paste-area {
+            flex: 1;
+            min-height: 90px;
+            resize: none;
+        }
+
+        @media (max-width: 768px) {
+            #json-view {
+                overflow-y: auto;
+            }
+
+            .json-step.json-grow {
+                flex: none;
+            }
+
+            .json-paste-area {
+                min-height: 150px;
+            }
+        }
+
         .ws-link {
             color: var(--accent-blue);
             cursor: pointer;
             text-decoration: underline;
         }
 
-        .file-label {
-            display: inline-flex;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
         .ws-builder-footer {
             display: flex;
             gap: 12px;
             align-items: center;
-        }
-
-        /* Docs modal */
-        #docs-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            z-index: 2000;
-            overflow-y: auto;
-            padding: 40px 16px;
-        }
-
-        #docs-backdrop.open {
-            display: block;
-        }
-
-        .ws-docs {
-            max-width: 760px;
-            margin: 0 auto;
-            background-color: var(--bg-sidebar);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 36px 40px;
-            line-height: 1.65;
-            font-size: 14.5px;
-        }
-
-        .ws-docs h2 {
-            font-size: 24px;
-            margin-bottom: 4px;
-        }
-
-        .ws-docs h3 {
-            font-size: 16px;
-            margin: 26px 0 8px;
-            color: var(--text-main);
-        }
-
-        .ws-docs p, .ws-docs li {
-            color: var(--text-muted);
-        }
-
-        .ws-docs ul {
-            padding-left: 22px;
-        }
-
-        .ws-docs pre {
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 14px 16px;
-            overflow-x: auto;
-            font-family: "SF Mono", Consolas, Menlo, monospace;
-            font-size: 12.5px;
-            color: var(--text-main);
-            margin: 10px 0;
-        }
-
-        .ws-docs code {
-            font-family: "SF Mono", Consolas, Menlo, monospace;
-            font-size: 0.92em;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 1px 5px;
-            color: var(--text-main);
-        }
-
-        .ws-docs-close {
-            float: right;
         }
 
         /* Study shell */
@@ -1671,17 +1655,10 @@
     <!-- ==================== HUB SIDEBAR (same .sidebar as the study app) ==================== -->
     <aside class="sidebar">
         <nav class="nav-section">
-            <div class="section-title">📚 Vocab</div>
             <ul class="nav-list">
-                <li class="nav-item active"><span class="nav-icon">🏠</span>All sets</li>
                 <li class="nav-item" onclick="openNewModal()"><span class="nav-icon">＋</span>New word set</li>
-                <li class="nav-item" onclick="openDocs()"><span class="nav-icon">📖</span>JSON format guide</li>
             </ul>
-            <div class="nav-divider"></div>
-            <div class="nav-section-title">Built-in sets</div>
             <ul class="nav-list" id="builtin-nav"></ul>
-            <div class="nav-divider"></div>
-            <div class="nav-section-title">My sets</div>
             <ul class="nav-list" id="custom-nav"></ul>
         </nav>
     </aside>
@@ -1694,15 +1671,11 @@
         <div class="header">
             <div class="header-top">
                 <button class="menu-btn" onclick="openMenu()">☰</button>
-                <h1>All sets</h1>
             </div>
-            <p class="ws-subtitle">Study built-in sets or create your own — add words by hand or import a JSON file. Everything saves in your browser.</p>
         </div>
 
-        <div class="list-heading">Built-in sets</div>
         <div class="list-container" id="builtin-list"></div>
 
-        <div class="list-heading">My sets</div>
         <div class="list-container" id="custom-list"></div>
     </div>
 
@@ -1737,40 +1710,44 @@
         </div>
     </div>
 
-    <!-- ==================== JSON IMPORT ==================== -->
+    <!-- ==================== AI SET CREATOR ==================== -->
     <div id="json-view" style="display:none">
         <div class="header">
             <div class="header-top">
-                <h1>Import with JSON</h1>
+                <button class="menu-btn" onclick="openMenu()">☰</button>
+                <h1>New set with AI</h1>
             </div>
-            <p class="ws-subtitle">Upload a JSON file of words and definitions — or have any AI create one for you.</p>
         </div>
 
-        <div class="ws-panel">
-            <label class="ws-field-label" for="json-name-input">Set name</label>
-            <input class="ws-input" id="json-name-input" type="text" maxlength="80" placeholder="e.g. Spanish Vocab Unit 3" autocomplete="off">
-        </div>
+        <div class="json-steps">
+            <div class="json-step">
+                <div class="step-num">1</div>
+                <div class="json-step-body">
+                    <label class="json-step-label" for="ai-topic-input">What should the vocab set be about?</label>
+                    <input class="ws-input" id="ai-topic-input" type="text" maxlength="120" placeholder='e.g. "AP Gov vocab from all units"' autocomplete="off" oninput="updatePromptPreview()">
+                </div>
+            </div>
 
-        <div class="ws-panel">
-            <label class="ws-field-label">Upload JSON file</label>
-            <span class="ws-btn" role="button" tabindex="0">
-                📄 Choose JSON file…
-                <input type="file" id="json-file" accept=".json,.txt,application/json,text/plain" onchange="jsonHandleFile(this)">
-            </span>
-            <div class="ws-status" id="json-status"></div>
-        </div>
+            <div class="json-step">
+                <div class="step-num">2</div>
+                <div class="json-step-body">
+                    <label class="json-step-label">Copy this prompt into your AI (ChatGPT, Claude, Gemini…)</label>
+                    <button class="ws-btn primary" onclick="copyAiPrompt()">Copy AI prompt to clipboard</button>
+                    <div class="ws-status" id="copy-status"></div>
+                </div>
+            </div>
 
-        <div class="ws-panel">
-            <label class="ws-field-label">Don't have a file? Let an AI make one</label>
-            <div class="ws-hint">Copy this prompt into ChatGPT, Claude, Gemini or any assistant, fill in what you want vocab words for, and save its reply as a <code>.json</code> file to upload above.</div>
-            <textarea class="ws-textarea" id="ai-prompt" readonly></textarea>
-            <div class="ws-toolbar">
-                <button class="ws-btn" onclick="copyAiPrompt()">Copy AI prompt</button>
+            <div class="json-step json-grow">
+                <div class="step-num">3</div>
+                <div class="json-step-body">
+                    <label class="json-step-label" for="json-paste">Paste your AI's JSON reply — the set is created automatically</label>
+                    <textarea class="ws-textarea json-paste-area" id="json-paste" placeholder='[{ "term": "…", "definition": "…" }]' oninput="handleJsonPaste()" spellcheck="false"></textarea>
+                    <div class="ws-status" id="json-status"></div>
+                </div>
             </div>
         </div>
 
         <div class="ws-builder-footer">
-            <button class="ws-btn primary" onclick="jsonSave()">Save set</button>
             <button class="ws-btn" onclick="jsonCancel()">Cancel</button>
         </div>
     </div>
@@ -1789,9 +1766,9 @@
                     <div class="choice-desc">Type terms and definitions one by one in a simple editor.</div>
                 </div>
                 <div class="choice-card" onclick="chooseJson()" role="button" tabindex="0">
-                    <div class="choice-icon">📄</div>
-                    <div class="choice-title">JSON import</div>
-                    <div class="choice-desc">Upload a JSON file — with a ready-made prompt so any AI can generate it for you.</div>
+                    <div class="choice-icon">🤖</div>
+                    <div class="choice-title">With AI</div>
+                    <div class="choice-desc">Copy a prompt into your favorite AI, paste its reply back — the set is created instantly.</div>
                 </div>
             </div>
         </div>
@@ -1858,12 +1835,12 @@
             <div class="flashcard-scene" id="flashcard-scene" onclick="toggleFlip()">
                 <div class="flashcard-inner" id="flashcard-inner">
                     <div class="flashcard-face flashcard-front">
-                        <div class="flashcard-label">ION NAME</div>
+                        <div class="flashcard-label">Ion name</div>
                         <div class="flashcard-text" id="flash-front-text"></div>
                         <div class="flashcard-hint">click to flip</div>
                     </div>
                     <div class="flashcard-face flashcard-back">
-                        <div class="flashcard-label">FORMULA</div>
+                        <div class="flashcard-label">Formula</div>
                         <div class="flashcard-text flashcard-formula" id="flash-back-text"></div>
                         <div class="flashcard-hint">click to flip</div>
                     </div>
@@ -1893,66 +1870,6 @@
         <button id="study-back" onclick="exitStudy()">← All sets</button>
     </div>
 
-    <!-- ==================== DOCS MODAL ==================== -->
-    <div id="docs-backdrop" onclick="if (event.target === this) closeDocs()">
-        <div class="ws-docs">
-            <button class="ws-btn small ws-docs-close" onclick="closeDocs()">Close ✕</button>
-            <h2>JSON format guide</h2>
-            <p>Word set files are ordinary JSON documents. Three shapes are accepted, plus a plain-text fallback. Files should be UTF‑8 encoded.</p>
-
-            <h3>1. Array of objects <span style="color: var(--priority-green); font-size: 12px;">(recommended)</span></h3>
-            <p>A JSON array where each element is one word. Use <code>term</code> for the word and <code>definition</code> for its meaning:</p>
-            <pre>[
-  { "term": "Marbury v. Madison", "definition": "Established judicial review" },
-  { "term": "Federalism",         "definition": "Power shared between national and state governments" }
-]</pre>
-            <p>These alternative key names are recognized too, so exports from many flashcard tools work out of the box:</p>
-            <ul>
-                <li><b>Term side:</b> <code>term</code>, <code>word</code>, <code>front</code>, <code>name</code></li>
-                <li><b>Definition side:</b> <code>definition</code>, <code>def</code>, <code>meaning</code>, <code>description</code>, <code>back</code>, <code>formula</code></li>
-            </ul>
-            <pre>[{ "front": "Hola", "back": "Hello" }]   ✅ works</pre>
-
-            <h3>2. Object mapping</h3>
-            <p>A simple object whose keys are the terms and values are the definitions:</p>
-            <pre>{
-  "Photosynthesis": "Converts light into chemical energy",
-  "Osmosis": "Water moves across a membrane"
-}</pre>
-
-            <h3>3. Array of pairs</h3>
-            <p>An array of two-element arrays, first the term then the definition:</p>
-            <pre>[
-  ["Hola", "Hello"],
-  ["Adiós", "Goodbye"]
-]</pre>
-
-            <h3>Plain text fallback (TSV)</h3>
-            <p>If the pasted text or uploaded <code>.txt</code>/<code>.csv</code> file isn't valid JSON, it is parsed as tab-separated lines: one word per line, term and definition separated by a Tab character (the format Quizlet's "Export" produces):</p>
-            <pre>Hola<span style="color:#556;">⇥</span>Hello
-Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
-
-            <h3>Parsing rules</h3>
-            <ul>
-                <li>Each entry must have a non-empty term; entries without one are skipped.</li>
-                <li>Definitions are optional — an empty definition is kept and can be filled in later (definitions are editable right in the list view).</li>
-                <li>Duplicate terms are allowed but discouraged.</li>
-                <li>When a value is missing both sides entirely the importer reports how many rows were skipped instead of failing the whole file.</li>
-                <li>Keep files under ~2 MB; sets are stored in your browser's localStorage (roughly 5 MB budget, shared with your study progress).</li>
-            </ul>
-
-            <h3>Where sets are saved</h3>
-            <p>Custom sets live in your browser's local storage on this device, together with your priorities, stars, edited definitions and Learn history. They are not uploaded anywhere. To move a set to another device or share it, use <b>Export</b> on its card and import the downloaded JSON elsewhere.</p>
-
-            <h3>Minimal copy-paste example</h3>
-            <pre id="docs-sample">[
-  { "term": "Example term", "definition": "Example definition" },
-  { "term": "Second term", "definition": "Second definition" }
-]</pre>
-            <button class="ws-btn small" onclick="copySample()">Copy example</button>
-        </div>
-    </div>
-
     <script>
 /* ===== assets/study.js — shared study engine, inlined for a single-file page ===== */
 /*
@@ -1966,8 +1883,8 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
  *     data:          { categoryId: [{ id, term, definition }, ...], ... }
  *     storagePrefix: "studyApp"                // localStorage key namespace
  *     chemMode:      true                      // formula rendering + chem answer matching
- *     frontLabel:    "ION NAME"                // flashcard front label
- *     backLabel:     "FORMULA"                 // flashcard back label
+ *     frontLabel:    "Ion name"                // flashcard front label
+ *     backLabel:     "Formula"                 // flashcard back label
  *   });
  *
  * Progress, edited definitions, stars, sort choice and learn stats are saved to
@@ -2024,8 +1941,8 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
         config = Object.assign({
             storagePrefix: "studyApp",
             chemMode: false,
-            frontLabel: "TERM",
-            backLabel: "DEFINITION"
+            frontLabel: "Term",
+            backLabel: "Definition"
         }, cfg);
 
         CATEGORIES = config.categories;
@@ -3008,7 +2925,7 @@ Adiós<span style="color:#556;">⇥</span>Goodbye</pre>
         const card = document.createElement('div');
         card.className = 'learn-answer-card';
         card.innerHTML = `
-            <div class="learn-answer-kicker">ANSWER</div>
+            <div class="learn-answer-kicker">Answer</div>
             <div class="learn-pair-term">${escapeHtml(item.term)}</div>
             <div class="learn-pair-def${config.chemMode ? '' : ' plain'}">${escapeHtml(item.definition)}</div>
         `;
@@ -3252,8 +3169,8 @@ BUILTIN_PRESETS.polyatomic = {
     blurb: "Chemistry ions with formulas, colors and priorities.",
     storagePrefix: "studyApp",
     chemMode: true,
-    frontLabel: "ION NAME",
-    backLabel: "FORMULA",
+    frontLabel: "Ion name",
+    backLabel: "Formula",
     categories: [
             { id: "all", name: "All Words", icon: "📚" },
             { id: "rc", name: "Red Cations", icon: "🔴" },
@@ -3369,8 +3286,8 @@ BUILTIN_PRESETS.apgov = {
     blurb: "Units, amendments, court cases and foundational documents.",
     storagePrefix: "studyApp",
     chemMode: false,
-    frontLabel: "TERM",
-    backLabel: "DEFINITION",
+    frontLabel: "Term",
+    backLabel: "Definition",
     categories: [
             { id: "all", name: "All Words", icon: "📚" },
             { id: "u1", name: "Unit 1: Foundations", icon: "🏛️" },
@@ -3640,23 +3557,6 @@ BUILTIN_PRESETS.apgov = {
 
         /* ==================== HUB ==================== */
 
-        // Copy-paste prompt shown in the JSON import view so any AI can generate
-        // a properly formatted word-set file.
-        const AI_PROMPT_TEXT = `Create a study vocabulary set for me.
-
-Topic: [fill in what you want vocab words for, e.g. "Spanish food vocabulary" or "AP Bio Unit 4"]
-Number of words: about 20
-
-Output ONLY a valid JSON array — no markdown code fences, no commentary — where each element is an object shaped exactly like this:
-{"term": "the word or phrase", "definition": "a clear, concise definition"}
-
-Rules:
-- Every entry must have a non-empty "term" and a non-empty "definition", both as JSON strings.
-- Keep each definition under 200 characters.
-- Do not number the entries or add any keys other than "term" and "definition".
-
-I will save your reply as a .json file and import it into my study app.`; 
-
         // Built-in presets are pure data+config objects; this map
         // turns them into hub cards.
         const PRESET_NAMES = { polyatomic: 'Polyatomic Ions', apgov: 'AP Gov' };
@@ -3711,12 +3611,6 @@ I will save your reply as a .json file and import it into my study app.`;
 
             const cl = document.getElementById('custom-list');
             cl.innerHTML = '';
-
-            const newRow = document.createElement('div');
-            newRow.className = 'list-item set-row new-row';
-            newRow.innerHTML = `<div class="item-header"><div class="set-row-main" style="text-align:center;"><div class="item-title" style="justify-content:center;">＋ New word set</div><div class="set-meta">manual entry or JSON import</div></div></div>`;
-            newRow.onclick = () => openNewModal();
-            cl.appendChild(newRow);
 
             wsLoadIndex().forEach(entry => {
                 const row = document.createElement('div');
@@ -3811,8 +3705,8 @@ I will save your reply as a .json file and import it into my study app.`;
                 title: set.name,
                 storagePrefix: 'wordSets.' + id + '.',
                 chemMode: false,
-                frontLabel: 'TERM',
-                backLabel: 'DEFINITION',
+                frontLabel: 'Term',
+                backLabel: 'Definition',
                 categories: [{ id: 'all', name: set.name, icon: '📗' }],
                 data: { all: structuredClone(set.words) }
             });
@@ -4038,13 +3932,6 @@ I will save your reply as a .json file and import it into my study app.`;
             return { words: words.filter(w => w.term), skipped, format: 'plain text (TSV)', note: noTabLines ? 'Lines without a Tab were treated as terms without definitions.' : '' };
         }
 
-        function jsonCancel() {
-            jsonPending = null;
-            document.getElementById('json-view').style.display = 'none';
-            document.getElementById('hub-view').style.display = '';
-            hubRender();
-        }
-
         // Shared save path for both the manual builder and the JSON import view.
         // Returns true on success. rowsWithIds (optional) supplies existing word ids
         // so editing keeps study progress attached to unchanged terms.
@@ -4132,16 +4019,18 @@ I will save your reply as a .json file and import it into my study app.`;
             jsonOpen();
         }
 
-        /* ==================== JSON IMPORT ==================== */
+        /* ==================== AI SET CREATOR ==================== */
 
-        let jsonPending = null;
+        let pasteTimer = null;
 
         function jsonOpen() {
-            jsonPending = null;
-            document.getElementById('json-name-input').value = '';
+            document.getElementById('ai-topic-input').value = '';
+            document.getElementById('json-paste').value = '';
             setJsonStatus('');
+            setCopyStatus('');
             document.getElementById('hub-view').style.display = 'none';
-            document.getElementById('json-view').style.display = '';
+            document.getElementById('builder-view').classList.remove('active');
+            document.getElementById('json-view').style.display = 'flex';
             window.scrollTo(0, 0);
         }
 
@@ -4151,85 +4040,78 @@ I will save your reply as a .json file and import it into my study app.`;
             el.classList.toggle('error', !!isError);
         }
 
-        function jsonHandleFile(input) {
-            const file = input.files && input.files[0];
-            input.value = '';
-            if (!file) return;
-            if (file.size > 2 * 1024 * 1024 && !confirm('This file is larger than 2 MB and may not save properly. Import anyway?')) return;
-            const reader = new FileReader();
-            reader.onload = () => {
-                try {
-                    const result = parseWordsInput(String(reader.result));
-                    if (!result.words.length) {
-                        jsonPending = null;
-                        setJsonStatus('No usable words found in that file.' + (result.skipped ? ` ${result.skipped} row(s) skipped.` : ''), true);
-                        return;
-                    }
-                    jsonPending = result.words;
-                    setJsonStatus(`✓ Parsed ${result.words.length} word${result.words.length === 1 ? '' : 's'} from ${file.name}. Give the set a name, then click “Save set”.`);
-                } catch (e) {
-                    jsonPending = null;
-                    setJsonStatus(e.message, true);
-                }
-            };
-            reader.onerror = () => setJsonStatus('Could not read that file.', true);
-            reader.readAsText(file);
+        function setCopyStatus(msg, isError) {
+            const el = document.getElementById('copy-status');
+            el.innerText = msg || '';
+            el.classList.toggle('error', !!isError);
         }
 
-        function jsonSave() {
-            if (!jsonPending || !jsonPending.length) {
-                setJsonStatus('Choose a JSON file with words first — or create one with the AI prompt below.', true);
-                return;
-            }
-            const name = document.getElementById('json-name-input').value.trim() || 'My word set';
-            const words = jsonPending
-                .map(w => ({ term: w.term.trim(), definition: (w.definition || '').trim() }))
-                .filter(w => w.term);
-            if (!words.length) {
-                setJsonStatus('That file had no usable terms.', true);
-                return;
-            }
-            if (!persistSet(name, words, null)) return;
-            jsonPending = null;
-            document.getElementById('json-view').style.display = 'none';
-            document.getElementById('hub-view').style.display = '';
-            hubRender();
+        function aiTopic() {
+            return document.getElementById('ai-topic-input').value.trim();
+        }
+
+        // The single prompt we hand users — with their topic filled in.
+        function buildAiPrompt() {
+            const topic = aiTopic() || '[fill in what you want vocab words for]';
+            return `Create a study vocabulary set for me.
+
+Topic: ${topic}
+Number of words: about 20
+
+Output ONLY a valid JSON array — no markdown code fences, no commentary — where each element is an object shaped exactly like this:
+{"term": "the word or phrase", "definition": "a clear, concise definition"}
+
+Rules:
+- Every entry must have a non-empty "term" and a non-empty "definition", both as JSON strings.
+- Keep each definition under 200 characters.
+- Do not number the entries or add any keys other than "term" and "definition".`;
         }
 
         function copyAiPrompt() {
-            const text = document.getElementById('ai-prompt').value;
-            const done = () => alert('Prompt copied to clipboard.');
+            const text = buildAiPrompt();
+            const done = () => setCopyStatus('✓ Prompt copied — paste it into your AI.');
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
             } else {
                 fallbackCopy(text, done);
             }
+        }
+
+        // Step 3: watch the paste area and create the set as soon as it parses.
+        function handleJsonPaste() {
+            clearTimeout(pasteTimer);
+            pasteTimer = setTimeout(() => {
+                const text = document.getElementById('json-paste').value;
+                if (!text.trim()) { setJsonStatus(''); return; }
+                try {
+                    const result = parseWordsInput(text);
+                    if (!result.words.length) {
+                        throw new Error('No usable words found in that text.' + (result.skipped ? ` ${result.skipped} row(s) skipped.` : ''));
+                    }
+                    const name = aiTopic() || 'My word set';
+                    const words = result.words
+                        .map(w => ({ term: w.term.trim(), definition: (w.definition || '').trim() }))
+                        .filter(w => w.term);
+                    if (!words.length) throw new Error('That text had no usable terms.');
+                    if (!persistSet(name, words, null)) return;
+                    setJsonStatus(`✓ Created "${name}" with ${words.length} word${words.length === 1 ? '' : 's'}!`);
+                    setTimeout(jsonCancel, 800);
+                } catch (e) {
+                    setJsonStatus(e.message, true);
+                }
+            }, 400);
+        }
+
+        function jsonCancel() {
+            document.getElementById('json-view').style.display = 'none';
+            document.getElementById('hub-view').style.display = '';
+            hubRender();
         }
 
         function setStatus(msg, isError) {
             const el = document.getElementById('import-status');
             el.innerText = msg || '';
             el.classList.toggle('error', !!isError);
-        }
-
-        /* ==================== DOCS MODAL ==================== */
-
-        function openDocs() {
-            document.getElementById('docs-backdrop').classList.add('open');
-        }
-
-        function closeDocs() {
-            document.getElementById('docs-backdrop').classList.remove('open');
-        }
-
-        function copySample() {
-            const text = document.getElementById('docs-sample').innerText;
-            const done = () => alert('Example copied to clipboard.');
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
-            } else {
-                fallbackCopy(text, done);
-            }
         }
 
         function fallbackCopy(text, done) {
@@ -4248,10 +4130,8 @@ I will save your reply as a .json file and import it into my study app.`;
         }
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') { closeDocs(); closeNewModal(); }
+            if (e.key === 'Escape') closeNewModal();
         });
-
-        document.getElementById('ai-prompt').value = AI_PROMPT_TEXT;
 
         // Deep link: /vocab/?set=polyatomic opens straight into that preset.
         const initialSet = new URLSearchParams(location.search).get('set');
